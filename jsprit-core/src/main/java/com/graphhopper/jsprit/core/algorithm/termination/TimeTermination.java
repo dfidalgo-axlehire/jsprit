@@ -22,10 +22,10 @@ import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.listener.AlgorithmStartsListener;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 
 /**
@@ -47,7 +47,7 @@ public class TimeTermination implements PrematureAlgorithmTermination, Algorithm
 
     }
 
-    private static Logger logger = LoggerFactory.getLogger(TimeTermination.class);
+    private static Logger logger = Logger.getLogger(TimeTermination.class.getName());
 
     private final long timeThreshold;
 
@@ -63,7 +63,7 @@ public class TimeTermination implements PrematureAlgorithmTermination, Algorithm
     public TimeTermination(long timeThreshold_in_milliseconds) {
         super();
         this.timeThreshold = timeThreshold_in_milliseconds;
-        logger.debug("initialise {}", this);
+        logger.info(String.format("initialise %s", this));
     }
 
     public void setTimeGetter(TimeGetter timeGetter) {

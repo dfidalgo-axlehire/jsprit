@@ -22,11 +22,11 @@ import com.graphhopper.jsprit.core.problem.cost.AbstractForwardVehicleRoutingTra
 import com.graphhopper.jsprit.core.problem.driver.Driver;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl.VehicleCostParams;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 /**
@@ -101,7 +101,7 @@ public class VehicleRoutingTransportCostsMatrix extends AbstractForwardVehicleRo
      * @author schroeder
      */
     public static class Builder {
-        private static Logger log = LoggerFactory.getLogger(Builder.class);
+        private static Logger log = Logger.getLogger(Builder.class.getName());
 
         private boolean isSymmetric;
 
@@ -140,7 +140,7 @@ public class VehicleRoutingTransportCostsMatrix extends AbstractForwardVehicleRo
             RelationKey key = RelationKey.newKey(from, to);
             if (!distancesSet) distancesSet = true;
             if (distances.containsKey(key)) {
-                log.warn("distance from " + from + " to " + to + " already exists. This overrides distance.");
+                log.warning("distance from " + from + " to " + to + " already exists. This overrides distance.");
             }
             distances.put(key, distance);
             if (isSymmetric) {
@@ -162,7 +162,7 @@ public class VehicleRoutingTransportCostsMatrix extends AbstractForwardVehicleRo
             RelationKey key = RelationKey.newKey(from, to);
             if (!timesSet) timesSet = true;
             if (times.containsKey(key)) {
-                log.warn("transport-time from " + from + " to " + to + " already exists. This overrides times.");
+                log.warning("transport-time from " + from + " to " + to + " already exists. This overrides times.");
             }
             times.put(key, time);
             if (isSymmetric) {

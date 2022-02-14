@@ -22,20 +22,19 @@ import com.graphhopper.jsprit.core.algorithm.ruin.distance.JobDistance;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.util.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 /**
  * Created by schroeder on 07/01/15.
  */
 class JobNeighborhoodsImpl implements JobNeighborhoods {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobNeighborhoodsImpl.class);
+    private static final Logger logger = Logger.getLogger(JobNeighborhoodsImpl.class.getName());
 
     private final VehicleRoutingProblem vrp;
 
@@ -49,7 +48,7 @@ class JobNeighborhoodsImpl implements JobNeighborhoods {
         super();
         this.vrp = vrp;
         this.jobDistance = jobDistance;
-        logger.debug("intialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override
@@ -77,7 +76,7 @@ class JobNeighborhoodsImpl implements JobNeighborhoods {
 
     @Override
     public void initialise() {
-        logger.debug("calculates and memorizes distances from EACH job to EACH job --> n^2 calculations");
+        logger.info("calculates and memorizes distances from EACH job to EACH job --> n^2 calculations");
         calculateDistancesFromJob2Job();
     }
 
@@ -87,7 +86,7 @@ class JobNeighborhoodsImpl implements JobNeighborhoods {
     }
 
     private void calculateDistancesFromJob2Job() {
-        logger.debug("preprocess distances between locations ...");
+        logger.info("preprocess distances between locations ...");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         int nuOfDistancesStored = 0;
@@ -112,8 +111,8 @@ class JobNeighborhoodsImpl implements JobNeighborhoods {
 
         }
         stopWatch.stop();
-        logger.debug("preprocessing comp-time: {}; nuOfDistances stored: {}; estimated memory: {}" +
-            " bytes", stopWatch, nuOfDistancesStored, (distanceNodeTree.keySet().size() * 64 + nuOfDistancesStored * 92));
+        logger.info(String.format("preprocessing comp-time: %s; nuOfDistances stored: %s; estimated memory: %s" +
+            " bytes", stopWatch, nuOfDistancesStored, (distanceNodeTree.keySet().size() * 64 + nuOfDistancesStored * 92)));
     }
 
 }

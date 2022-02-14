@@ -27,13 +27,12 @@ import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.util.RandomNumberGeneration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public abstract class AbstractInsertionStrategy implements InsertionStrategy {
 
@@ -59,7 +58,7 @@ public abstract class AbstractInsertionStrategy implements InsertionStrategy {
 
     }
 
-    private final static Logger logger = LoggerFactory.getLogger(AbstractInsertionStrategy.class);
+    private final static Logger logger = Logger.getLogger(AbstractInsertionStrategy.class.getName());
 
     protected Random random = RandomNumberGeneration.getRandom();
 
@@ -116,7 +115,6 @@ public abstract class AbstractInsertionStrategy implements InsertionStrategy {
     }
 
     protected void insertJob(Job unassignedJob, InsertionData iData, VehicleRoute inRoute) {
-        logger.trace("insert: [jobId={}]{}", unassignedJob.getId(), iData);
         insertionsListeners.informBeforeJobInsertion(unassignedJob, iData, inRoute);
         if (!(inRoute.getVehicle().getId().equals(iData.getSelectedVehicle().getId()))) {
             insertionsListeners.informVehicleSwitched(inRoute, inRoute.getVehicle(), iData.getSelectedVehicle());

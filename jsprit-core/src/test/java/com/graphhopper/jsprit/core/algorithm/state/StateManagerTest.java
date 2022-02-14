@@ -27,14 +27,16 @@ import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -58,7 +60,7 @@ public class StateManagerTest {
 
     private VehicleRoutingProblem vrpMock;
 
-    @Before
+    @BeforeEach
     public void doBefore(){
         vrpMock = mock(VehicleRoutingProblem.class);
         when(vrpMock.getFleetSize()).thenReturn(VehicleRoutingProblem.FleetSize.INFINITE);
@@ -183,14 +185,17 @@ public class StateManagerTest {
         assertTrue(problemState);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void whenProblemStateIsSetAndStateManagerClearedAfterwards_itThrowsException() {
-        StateManager stateManager = new StateManager(vrpMock);
-        StateId id = stateManager.createStateId("problemState");
-        stateManager.putProblemState(id, Boolean.class, true);
-        stateManager.clear();
-        @SuppressWarnings("unused")
-        boolean problemState = stateManager.getProblemState(id, Boolean.class);
+
+        assertThrows(NullPointerException.class, () -> {
+            StateManager stateManager = new StateManager(vrpMock);
+            StateId id = stateManager.createStateId("problemState");
+            stateManager.putProblemState(id, Boolean.class, true);
+            stateManager.clear();
+            @SuppressWarnings("unused")
+            boolean problemState = stateManager.getProblemState(id, Boolean.class);
+        });
     }
 
     @Test
@@ -207,7 +212,7 @@ public class StateManagerTest {
     public void whenCreatingNewState_itShouldHaveAnIndex() {
         StateManager stateManager = new StateManager(vrpMock);
         StateId stateId = stateManager.createStateId("foo-state");
-        Assert.assertEquals(21, stateId.getIndex());
+        assertEquals(21, stateId.getIndex());
     }
 
     @Test
@@ -215,8 +220,8 @@ public class StateManagerTest {
         StateManager stateManager = new StateManager(vrpMock);
         StateId fooState = stateManager.createStateId("foo-state");
         StateId foofooState = stateManager.createStateId("foo-foo-state");
-        Assert.assertEquals(21, fooState.getIndex());
-        Assert.assertEquals(22, foofooState.getIndex());
+        assertEquals(21, fooState.getIndex());
+        assertEquals(22, foofooState.getIndex());
     }
 
     @Test
@@ -224,8 +229,8 @@ public class StateManagerTest {
         StateManager stateManager = new StateManager(vrpMock);
         StateId fooState = stateManager.createStateId("foo-state");
         StateId foofooState = stateManager.createStateId("foo-state");
-        Assert.assertEquals(21, fooState.getIndex());
-        Assert.assertEquals(21, foofooState.getIndex());
+        assertEquals(21, fooState.getIndex());
+        assertEquals(21, foofooState.getIndex());
     }
 
     @Test

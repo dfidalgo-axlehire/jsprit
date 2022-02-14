@@ -29,8 +29,10 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.util.ManhattanCosts;
 import com.graphhopper.jsprit.core.util.Solutions;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class CapacityConstraint_IT {
@@ -96,11 +98,11 @@ public class CapacityConstraint_IT {
             Capacity capacityDimensions = r.getVehicle().getType().getCapacityDimensions();
 //            System.out.println(r.getVehicle().getId() + " load@beginning: "  + loadAtBeginning);
 //            System.out.println("cap: " + capacityDimensions);
-            Assert.assertTrue("capacity has been exceeded",
+            assertThat("capacity has been exceeded",
             loadAtBeginning.isLessOrEqual(capacityDimensions));
         }
 //
-        Assert.assertTrue(solution.getRoutes().size() != 1);
+        assertTrue(solution.getRoutes().size() != 1);
 
     }
 

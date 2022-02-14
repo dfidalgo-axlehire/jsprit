@@ -23,12 +23,11 @@ import com.graphhopper.jsprit.core.algorithm.selector.SolutionSelector;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.SolutionCostCalculator;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 
 public class SearchStrategy {
@@ -66,7 +65,7 @@ public class SearchStrategy {
         }
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchStrategy.class);
+    private static final Logger logger = Logger.getLogger(SearchStrategy.class.getName());
 
     private final Collection<SearchStrategyModule> searchStrategyModules = new ArrayList<>();
 
@@ -86,7 +85,7 @@ public class SearchStrategy {
         this.solutionAcceptor = solutionAcceptor;
         this.solutionCostCalculator = solutionCostCalculator;
         this.id = id;
-        logger.debug("initialise {}", this);
+        logger.info("initialise %s" + this);
     }
 
     public String getId() {
@@ -157,7 +156,7 @@ public class SearchStrategy {
     public void addModule(SearchStrategyModule module) {
         if (module == null) throw new IllegalStateException("module to be added is null.");
         searchStrategyModules.add(module);
-        logger.debug("module added [module={}][#modules={}]", module, searchStrategyModules.size());
+        logger.info(String.format("module added [module=%s][#modules=%s]", module, searchStrategyModules.size()));
     }
 
     public void addModuleListener(SearchStrategyModuleListener moduleListener) {

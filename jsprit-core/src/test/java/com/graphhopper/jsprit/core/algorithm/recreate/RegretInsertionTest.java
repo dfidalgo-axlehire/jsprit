@@ -41,11 +41,14 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.*;
 import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.Solutions;
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegretInsertionTest {
 
@@ -63,7 +66,7 @@ public class RegretInsertionTest {
         Collection<VehicleRoute> routes = new ArrayList<VehicleRoute>();
 
         regretInsertion.insertJobs(routes, vrp.getJobs().values());
-        Assert.assertEquals(1, routes.size());
+        assertEquals(1, routes.size());
     }
 
     @Test
@@ -80,7 +83,7 @@ public class RegretInsertionTest {
         Collection<VehicleRoute> routes = new ArrayList<VehicleRoute>();
 
         regretInsertion.insertJobs(routes, vrp.getJobs().values());
-        Assert.assertEquals(2, routes.iterator().next().getActivities().size());
+        assertEquals(2, routes.iterator().next().getActivities().size());
     }
 
     @Test
@@ -99,7 +102,7 @@ public class RegretInsertionTest {
         CkeckJobSequence position = new CkeckJobSequence(2, s1);
         regretInsertion.addListener(position);
         regretInsertion.insertJobs(routes, vrp.getJobs().values());
-        Assert.assertTrue(position.isCorrect());
+        assertTrue(position.isCorrect());
     }
 
     @Test
@@ -122,7 +125,7 @@ public class RegretInsertionTest {
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
 
-        Assert.assertEquals(2, solution.getRoutes().size());
+        assertEquals(2, solution.getRoutes().size());
     }
 
     static class JobInRouteUpdater implements StateUpdater, ActivityVisitor {
@@ -243,12 +246,12 @@ public class RegretInsertionTest {
         for(VehicleRoute route : solution.getRoutes()){
             if(route.getTourActivities().servesJob(s1)){
                 if(!route.getTourActivities().servesJob(s2)){
-                    Assert.assertFalse(true);
+                    assertFalse(true);
                 }
-                else Assert.assertTrue(true);
+                else assertTrue(true);
             }
         }
-//        Assert.assertEquals(1, solution.getRoutes().size());
+//        assertEquals(1, solution.getRoutes().size());
     }
 
     @Test
@@ -284,9 +287,9 @@ public class RegretInsertionTest {
         for(VehicleRoute route : solution.getRoutes()){
             if(route.getTourActivities().servesJob(s1)){
                 if(!route.getTourActivities().servesJob(s2)){
-                    Assert.assertFalse(true);
+                    assertFalse(true);
                 }
-                else Assert.assertTrue(true);
+                else assertTrue(true);
             }
         }
     }
@@ -314,7 +317,7 @@ public class RegretInsertionTest {
         CkeckJobSequence position = new CkeckJobSequence(2, s2);
         regretInsertion.addListener(position);
         regretInsertion.insertJobs(routes, vrp.getJobs().values());
-        Assert.assertTrue(position.isCorrect());
+        assertTrue(position.isCorrect());
     }
 
     private JobInsertionCostsCalculator getShipmentCalculator(final VehicleRoutingProblem vrp) {

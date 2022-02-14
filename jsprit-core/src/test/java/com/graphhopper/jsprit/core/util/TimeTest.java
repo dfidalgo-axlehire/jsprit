@@ -17,9 +17,10 @@
  */
 package com.graphhopper.jsprit.core.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TimeTest {
 
@@ -145,14 +146,18 @@ public class TimeTest {
         assertEquals(6. * 3600. + 6. * 60. + 6., sec, 0.01);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenTimeStringHasNoDigit_itThrowsException() {
-        Time.parseTimeToSeconds("PM");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Time.parseTimeToSeconds("PM");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenTimeStringHasMilliSeconds_itThrowsException() {
-        Time.parseTimeToSeconds("01:00:12:01PM");
+        assertThrows(IllegalArgumentException.class, () -> {
+            Time.parseTimeToSeconds("01:00:12:01PM");
+        });
     }
 
     @Test

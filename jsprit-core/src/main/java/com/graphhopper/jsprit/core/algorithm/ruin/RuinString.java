@@ -23,10 +23,10 @@ import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.util.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
+import java.util.logging.Logger;
 
 
 /**
@@ -44,7 +44,7 @@ import java.util.*;
  */
 public final class RuinString extends AbstractRuinStrategy {
 
-    private static Logger logger = LoggerFactory.getLogger(RuinString.class);
+    private static Logger logger = Logger.getLogger(RuinString.class.getName());
 
     private final VehicleRoutingProblem vrp;
 
@@ -62,7 +62,7 @@ public final class RuinString extends AbstractRuinStrategy {
         super(vrp);
         this.vrp = vrp;
         this.jobNeighborhoods = jobNeighborhoods;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     public void setNoRoutes(int kMin, int kMax) {

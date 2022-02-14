@@ -25,13 +25,13 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.util.Coordinate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by schroeder on 30/01/15.
@@ -68,7 +68,7 @@ public class RuinRadialTest {
         try {
             ruinRadial.ruinRoutes(Arrays.asList(route));
         } catch (Exception e) {
-            assertFalse("error when ruining routes with radial ruin", true);
+            assertThat("error when ruining routes with radial ruin", true);
         }
         assertTrue(true);
 

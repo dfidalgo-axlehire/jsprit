@@ -32,11 +32,9 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeKey;
 import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.CrowFlyCosts;
 import com.graphhopper.jsprit.core.util.Locations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
-
+import java.util.logging.Logger;
 
 
 /**
@@ -320,7 +318,7 @@ public class VehicleRoutingProblem {
 
         private void addJobToFinalMap(Job job) {
             if (jobs.containsKey(job.getId())) {
-                logger.warn("The job " + job + " has already been added to the job list. This overrides the existing job.");
+                logger.warning("The job " + job + " has already been added to the job list. This overrides the existing job.");
             }
             addLocationToTentativeLocations(job);
             jobs.put(job.getId(), job);
@@ -521,7 +519,7 @@ public class VehicleRoutingProblem {
     /**
      * logger logging for this class
      */
-    private final static Logger logger = LoggerFactory.getLogger(VehicleRoutingProblem.class);
+    private final static Logger logger = Logger.getLogger(VehicleRoutingProblem.class.getName());
 
     /**
      * contains transportation costs, i.e. the costs traveling from location A to B
@@ -581,7 +579,7 @@ public class VehicleRoutingProblem {
         this.allLocations = builder.allLocations;
         this.allJobs = new HashMap<>(jobs);
         this.allJobs.putAll(builder.jobsInInitialRoutes);
-        logger.info("setup problem: {}", this);
+        logger.info("setup problem: "+ this.toString());
     }
 
 

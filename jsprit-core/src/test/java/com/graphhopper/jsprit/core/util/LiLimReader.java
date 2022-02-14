@@ -24,8 +24,6 @@ import com.graphhopper.jsprit.core.problem.job.Shipment;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 /**
@@ -77,7 +76,7 @@ public class LiLimReader {
 
     }
 
-    private static Logger logger = LoggerFactory.getLogger(LiLimReader.class);
+    private static Logger logger = Logger.getLogger(LiLimReader.class.getName());
 
     private Builder vrpBuilder;
 

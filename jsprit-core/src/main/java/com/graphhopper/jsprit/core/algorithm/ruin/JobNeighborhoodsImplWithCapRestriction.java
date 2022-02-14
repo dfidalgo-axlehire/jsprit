@@ -22,20 +22,19 @@ import com.graphhopper.jsprit.core.algorithm.ruin.distance.JobDistance;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.util.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 /**
  * Created by schroeder on 07/01/15.
  */
 class JobNeighborhoodsImplWithCapRestriction implements JobNeighborhoods {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobNeighborhoodsImpl.class);
+    private static final Logger logger =  Logger.getLogger(JobNeighborhoodsImpl.class.getName());
 
     private final VehicleRoutingProblem vrp;
 
@@ -52,7 +51,7 @@ class JobNeighborhoodsImplWithCapRestriction implements JobNeighborhoods {
         this.vrp = vrp;
         this.jobDistance = jobDistance;
         this.capacity = capacity;
-        logger.debug("initialize {}", this);
+        logger.info( "initialize " + this.toString());
     }
 
     @Override
@@ -83,7 +82,7 @@ class JobNeighborhoodsImplWithCapRestriction implements JobNeighborhoods {
 
     @Override
     public void initialise() {
-        logger.debug("calculates distances from EACH job to EACH job --> n^2={} calculations, but 'only' {} are cached.", Math.pow(vrp.getJobs().values().size(), 2), (vrp.getJobs().values().size() * capacity));
+        logger.info(String.format("calculates distances from EACH job to EACH job --> n^2=%s calculations, but 'only' %s are cached.", Math.pow(vrp.getJobs().values().size(), 2), (vrp.getJobs().values().size() * capacity)));
         if (capacity == 0) return;
         calculateDistancesFromJob2Job();
     }
@@ -94,7 +93,7 @@ class JobNeighborhoodsImplWithCapRestriction implements JobNeighborhoods {
     }
 
     private void calculateDistancesFromJob2Job() {
-        logger.debug("preprocess distances between locations ...");
+        logger.info("preprocess distances between locations ...");
         //ToDo
         /*
         1 -> 2,3,4,5,6
@@ -135,8 +134,8 @@ class JobNeighborhoodsImplWithCapRestriction implements JobNeighborhoods {
 
         }
         stopWatch.stop();
-        logger.debug("preprocessing comp-time: {}; nuOfDistances stored: {}; estimated memory: {}" +
-            " bytes", stopWatch, nuOfDistancesStored, (distanceNodeTree.keySet().size() * 64 + nuOfDistancesStored * 92));
+        logger.info(String.format("preprocessing comp-time: %s; nuOfDistances stored: %s; estimated memory: %s" +
+            " bytes", stopWatch, nuOfDistancesStored, (distanceNodeTree.keySet().size() * 64 + nuOfDistancesStored * 92)));
     }
 
     @Override

@@ -36,16 +36,16 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.Start;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public final class ShipmentInsertionCalculatorFlex extends AbstractInsertionCalculator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShipmentInsertionCalculatorFlex.class);
+    private static final Logger logger = Logger.getLogger(ShipmentInsertionCalculatorFlex.class.getName());
 
     private final ConstraintManager constraintManager;
 
@@ -87,7 +87,7 @@ public final class ShipmentInsertionCalculatorFlex extends AbstractInsertionCalc
         this.transportCosts = routingCosts;
         this.activityCosts = activityCosts;
         additionalAccessEgressCalculator = new AdditionalAccessEgressCalculator(routingCosts);
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     public void setJobActivityFactory(JobActivityFactory activityFactory) {

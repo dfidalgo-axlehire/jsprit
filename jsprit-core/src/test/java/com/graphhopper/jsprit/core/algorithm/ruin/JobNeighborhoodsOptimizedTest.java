@@ -24,17 +24,17 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Break;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.job.Service;
-
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class JobNeighborhoodsOptimizedTest {
@@ -52,7 +52,7 @@ public class JobNeighborhoodsOptimizedTest {
     Service s7;
     Break b1;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
         target = Service.Builder.newInstance("s1").addSizeDimension(0, 1).setLocation(Location.newInstance(0, 5)).build();
@@ -63,7 +63,7 @@ public class JobNeighborhoodsOptimizedTest {
         s5 = Service.Builder.newInstance("s5").addSizeDimension(0, 1).setLocation(Location.newInstance(0, 6)).build();
         s6 = Service.Builder.newInstance("s6").addSizeDimension(0, 1).setLocation(Location.newInstance(0, 7)).build();
         s7 = Service.Builder.newInstance("s7").addSizeDimension(0, 1).setLocation(Location.newInstance(0, 8)).build();
-        
+
         b1 = Break.Builder.newInstance("b1").build();
 
         vrp = builder.addJob(target).addJob(s2).addJob(s3).addJob(s4).addJob(s5).addJob(s6).addJob(s7).build();
@@ -128,10 +128,10 @@ public class JobNeighborhoodsOptimizedTest {
         while (iter.hasNext()) {
             services.add((Service) iter.next());
         }
-        Assert.assertEquals(s6,services.get(0));
-        Assert.assertEquals(s5,services.get(1));
-        Assert.assertEquals(target,services.get(2));
-        Assert.assertEquals(s2,services.get(3));
+        Assertions.assertEquals(s6, services.get(0));
+        Assertions.assertEquals(s5,services.get(1));
+        Assertions.assertEquals(target,services.get(2));
+        Assertions.assertEquals(s2,services.get(3));
     }
 
     @Test

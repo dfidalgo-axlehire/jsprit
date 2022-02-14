@@ -24,14 +24,14 @@ import com.graphhopper.jsprit.core.problem.driver.Driver;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.logging.Logger;
 
 
 /**
@@ -67,7 +67,7 @@ public final class BestInsertionConcurrent extends AbstractInsertionStrategy {
 
     }
 
-    private static Logger logger = LoggerFactory.getLogger(BestInsertionConcurrent.class);
+    private static Logger logger = Logger.getLogger(BestInsertionConcurrent.class.getName());
 
     private final static double NO_NEW_DEPARTURE_TIME_YET = -12345.12345;
 
@@ -89,7 +89,7 @@ public final class BestInsertionConcurrent extends AbstractInsertionStrategy {
         this.nuOfBatches = nuOfBatches;
         bestInsertionCostCalculator = jobInsertionCalculator;
         completionService = new ExecutorCompletionService<Insertion>(executorService);
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

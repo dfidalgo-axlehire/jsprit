@@ -18,8 +18,10 @@
 
 package com.graphhopper.jsprit.core.algorithm.termination;
 
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by schroeder on 16.12.14.
@@ -37,7 +39,7 @@ public class TimeTerminationTest {
             }
         });
         tt.start(0);
-        Assert.assertFalse(tt.isPrematureBreak(null));
+        assertFalse(tt.isPrematureBreak(null));
     }
 
     @Test
@@ -51,6 +53,6 @@ public class TimeTerminationTest {
             }
         });
         tt.start(0);
-        Assert.assertTrue(tt.isPrematureBreak(null));
+        assertTrue(tt.isPrematureBreak(null));
     }
 }

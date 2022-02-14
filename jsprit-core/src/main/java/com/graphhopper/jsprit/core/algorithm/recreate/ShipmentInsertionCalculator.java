@@ -36,16 +36,16 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.Start;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 final class ShipmentInsertionCalculator extends AbstractInsertionCalculator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShipmentInsertionCalculator.class);
+    private static final Logger logger = Logger.getLogger(ShipmentInsertionCalculator.class.getName());
 
     private final ConstraintManager constraintManager;
 
@@ -73,7 +73,7 @@ final class ShipmentInsertionCalculator extends AbstractInsertionCalculator {
         this.activityCosts = activityCosts;
         additionalAccessEgressCalculator = new AdditionalAccessEgressCalculator(routingCosts);
         this.activityFactory = jobActivityFactory;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

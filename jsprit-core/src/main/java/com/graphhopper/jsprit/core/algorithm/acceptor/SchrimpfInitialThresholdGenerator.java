@@ -26,14 +26,14 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.Solutions;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 public class SchrimpfInitialThresholdGenerator implements AlgorithmStartsListener {
 
-    private static Logger logger = LoggerFactory.getLogger(SchrimpfInitialThresholdGenerator.class.getName());
+    private static Logger logger = Logger.getLogger(SchrimpfInitialThresholdGenerator.class.getName());
 
     private SchrimpfAcceptance schrimpfAcceptance;
 
@@ -77,8 +77,8 @@ public class SchrimpfInitialThresholdGenerator implements AlgorithmStartsListene
 
         schrimpfAcceptance.setInitialThreshold(initialThreshold);
 
-        logger.info("took {} seconds", ((System.currentTimeMillis() - now) / 1000.0));
-        logger.debug("initial threshold: {}", initialThreshold);
+        logger.info(String.format("took %s seconds", ((System.currentTimeMillis() - now) / 1000.0)));
+        logger.info("initial threshold: " + initialThreshold);
         logger.info("---------------------------------------------------------------------");
     }
 

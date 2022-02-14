@@ -21,13 +21,13 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.util.NoiseMaker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
@@ -37,7 +37,7 @@ import java.util.List;
  */
 public final class BestInsertion extends AbstractInsertionStrategy {
 
-    final private static Logger logger = LoggerFactory.getLogger(BestInsertion.class);
+    final private static Logger logger = Logger.getLogger(BestInsertion.class.getName());
 
     private JobInsertionCostsCalculator bestInsertionCostCalculator;
 
@@ -46,7 +46,7 @@ public final class BestInsertion extends AbstractInsertionStrategy {
     public BestInsertion(JobInsertionCostsCalculator jobInsertionCalculator, VehicleRoutingProblem vehicleRoutingProblem) {
         super(vehicleRoutingProblem);
         bestInsertionCostCalculator = jobInsertionCalculator;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

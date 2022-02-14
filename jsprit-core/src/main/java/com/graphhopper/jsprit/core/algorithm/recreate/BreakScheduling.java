@@ -27,19 +27,19 @@ import com.graphhopper.jsprit.core.problem.constraint.ConstraintManager;
 import com.graphhopper.jsprit.core.problem.job.Break;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by schroeder on 07/04/16.
  */
 public class BreakScheduling implements InsertionStartsListener,JobInsertedListener, RuinListener {
 
-    private final static Logger logger = LoggerFactory.getLogger(BreakScheduling.class);
+    private final static Logger logger = Logger.getLogger(BreakScheduling.class.getName());
 
     private final StateManager stateManager;
 
@@ -59,14 +59,14 @@ public class BreakScheduling implements InsertionStartsListener,JobInsertedListe
         if (aBreak != null) {
             boolean removed = inRoute.getTourActivities().removeJob(aBreak);
             if (removed) {
-                logger.trace("ruin: {}", aBreak.getId());
+                logger.info("ruin: " + aBreak.getId());
                 stateManager.removed(aBreak, inRoute);
                 stateManager.reCalculateStates(inRoute);
             }
             if (inRoute.getEnd().getArrTime() > aBreak.getTimeWindow().getEnd()) {
                 InsertionData iData = breakInsertionCalculator.getInsertionData(inRoute, aBreak, inRoute.getVehicle(), inRoute.getDepartureTime(), inRoute.getDriver(), Double.MAX_VALUE);
                 if(!(iData instanceof InsertionData.NoInsertionFound)){
-                    logger.trace("insert: [jobId={}]{}", aBreak.getId(), iData);
+                    logger.info(String.format("insert: [jobId={}]{}", aBreak.getId(), iData));
                     for(Event e : iData.getEvents()){
                         eventListeners.inform(e);
                     }
@@ -85,7 +85,7 @@ public class BreakScheduling implements InsertionStartsListener,JobInsertedListe
         for(VehicleRoute route : routes){
             Break aBreak = route.getVehicle().getBreak();
             boolean removed = route.getTourActivities().removeJob(aBreak);
-            if(removed) logger.trace("ruin: {}", aBreak.getId());
+            if(removed) logger.info("ruin: " + aBreak.getId());
         }
         List<Break> breaks = new ArrayList<>();
         for (Job j : unassignedJobs) {
@@ -108,7 +108,7 @@ public class BreakScheduling implements InsertionStartsListener,JobInsertedListe
                 if(route.getEnd().getArrTime() > aBreak.getTimeWindow().getEnd()){
                     InsertionData iData = breakInsertionCalculator.getInsertionData(route, aBreak, route.getVehicle(), route.getDepartureTime(), route.getDriver(), Double.MAX_VALUE);
                     if(!(iData instanceof InsertionData.NoInsertionFound)){
-                        logger.trace("insert: [jobId={}]{}", aBreak.getId(), iData);
+                        logger.info(String.format("insert: [jobId={}]{}", aBreak.getId(), iData));
                         for(Event e : iData.getEvents()){
                             eventListeners.inform(e);
                         }

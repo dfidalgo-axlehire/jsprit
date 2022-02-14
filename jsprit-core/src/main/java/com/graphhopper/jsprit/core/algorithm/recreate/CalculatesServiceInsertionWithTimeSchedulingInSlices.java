@@ -21,17 +21,17 @@ import com.graphhopper.jsprit.core.problem.driver.Driver;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Deprecated
 class CalculatesServiceInsertionWithTimeSchedulingInSlices implements JobInsertionCostsCalculator {
 
 
-    private static Logger log = LoggerFactory.getLogger(CalculatesServiceInsertionWithTimeSchedulingInSlices.class);
+    private static Logger log = Logger.getLogger(CalculatesServiceInsertionWithTimeSchedulingInSlices.class.getName());
 
     private JobInsertionCostsCalculator jic;
 
@@ -44,7 +44,7 @@ class CalculatesServiceInsertionWithTimeSchedulingInSlices implements JobInserti
         this.jic = jic;
         this.timeSlice = timeSlice;
         this.nOfDepartureTimes = neighbors;
-        log.debug("initialise " + this);
+        log.info("initialise " + this);
     }
 
     @Override

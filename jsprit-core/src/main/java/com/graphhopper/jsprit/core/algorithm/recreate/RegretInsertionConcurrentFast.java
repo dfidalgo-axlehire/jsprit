@@ -24,12 +24,12 @@ import com.graphhopper.jsprit.core.problem.job.Break;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleFleetManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
+import java.util.logging.Logger;
 
 /**
  * Insertion based on regret approach.
@@ -44,7 +44,7 @@ import java.util.concurrent.ExecutorService;
 public class RegretInsertionConcurrentFast extends AbstractInsertionStrategy {
 
 
-    private static Logger logger = LoggerFactory.getLogger(RegretInsertionConcurrentFast.class);
+    private static Logger logger = Logger.getLogger(RegretInsertionConcurrentFast.class.getName());
 
     private ScoringFunction scoringFunction;
 
@@ -80,7 +80,7 @@ public class RegretInsertionConcurrentFast extends AbstractInsertionStrategy {
         this.executor = executorService;
         this.fleetManager = fleetManager;
         this.initialVehicleIds = getInitialVehicleIds(vehicleRoutingProblem);
-        logger.debug("initialise " + this);
+        logger.info("initialise " + this);
     }
 
     @Override

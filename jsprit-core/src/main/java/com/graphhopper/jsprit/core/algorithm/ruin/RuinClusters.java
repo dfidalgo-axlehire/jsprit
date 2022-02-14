@@ -25,10 +25,10 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.util.RandomUtils;
 import org.apache.commons.math3.ml.clustering.Clusterable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
+import java.util.logging.Logger;
 
 
 /**
@@ -64,7 +64,7 @@ public final class RuinClusters extends AbstractRuinStrategy implements Iteratio
         }
     }
 
-    private final Logger logger = LoggerFactory.getLogger(RuinClusters.class);
+    private final Logger logger = Logger.getLogger(RuinClusters.class.getName());
 
     private final VehicleRoutingProblem vrp;
 
@@ -81,7 +81,7 @@ public final class RuinClusters extends AbstractRuinStrategy implements Iteratio
         this.vrp = vrp;
         setRuinShareFactory(() -> initialNumberJobsToRemove);
         this.jobNeighborhoods = jobNeighborhoods;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     public void setNoClusters(int noClusters) {

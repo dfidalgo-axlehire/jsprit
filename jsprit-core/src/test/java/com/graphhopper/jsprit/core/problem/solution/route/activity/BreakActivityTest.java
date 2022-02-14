@@ -20,11 +20,13 @@ package com.graphhopper.jsprit.core.problem.solution.route.activity;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Break;
 import com.graphhopper.jsprit.core.problem.job.Service;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BreakActivityTest {
 
@@ -32,7 +34,7 @@ public class BreakActivityTest {
 
     private BreakActivity serviceActivity;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         service = Break.Builder.newInstance("service")
             .setTimeWindow(TimeWindow.newInstance(1., 2.)).setServiceTime(3).build();

@@ -25,13 +25,12 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Logger;
 
 
 /**
@@ -51,7 +50,7 @@ public class SolomonReader {
         this.variableCostProjectionFactor = costProjectionFactor;
     }
 
-    private static Logger logger = LoggerFactory.getLogger(SolomonReader.class);
+    private static Logger logger = Logger.getLogger(SolomonReader.class.getName());
 
     private final VehicleRoutingProblem.Builder vrpBuilder;
 

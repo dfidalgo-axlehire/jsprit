@@ -30,13 +30,15 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestVehicleRoute {
@@ -44,7 +46,7 @@ public class TestVehicleRoute {
     private VehicleImpl vehicle;
     private NoDriver driver;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         vehicle = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("loc")).setType(VehicleTypeImpl.Builder.newInstance("yo").build()).build();
         driver = DriverImpl.noDriver();
@@ -74,10 +76,11 @@ public class TestVehicleRoute {
         assertEquals(0, count);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenBuildingRouteWithNulls_itThrowsException() {
-        @SuppressWarnings("unused")
-        VehicleRoute route = VehicleRoute.Builder.newInstance(null, null).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            VehicleRoute route = VehicleRoute.Builder.newInstance(null, null).build();
+        });
     }
 
     @Test

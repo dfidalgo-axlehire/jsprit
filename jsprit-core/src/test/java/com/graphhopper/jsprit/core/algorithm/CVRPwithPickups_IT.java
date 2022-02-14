@@ -23,12 +23,11 @@ import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolutio
 import com.graphhopper.jsprit.core.util.ChristofidesReader;
 import com.graphhopper.jsprit.core.util.JobType;
 import com.graphhopper.jsprit.core.util.Solutions;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CVRPwithPickups_IT {
 

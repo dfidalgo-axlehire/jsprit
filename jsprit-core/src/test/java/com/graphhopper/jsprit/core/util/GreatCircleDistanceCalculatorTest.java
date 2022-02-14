@@ -18,8 +18,10 @@
 
 package com.graphhopper.jsprit.core.util;
 
-import junit.framework.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by schroeder on 28.11.14.
@@ -39,7 +41,7 @@ public class GreatCircleDistanceCalculatorTest {
             Coordinate.newInstance(lon2, lat2),
             DistanceUnit.Kilometer
         );
-        Assert.assertEquals(600, greatCircle, 30.);
+        assertEquals(600, greatCircle, 30.);
     }
 
     @Test
@@ -55,7 +57,7 @@ public class GreatCircleDistanceCalculatorTest {
             Coordinate.newInstance(lon2, lat2),
             DistanceUnit.Meter
         );
-        Assert.assertEquals(600000, greatCircle, 30000.);
+        assertEquals(600000, greatCircle, 30000.);
     }
 
 }

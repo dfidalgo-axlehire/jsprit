@@ -22,8 +22,9 @@ import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.job.Shipment;
 import com.graphhopper.jsprit.core.util.EuclideanCosts;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AvgServiceAndShipmentDistanceTest {
 
@@ -32,7 +33,7 @@ public class AvgServiceAndShipmentDistanceTest {
         Service s1 = Service.Builder.newInstance("s1").setLocation(Location.newInstance(10, 0)).build();
         Service s2 = Service.Builder.newInstance("s2").setLocation(Location.newInstance(20, 0)).build();
         AvgServiceAndShipmentDistance distance = new AvgServiceAndShipmentDistance(new EuclideanCosts());
-        Assert.assertEquals(10d, distance.getDistance(s1, s2), 0.01);
+        assertEquals(10d, distance.getDistance(s1, s2), 0.01);
     }
 
     @Test
@@ -40,7 +41,7 @@ public class AvgServiceAndShipmentDistanceTest {
         Service s1 = Service.Builder.newInstance("s1").setLocation(Location.newInstance(10, 0)).build();
         Shipment shipment = Shipment.Builder.newInstance("shipment").setPickupLocation(Location.newInstance(20, 0)).setDeliveryLocation(Location.newInstance(30, 0)).build();
         AvgServiceAndShipmentDistance distance = new AvgServiceAndShipmentDistance(new EuclideanCosts());
-        Assert.assertEquals(15d, distance.getDistance(s1, shipment), 0.01);
+        assertEquals(15d, distance.getDistance(s1, shipment), 0.01);
     }
 
     @Test
@@ -48,6 +49,6 @@ public class AvgServiceAndShipmentDistanceTest {
         Shipment shipment1 = Shipment.Builder.newInstance("shipment1").setPickupLocation(Location.newInstance(20, 0)).setDeliveryLocation(Location.newInstance(30, 0)).build();
         Shipment shipment2 = Shipment.Builder.newInstance("shipment2").setPickupLocation(Location.newInstance(40, 0)).setDeliveryLocation(Location.newInstance(50, 0)).build();
         AvgServiceAndShipmentDistance distance = new AvgServiceAndShipmentDistance(new EuclideanCosts());
-        Assert.assertEquals(20d, distance.getDistance(shipment1, shipment2), 0.01);
+        assertEquals(20d, distance.getDistance(shipment1, shipment2), 0.01);
     }
 }

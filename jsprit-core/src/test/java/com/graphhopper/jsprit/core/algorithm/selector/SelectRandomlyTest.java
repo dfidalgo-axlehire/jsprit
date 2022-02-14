@@ -18,17 +18,18 @@
 package com.graphhopper.jsprit.core.algorithm.selector;
 
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.withSettings;
 
 
 public class SelectRandomlyTest {
@@ -41,7 +42,7 @@ public class SelectRandomlyTest {
         when(sol1.getCost()).thenReturn(1.0);
         when(sol2.getCost()).thenReturn(2.0);
 
-        Random random = mock(Random.class);
+        Random random = mock(Random.class, withSettings().withoutAnnotations());
         when(random.nextInt(2)).thenReturn(1);
 
         SelectRandomly selectRandomly = new SelectRandomly();
@@ -59,7 +60,7 @@ public class SelectRandomlyTest {
         when(sol1.getCost()).thenReturn(1.0);
         when(sol2.getCost()).thenReturn(2.0);
 
-        Random random = mock(Random.class);
+        Random random = mock(Random.class, withSettings().withoutAnnotations());
         when(random.nextInt(2)).thenReturn(0);
 
         SelectRandomly selectRandomly = new SelectRandomly();
@@ -70,7 +71,7 @@ public class SelectRandomlyTest {
 
     @Test
     public void whenHavingNoSolutions_returnNull() {
-        Random random = mock(Random.class);
+        Random random = mock(Random.class, withSettings().withoutAnnotations());
         when(random.nextInt(2)).thenReturn(0);
 
         SelectRandomly selectRandomly = new SelectRandomly();

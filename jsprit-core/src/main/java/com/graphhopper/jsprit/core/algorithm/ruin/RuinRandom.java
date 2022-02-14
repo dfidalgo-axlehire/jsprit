@@ -20,13 +20,13 @@ package com.graphhopper.jsprit.core.algorithm.ruin;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
@@ -38,7 +38,7 @@ import java.util.List;
 
 public final class RuinRandom extends AbstractRuinStrategy {
 
-    private static Logger logger = LoggerFactory.getLogger(RuinRandom.class);
+    private static Logger logger = Logger.getLogger(RuinRandom.class.getName());
 
     private VehicleRoutingProblem vrp;
 
@@ -55,7 +55,7 @@ public final class RuinRandom extends AbstractRuinStrategy {
         this.vrp = vrp;
         this.fractionOfAllNodes2beRuined = fraction;
         setRuinShareFactory(this::selectNuOfJobs2BeRemoved);
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     /**

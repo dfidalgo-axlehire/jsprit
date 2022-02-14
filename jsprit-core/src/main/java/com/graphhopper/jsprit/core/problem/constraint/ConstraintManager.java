@@ -22,13 +22,12 @@ import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.misc.JobInsertionContext;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.solution.route.state.RouteAndActivityStateGetter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Manager that manage hard- and soft constraints, both on route and activity level.
@@ -42,7 +41,7 @@ public class ConstraintManager implements HardActivityConstraint, HardRouteConst
         CRITICAL, HIGH, LOW
     }
 
-    private static Logger log = LoggerFactory.getLogger(ConstraintManager.class);
+    private static Logger log = Logger.getLogger(ConstraintManager.class.getName());
 
     private HardActivityLevelConstraintManager actLevelConstraintManager = new HardActivityLevelConstraintManager();
 
@@ -135,7 +134,7 @@ public class ConstraintManager implements HardActivityConstraint, HardRouteConst
                 constraintTypeKnown = true;
             }
             if (!constraintTypeKnown) {
-                log.warn("constraint " + c + " unknown thus ignores the constraint. currently, a constraint must implement either HardActivityStateLevelConstraint or HardRouteStateLevelConstraint");
+                log.warning("constraint " + c + " unknown thus ignores the constraint. currently, a constraint must implement either HardActivityStateLevelConstraint or HardRouteStateLevelConstraint");
             }
         }
 

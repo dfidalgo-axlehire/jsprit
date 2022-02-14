@@ -26,10 +26,10 @@ import com.graphhopper.jsprit.core.problem.solution.route.state.RouteAndActivity
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -51,7 +51,7 @@ public class JobInsertionConsideringFixCostsCalculatorTest {
 
     private RouteAndActivityStateGetter stateGetter;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         JobInsertionCostsCalculator jobInsertionCosts = mock(JobInsertionCostsCalculator.class);
         job = mock(Job.class);

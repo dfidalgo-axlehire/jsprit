@@ -31,14 +31,18 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.TestUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.hasItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -319,41 +323,47 @@ public class VehicleRoutingProblemTest {
         return Location.Builder.newInstance().setId(i).build();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenAddingVehiclesWithSameId_itShouldThrowException(){
-        VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
-        VehicleType type = VehicleTypeImpl.Builder.newInstance("type").build();
-        VehicleImpl vehicle1 = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("loc")).setType(type).build();
-        VehicleImpl vehicle2 = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("loc")).setType(type).build();
-        builder.addVehicle(vehicle1);
-        builder.addVehicle(vehicle2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
+            VehicleType type = VehicleTypeImpl.Builder.newInstance("type").build();
+            VehicleImpl vehicle1 = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("loc")).setType(type).build();
+            VehicleImpl vehicle2 = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("loc")).setType(type).build();
+            builder.addVehicle(vehicle1);
+            builder.addVehicle(vehicle2);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenAddingVehicleTypesWithSameIdButDifferentCosts_itShouldThrowException() {
-        VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
-        VehicleType type1 = VehicleTypeImpl.Builder.newInstance("type").build();
-        VehicleType type2 = VehicleTypeImpl.Builder.newInstance("type").setCostPerServiceTime(2d).build();
-        VehicleImpl vehicle1 = VehicleImpl.Builder.newInstance("v1").setStartLocation(Location.newInstance("loc")).setType(type1).build();
-        VehicleImpl vehicle2 = VehicleImpl.Builder.newInstance("v2").setStartLocation(Location.newInstance("loc")).setType(type2).build();
-        builder.addVehicle(vehicle1);
-        builder.addVehicle(vehicle2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
+            VehicleType type1 = VehicleTypeImpl.Builder.newInstance("type").build();
+            VehicleType type2 = VehicleTypeImpl.Builder.newInstance("type").setCostPerServiceTime(2d).build();
+            VehicleImpl vehicle1 = VehicleImpl.Builder.newInstance("v1").setStartLocation(Location.newInstance("loc")).setType(type1).build();
+            VehicleImpl vehicle2 = VehicleImpl.Builder.newInstance("v2").setStartLocation(Location.newInstance("loc")).setType(type2).build();
+            builder.addVehicle(vehicle1);
+            builder.addVehicle(vehicle2);
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenBuildingProblemWithSameBreakId_itShouldThrowException(){
-        VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
-        VehicleType type = VehicleTypeImpl.Builder.newInstance("type").build();
-        VehicleImpl vehicle1 = VehicleImpl.Builder.newInstance("v1").setStartLocation(Location.newInstance("loc")).setType(type)
-            .setBreak(Break.Builder.newInstance("break").build())
-            .build();
-        VehicleImpl vehicle2 = VehicleImpl.Builder.newInstance("v2").setStartLocation(Location.newInstance("loc")).setType(type)
-            .setBreak(Break.Builder.newInstance("break").build())
-            .build();
-        builder.addVehicle(vehicle1);
-        builder.addVehicle(vehicle2);
-        builder.setFleetSize(FleetSize.FINITE);
-        builder.build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
+            VehicleType type = VehicleTypeImpl.Builder.newInstance("type").build();
+            VehicleImpl vehicle1 = VehicleImpl.Builder.newInstance("v1").setStartLocation(Location.newInstance("loc")).setType(type)
+                                                      .setBreak(Break.Builder.newInstance("break").build())
+                                                      .build();
+            VehicleImpl vehicle2 = VehicleImpl.Builder.newInstance("v2").setStartLocation(Location.newInstance("loc")).setType(type)
+                                                      .setBreak(Break.Builder.newInstance("break").build())
+                                                      .build();
+            builder.addVehicle(vehicle1);
+            builder.addVehicle(vehicle2);
+            builder.setFleetSize(FleetSize.FINITE);
+            builder.build();
+        });
     }
 
     @Test
@@ -495,26 +505,30 @@ public class VehicleRoutingProblemTest {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenAddingTwoServicesWithTheSameId_itShouldThrowException() {
-        Service service1 = Service.Builder.newInstance("myService").setLocation(Location.newInstance("loc")).build();
-        Service service2 = Service.Builder.newInstance("myService").setLocation(Location.newInstance("loc")).build();
-        VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
-        vrpBuilder.addJob(service1);
-        vrpBuilder.addJob(service2);
-        @SuppressWarnings("UnusedDeclaration") VehicleRoutingProblem vrp = vrpBuilder.build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Service service1 = Service.Builder.newInstance("myService").setLocation(Location.newInstance("loc")).build();
+            Service service2 = Service.Builder.newInstance("myService").setLocation(Location.newInstance("loc")).build();
+            VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
+            vrpBuilder.addJob(service1);
+            vrpBuilder.addJob(service2);
+            @SuppressWarnings("UnusedDeclaration") VehicleRoutingProblem vrp = vrpBuilder.build();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenAddingTwoShipmentsWithTheSameId_itShouldThrowException() {
-        Shipment shipment1 = Shipment.Builder.newInstance("shipment").setPickupLocation(Location.Builder.newInstance().setId("pick").build())
-            .setDeliveryLocation(Location.newInstance("del")).build();
-        Shipment shipment2 = Shipment.Builder.newInstance("shipment").setPickupLocation(Location.Builder.newInstance().setId("pick").build())
-            .setDeliveryLocation(Location.newInstance("del")).build();
-        VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
-        vrpBuilder.addJob(shipment1);
-        vrpBuilder.addJob(shipment2);
-        @SuppressWarnings("UnusedDeclaration") VehicleRoutingProblem vrp = vrpBuilder.build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Shipment shipment1 = Shipment.Builder.newInstance("shipment").setPickupLocation(Location.Builder.newInstance().setId("pick").build())
+                                                 .setDeliveryLocation(Location.newInstance("del")).build();
+            Shipment shipment2 = Shipment.Builder.newInstance("shipment").setPickupLocation(Location.Builder.newInstance().setId("pick").build())
+                                                 .setDeliveryLocation(Location.newInstance("del")).build();
+            VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
+            vrpBuilder.addJob(shipment1);
+            vrpBuilder.addJob(shipment2);
+            @SuppressWarnings("UnusedDeclaration") VehicleRoutingProblem vrp = vrpBuilder.build();
+        });
 
     }
 

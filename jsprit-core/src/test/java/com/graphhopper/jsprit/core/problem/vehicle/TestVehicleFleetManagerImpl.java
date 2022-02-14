@@ -19,15 +19,17 @@ package com.graphhopper.jsprit.core.problem.vehicle;
 
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestVehicleFleetManagerImpl {
 
@@ -37,7 +39,7 @@ public class TestVehicleFleetManagerImpl {
 
     VehicleImpl v2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
 

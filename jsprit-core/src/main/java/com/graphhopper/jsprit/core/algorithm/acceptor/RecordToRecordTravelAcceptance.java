@@ -22,10 +22,10 @@ import com.graphhopper.jsprit.core.algorithm.listener.AlgorithmStartsListener;
 import com.graphhopper.jsprit.core.algorithm.listener.IterationStartsListener;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 
 /**
@@ -33,7 +33,7 @@ import java.util.Collection;
  */
 public class RecordToRecordTravelAcceptance implements SolutionAcceptor, IterationStartsListener, AlgorithmStartsListener {
 
-    private static Logger logger = LoggerFactory.getLogger(RecordToRecordTravelAcceptance.class.getName());
+    private static Logger logger = Logger.getLogger(RecordToRecordTravelAcceptance.class.getName());
 
     private final int solutionMemory = 1;
 
@@ -48,7 +48,7 @@ public class RecordToRecordTravelAcceptance implements SolutionAcceptor, Iterati
     private double bestEver = Double.MAX_VALUE;
 
     public RecordToRecordTravelAcceptance() {
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

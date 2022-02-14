@@ -37,18 +37,17 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.solution.route.state.RouteAndActivityStateGetter;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.logging.Logger;
 
 @Deprecated
 final class ServiceInsertionOnRouteLevelCalculator implements JobInsertionCostsCalculator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServiceInsertionOnRouteLevelCalculator.class);
+    private static final Logger logger = Logger.getLogger(ServiceInsertionOnRouteLevelCalculator.class.getName());
 
     private final VehicleRoutingTransportCosts transportCosts;
 
@@ -80,7 +79,7 @@ final class ServiceInsertionOnRouteLevelCalculator implements JobInsertionCostsC
 
     public void setMemorySize(int memorySize) {
         this.memorySize = memorySize;
-        logger.debug("set [solutionMemory={}]", memorySize);
+        logger.info(String.format("set [solutionMemory=%s]", memorySize));
     }
 
     public ServiceInsertionOnRouteLevelCalculator(VehicleRoutingTransportCosts vehicleRoutingCosts, VehicleRoutingActivityCosts costFunc, ActivityInsertionCostsCalculator activityInsertionCostsCalculator, HardRouteConstraint hardRouteLevelConstraint, HardActivityConstraint hardActivityLevelConstraint) {
@@ -91,7 +90,7 @@ final class ServiceInsertionOnRouteLevelCalculator implements JobInsertionCostsC
         this.hardRouteLevelConstraint = hardRouteLevelConstraint;
         this.hardActivityLevelConstraint = hardActivityLevelConstraint;
         auxilliaryPathCostCalculator = new AuxilliaryCostCalculator(transportCosts, activityCosts);
-        logger.debug("initialise {}", this);
+        logger.info(String.format("initialise %s", this));
     }
 
 
@@ -101,7 +100,7 @@ final class ServiceInsertionOnRouteLevelCalculator implements JobInsertionCostsC
 
     void setNuOfActsForwardLooking(int nOfActsForwardLooking) {
         this.nuOfActsForwardLooking = nOfActsForwardLooking;
-        logger.debug("set [forwardLooking={}]", nOfActsForwardLooking);
+        logger.info(String.format("set [forwardLooking=%s]", nOfActsForwardLooking));
     }
 
     @Override

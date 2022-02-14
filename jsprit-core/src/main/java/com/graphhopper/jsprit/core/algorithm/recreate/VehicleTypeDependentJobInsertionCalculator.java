@@ -24,18 +24,18 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleFleetManager;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 
 final class VehicleTypeDependentJobInsertionCalculator implements JobInsertionCostsCalculator {
 
-    private Logger logger = LoggerFactory.getLogger(VehicleTypeDependentJobInsertionCalculator.class);
+    private Logger logger = Logger.getLogger(VehicleTypeDependentJobInsertionCalculator.class.getName());
 
     private final VehicleFleetManager fleetManager;
 
@@ -59,7 +59,7 @@ final class VehicleTypeDependentJobInsertionCalculator implements JobInsertionCo
         this.insertionCalculator = jobInsertionCalc;
         this.vrp = vrp;
         getInitialVehicleIds();
-        logger.debug("initialise " + this);
+        logger.info("initialise " + this);
     }
 
     private void getInitialVehicleIds() {
@@ -88,7 +88,7 @@ final class VehicleTypeDependentJobInsertionCalculator implements JobInsertionCo
      * @param vehicleSwitchAllowed the vehicleSwitchAllowed to set
      */
     public void setVehicleSwitchAllowed(boolean vehicleSwitchAllowed) {
-        logger.debug("set vehicleSwitchAllowed to " + vehicleSwitchAllowed);
+        logger.info("set vehicleSwitchAllowed to " + vehicleSwitchAllowed);
         this.vehicleSwitchAllowed = vehicleSwitchAllowed;
     }
 

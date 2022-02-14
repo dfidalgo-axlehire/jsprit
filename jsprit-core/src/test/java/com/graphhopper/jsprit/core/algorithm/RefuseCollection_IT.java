@@ -32,15 +32,15 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 
 import com.graphhopper.jsprit.core.util.Solutions;
 import com.graphhopper.jsprit.core.util.VehicleRoutingTransportCostsMatrix;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class RefuseCollection_IT {
@@ -84,8 +84,8 @@ public class RefuseCollection_IT {
         vra.setPrematureAlgorithmTermination(new IterationWithoutImprovementTermination(100));
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
-        Assert.assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
-        Assert.assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
+        assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
+        assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
     }
 
     @Test
@@ -126,8 +126,8 @@ public class RefuseCollection_IT {
         vra.setPrematureAlgorithmTermination(new IterationWithoutImprovementTermination(100));
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
-        Assert.assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
-        Assert.assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
+        assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
+        assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
     }
 
     @Test
@@ -168,8 +168,8 @@ public class RefuseCollection_IT {
         vra.setPrematureAlgorithmTermination(new IterationWithoutImprovementTermination(100));
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
-        Assert.assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
-        Assert.assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
+        assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
+        assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
     }
 
     @Test
@@ -210,8 +210,8 @@ public class RefuseCollection_IT {
         vra.setPrematureAlgorithmTermination(new IterationWithoutImprovementTermination(100));
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
-        Assert.assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
-        Assert.assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
+        assertEquals(397.0, Solutions.bestOf(solutions).getCost(), 40.);
+        assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
     }
 
 

@@ -36,10 +36,11 @@ import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.util.CostFactory;
 import com.graphhopper.jsprit.core.util.Solutions;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by schroeder on 22/07/15.
@@ -54,7 +55,7 @@ public class VariableDepartureAndWaitingTime_IT {
 
     AlgorithmFactory algorithmFactory;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         activityCosts = new VehicleRoutingActivityCosts() {
 
@@ -103,7 +104,7 @@ public class VariableDepartureAndWaitingTime_IT {
             .build();
         VehicleRoutingAlgorithm vra = algorithmFactory.createAlgorithm(vrp);
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
-        Assert.assertEquals(40., solution.getCost());
+        assertEquals(40., solution.getCost());
     }
 
     @Test
@@ -119,7 +120,7 @@ public class VariableDepartureAndWaitingTime_IT {
             .build();
         VehicleRoutingAlgorithm vra = algorithmFactory.createAlgorithm(vrp);
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
-        Assert.assertEquals(40. + 1000., solution.getCost());
+        assertEquals(40. + 1000., solution.getCost());
     }
 
 

@@ -27,15 +27,15 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.Solutions;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 
 public class ExperimentalSchrimpfAcceptance implements SolutionAcceptor, IterationStartsListener, AlgorithmStartsListener {
 
-    final static Logger logger = LoggerFactory.getLogger(ExperimentalSchrimpfAcceptance.class.getName());
+    final static Logger logger = Logger.getLogger(ExperimentalSchrimpfAcceptance.class.getName());
 
     private final double alpha;
 
@@ -55,7 +55,7 @@ public class ExperimentalSchrimpfAcceptance implements SolutionAcceptor, Iterati
         this.alpha = alpha;
         this.nOfRandomWalks = nOfWarmupIterations;
         this.solutionMemory = solutionMemory;
-        logger.info("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
 
@@ -92,7 +92,7 @@ public class ExperimentalSchrimpfAcceptance implements SolutionAcceptor, Iterati
 
     private double getThreshold(int iteration) {
         double scheduleVariable = (double) iteration / (double) nOfTotalIterations;
-//		logger.debug("iter={} totalIter={} scheduling={}", iteration, nOfTotalIterations, scheduleVariable);
+//		logger.info("iter={} totalIter={} scheduling={}", iteration, nOfTotalIterations, scheduleVariable);
         double currentThreshold = initialThreshold * Math.exp(-Math.log(2) * scheduleVariable / alpha);
         return currentThreshold;
     }
@@ -133,8 +133,8 @@ public class ExperimentalSchrimpfAcceptance implements SolutionAcceptor, Iterati
         initialThreshold = standardDeviation / 2;
 
         logger.info("warmup done");
-        logger.info("total time: {}s", ((System.currentTimeMillis() - now) / 1000.0));
-        logger.info("initial threshold: {}", initialThreshold);
+        logger.info("total time: " + ((System.currentTimeMillis() - now) / 1000.0));
+        logger.info("initial threshold: " + initialThreshold);
         logger.info("---------------------------------------------------------------------");
 
     }

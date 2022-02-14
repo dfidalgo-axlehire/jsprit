@@ -22,7 +22,9 @@ import com.graphhopper.jsprit.core.problem.cost.VehicleRoutingTransportCosts;
 import com.graphhopper.jsprit.core.problem.driver.Driver;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class JobDistanceAvgCostsTest {
@@ -65,7 +67,7 @@ public class JobDistanceAvgCostsTest {
         c.getDistance(Service.Builder.newInstance("1").addSizeDimension(0, 1).setLocation(Location.newInstance("foo")).build(), Service.Builder.newInstance("2").addSizeDimension(0, 2).setLocation(Location.newInstance("foo")).build());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void whenVehicleAndDriverIsNull_And_CostsDoesNotProvideAMethodForThis_throwException() {
 //		(expected=NullPointerException.class)
         VehicleRoutingTransportCosts costs = new VehicleRoutingTransportCosts() {
@@ -101,8 +103,11 @@ public class JobDistanceAvgCostsTest {
                 return 0;
             }
         };
-        AvgServiceDistance c = new AvgServiceDistance(costs);
-        c.getDistance(Service.Builder.newInstance("1").addSizeDimension(0, 1).setLocation(Location.newInstance("loc")).build(), Service.Builder.newInstance("2").addSizeDimension(0, 2).setLocation(Location.newInstance("loc")).build());
+
+        assertThrows(NullPointerException.class, () -> {
+            AvgServiceDistance c = new AvgServiceDistance(costs);
+            c.getDistance(Service.Builder.newInstance("1").addSizeDimension(0, 1).setLocation(Location.newInstance("loc")).build(), Service.Builder.newInstance("2").addSizeDimension(0, 2).setLocation(Location.newInstance("loc")).build());
+        });
     }
 
 }

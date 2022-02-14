@@ -24,13 +24,13 @@ import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.util.RandomNumberGeneration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @Deprecated
 class CalculatesServiceInsertionWithTimeScheduling implements JobInsertionCostsCalculator {
@@ -60,7 +60,7 @@ class CalculatesServiceInsertionWithTimeScheduling implements JobInsertionCostsC
         }
     }
 
-    private static Logger log = LoggerFactory.getLogger(CalculatesServiceInsertionWithTimeScheduling.class);
+    private static Logger log = Logger.getLogger(CalculatesServiceInsertionWithTimeScheduling.class.getName());
 
     private JobInsertionCostsCalculator jic;
 
@@ -75,7 +75,7 @@ class CalculatesServiceInsertionWithTimeScheduling implements JobInsertionCostsC
     CalculatesServiceInsertionWithTimeScheduling(JobInsertionCostsCalculator jic, double t, double f) {
         super();
         this.jic = jic;
-        log.debug("initialise " + this);
+        log.info("initialise " + this);
     }
 
     @Override

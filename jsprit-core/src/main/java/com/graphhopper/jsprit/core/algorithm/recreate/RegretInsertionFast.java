@@ -23,10 +23,10 @@ import com.graphhopper.jsprit.core.problem.constraint.DependencyType;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleFleetManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Insertion based on regret approach.
@@ -40,7 +40,7 @@ import java.util.*;
  */
 public class RegretInsertionFast extends AbstractInsertionStrategy {
 
-    private static Logger logger = LoggerFactory.getLogger(RegretInsertionFast.class);
+    private static Logger logger = Logger.getLogger(RegretInsertionFast.class.getName());
 
     private ScoringFunction scoringFunction;
 
@@ -61,7 +61,7 @@ public class RegretInsertionFast extends AbstractInsertionStrategy {
         this.fleetManager = fleetManager;
         this.vrp = vehicleRoutingProblem;
         this.initialVehicleIds = getInitialVehicleIds(vehicleRoutingProblem);
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     /**

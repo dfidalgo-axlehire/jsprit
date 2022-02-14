@@ -33,12 +33,11 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.End;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.Start;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Calculator that calculates the best insertion position for a service.
@@ -47,7 +46,7 @@ import java.util.List;
  */
 final class BreakInsertionCalculator implements JobInsertionCostsCalculator {
 
-    private static final Logger logger = LoggerFactory.getLogger(BreakInsertionCalculator.class);
+    private static final Logger logger = Logger.getLogger(BreakInsertionCalculator.class.getName());
 
     private final HardRouteConstraint hardRouteLevelConstraint;
 
@@ -78,7 +77,7 @@ final class BreakInsertionCalculator implements JobInsertionCostsCalculator {
         this.additionalTransportCostsCalculator = additionalTransportCostsCalculator;
         additionalAccessEgressCalculator = new AdditionalAccessEgressCalculator(routingCosts);
         this.activityFactory = activityFactory;
-        logger.debug("initialise " + this);
+        logger.info("initialise " + this);
     }
 
 

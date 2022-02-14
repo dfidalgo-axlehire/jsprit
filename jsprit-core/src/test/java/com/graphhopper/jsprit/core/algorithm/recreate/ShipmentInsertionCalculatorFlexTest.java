@@ -46,16 +46,16 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.util.CostFactory;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -97,7 +97,7 @@ public class ShipmentInsertionCalculatorFlexTest {
 
     ConstraintManager constraintManager;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         routingCosts = CostFactory.createManhattanCosts();
         VehicleType type = VehicleTypeImpl.Builder.newInstance("t").addCapacityDimension(0, 2).setCostPerDistance(1).build();
@@ -279,7 +279,7 @@ public class ShipmentInsertionCalculatorFlexTest {
 
     }
 
-    @Ignore
+    @Disabled /* Ignored here https://github.com/graphhopper/jsprit/commit/5e3fd411227744c31831aa2b12bb6901c67c329a */
     @Test
     public void whenInsertingShipmentWithLoadConstraintWhereCapIsNotSufficient_capConstraintsAreFulfilledV2() {
         Shipment shipment = Shipment.Builder.newInstance("s").addSizeDimension(0, 1).setPickupLocation(Location.Builder.newInstance().setId("0,10").build()).setDeliveryLocation(Location.newInstance("10,0")).build();

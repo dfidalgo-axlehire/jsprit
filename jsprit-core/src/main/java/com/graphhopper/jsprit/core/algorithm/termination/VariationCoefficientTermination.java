@@ -27,12 +27,12 @@ import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolutio
 import com.graphhopper.jsprit.core.util.Solutions;
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
@@ -48,7 +48,7 @@ import java.util.List;
  */
 public class VariationCoefficientTermination implements PrematureAlgorithmTermination, IterationStartsListener, AlgorithmStartsListener, IterationEndsListener {
 
-    private final static Logger logger = LoggerFactory.getLogger(VariationCoefficientTermination.class);
+    private final static Logger logger = Logger.getLogger(VariationCoefficientTermination.class.getName());
 
     private final int noIterations;
 
@@ -74,7 +74,7 @@ public class VariationCoefficientTermination implements PrematureAlgorithmTermin
         this.noIterations = noIterations;
         this.variationCoefficientThreshold = variationCoefficientThreshold;
         solutionValues = new double[noIterations];
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

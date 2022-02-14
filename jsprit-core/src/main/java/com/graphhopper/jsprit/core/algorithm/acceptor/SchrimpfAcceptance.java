@@ -22,12 +22,12 @@ import com.graphhopper.jsprit.core.algorithm.listener.AlgorithmStartsListener;
 import com.graphhopper.jsprit.core.algorithm.listener.IterationStartsListener;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 /**
@@ -68,7 +68,7 @@ import java.util.List;
  */
 public class SchrimpfAcceptance implements SolutionAcceptor, IterationStartsListener, AlgorithmStartsListener {
 
-    private static Logger logger = LoggerFactory.getLogger(SchrimpfAcceptance.class.getName());
+    private static Logger logger = Logger.getLogger(SchrimpfAcceptance.class.getName());
 
     private final double alpha;
 
@@ -83,7 +83,7 @@ public class SchrimpfAcceptance implements SolutionAcceptor, IterationStartsList
     public SchrimpfAcceptance(int solutionMemory, double alpha) {
         this.alpha = alpha;
         this.solutionMemory = solutionMemory;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

@@ -20,12 +20,14 @@ package com.graphhopper.jsprit.core.problem.solution.route.activity;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.job.Shipment;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestTourActivities {
 
@@ -33,7 +35,7 @@ public class TestTourActivities {
     private ServiceActivity act;
     private TourActivities tour;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         service = Service.Builder.newInstance("yo").addSizeDimension(0, 10).setLocation(Location.newInstance("loc")).build();
         act = ServiceActivity.newInstance(service);
@@ -47,11 +49,13 @@ public class TestTourActivities {
         assertTrue(tour.servesJob(service));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenAddingServiceActTwice_anExceptionIsThrown() {
-        assertFalse(tour.servesJob(service));
-        tour.addActivity(act);
-        tour.addActivity(act);
+        assertThrows(IllegalArgumentException.class, () -> {
+            assertFalse(tour.servesJob(service));
+            tour.addActivity(act);
+            tour.addActivity(act);
+        });
     }
 
     @Test

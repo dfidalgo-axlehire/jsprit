@@ -36,12 +36,12 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.Start;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /**
  * Calculator that calculates the best insertion position for a {@link Service}.
@@ -50,7 +50,7 @@ import java.util.Iterator;
  */
 final class ServiceInsertionCalculator extends AbstractInsertionCalculator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServiceInsertionCalculator.class);
+    private static final Logger logger = Logger.getLogger(ServiceInsertionCalculator.class.getName());
 
     private final SoftRouteConstraint softRouteConstraint;
 
@@ -78,7 +78,7 @@ final class ServiceInsertionCalculator extends AbstractInsertionCalculator {
         this.activityInsertionCostsCalculator = activityInsertionCostsCalculator;
         additionalAccessEgressCalculator = new AdditionalAccessEgressCalculator(routingCosts);
         this.activityFactory = activityFactory;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override

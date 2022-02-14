@@ -34,13 +34,14 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import org.apache.commons.math3.stat.Frequency;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by schroeder on 06/02/17.
@@ -49,7 +50,7 @@ public class UnassignedJobReasonTrackerTest {
 
     Vehicle vehicle;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         VehicleTypeImpl.Builder vehicleTypeBuilder = VehicleTypeImpl.Builder.newInstance("vehicleType").addCapacityDimension(0, 1);
         VehicleType vehicleType = vehicleTypeBuilder.build();
@@ -72,8 +73,8 @@ public class UnassignedJobReasonTrackerTest {
         vra.addListener(reasonTracker);
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
-        Assert.assertEquals(1, solution.getUnassignedJobs().size());
-        Assert.assertEquals(3, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
+        assertEquals(1, solution.getUnassignedJobs().size());
+        assertEquals(3, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
     }
 
     @Test
@@ -88,8 +89,8 @@ public class UnassignedJobReasonTrackerTest {
         vra.addListener(reasonTracker);
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
-        Assert.assertEquals(1, solution.getUnassignedJobs().size());
-        Assert.assertEquals(1, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
+        assertEquals(1, solution.getUnassignedJobs().size());
+        assertEquals(1, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
     }
 
     @Test
@@ -104,8 +105,8 @@ public class UnassignedJobReasonTrackerTest {
         vra.addListener(reasonTracker);
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
-        Assert.assertEquals(1, solution.getUnassignedJobs().size());
-        Assert.assertEquals(2, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
+        assertEquals(1, solution.getUnassignedJobs().size());
+        assertEquals(2, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
     }
 
     @Test
@@ -130,8 +131,8 @@ public class UnassignedJobReasonTrackerTest {
         vra.addListener(reasonTracker);
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
-        Assert.assertEquals(1, solution.getUnassignedJobs().size());
-        Assert.assertEquals(4, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
+        assertEquals(1, solution.getUnassignedJobs().size());
+        assertEquals(4, reasonTracker.getMostLikelyReasonCode(solution.getUnassignedJobs().iterator().next().getId()));
     }
 
     @Test
@@ -144,7 +145,7 @@ public class UnassignedJobReasonTrackerTest {
         frequency.addValue("a");
         frequency.addValue("a");
         frequency.addValue("a");
-        Assert.assertEquals("a", UnassignedJobReasonTracker.getMostLikelyFailedConstraintName(frequency));
+        assertEquals("a", UnassignedJobReasonTracker.getMostLikelyFailedConstraintName(frequency));
     }
 
     @Test

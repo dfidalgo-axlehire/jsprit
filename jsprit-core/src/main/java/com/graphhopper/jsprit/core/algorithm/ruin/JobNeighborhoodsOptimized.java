@@ -22,10 +22,10 @@ import com.graphhopper.jsprit.core.algorithm.ruin.distance.JobDistance;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.util.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Created by schroeder on 07/01/15.
@@ -66,7 +66,7 @@ class JobNeighborhoodsOptimized implements JobNeighborhoods {
         }
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(JobNeighborhoodsOptimized.class);
+    private static final Logger logger = Logger.getLogger(JobNeighborhoodsOptimized.class.getName());
 
     private final VehicleRoutingProblem vrp;
 
@@ -87,7 +87,7 @@ class JobNeighborhoodsOptimized implements JobNeighborhoods {
         this.capacity = capacity;
         neighbors = new int[vrp.getJobsInclusiveInitialJobsInRoutes().size()+1][capacity];
         jobs = new Job[vrp.getJobsInclusiveInitialJobsInRoutes().size()+1];
-        logger.debug("initialize {}", this);
+        logger.info("initialize " + this);
     }
 
     @Override
@@ -102,7 +102,7 @@ class JobNeighborhoodsOptimized implements JobNeighborhoods {
 
     @Override
     public void initialise() {
-        logger.debug("calculates distances from EACH job to EACH job --> n^2={} calculations, but 'only' {} are cached.", Math.pow(vrp.getJobs().values().size(), 2), (vrp.getJobs().values().size() * capacity));
+        logger.info(String.format("calculates distances from EACH job to EACH job --> n^2=%s calculations, but 'only' %s are cached.", Math.pow(vrp.getJobs().values().size(), 2), (vrp.getJobs().values().size() * capacity)));
         if (capacity == 0) return;
         calculateDistancesFromJob2Job();
     }
@@ -113,7 +113,7 @@ class JobNeighborhoodsOptimized implements JobNeighborhoods {
     }
 
     private void calculateDistancesFromJob2Job() {
-        logger.debug("pre-process distances between locations ...");
+        logger.info("pre-process distances between locations ...");
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         for (Job job_i : vrp.getJobsInclusiveInitialJobsInRoutes().values()) {
@@ -137,7 +137,7 @@ class JobNeighborhoodsOptimized implements JobNeighborhoods {
             neighbors[job_i.getIndex()-1] = jobIndices;
         }
         stopWatch.stop();
-        logger.debug("pre-processing comp-time: {}", stopWatch);
+        logger.info("pre-processing comp-time: " +  stopWatch);
     }
 
     private Comparator<ReferencedJob> getComparator(){

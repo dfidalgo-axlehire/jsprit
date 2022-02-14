@@ -17,12 +17,12 @@
  */
 package com.graphhopper.jsprit.core.problem.vehicle;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 class VehicleFleetManagerImpl implements VehicleFleetManager {
@@ -68,7 +68,7 @@ class VehicleFleetManagerImpl implements VehicleFleetManager {
 
     }
 
-    private static Logger logger = LoggerFactory.getLogger(VehicleFleetManagerImpl.class);
+    private static Logger logger = Logger.getLogger(VehicleFleetManagerImpl.class.getName());
 
     private Collection<Vehicle> vehicles;
 
@@ -88,7 +88,7 @@ class VehicleFleetManagerImpl implements VehicleFleetManager {
 
     void init(){
         initializeVehicleTypes();
-        logger.debug("initialise {}",this);
+        logger.info("initialise " + this);
     }
 
     @Override

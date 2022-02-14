@@ -21,21 +21,27 @@ package com.graphhopper.jsprit.core.problem.vehicle;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Break;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class VehicleImplTest {
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenVehicleIsBuiltWithoutSettingNeitherLocationNorCoord_itThrowsAnIllegalStateException() {
-        @SuppressWarnings("unused")
-        Vehicle v = VehicleImpl.Builder.newInstance("v").build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Vehicle v = VehicleImpl.Builder.newInstance("v").build();
+        });
     }
 
 
@@ -152,10 +158,11 @@ public class VehicleImplTest {
         assertEquals("startLoc", v.getStartLocation().getId());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenStartLocationIsNull_itThrowsException() {
-        @SuppressWarnings("unused")
-        Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(null)).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(null)).build();
+        });
     }
 
     @Test
@@ -204,16 +211,18 @@ public class VehicleImplTest {
         assertEquals(v.getEndLocation().getCoordinate().toString(), v.getEndLocation().getId());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenEndLocationIdIsSpecifiedANDReturnToDepotIsFalse_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(1.0, 2.0)).setEndLocation(Location.newInstance("endLoc")).setReturnToDepot(false).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(1.0, 2.0)).setEndLocation(Location.newInstance("endLoc")).setReturnToDepot(false).build();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenEndLocationCoordIsSpecifiedANDReturnToDepotIsFalse_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(1.0, 2.0)).setEndLocation(Location.newInstance(3, 4)).setReturnToDepot(false).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(1.0, 2.0)).setEndLocation(Location.newInstance(3, 4)).setReturnToDepot(false).build();
+        });
     }
 
     @Test
@@ -228,11 +237,12 @@ public class VehicleImplTest {
         assertEquals(v.getStartLocation().getCoordinate().toString(), v.getEndLocation().getId());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenStartAndEndAreUnequalANDReturnToDepotIsFalse_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("start")).setEndLocation(Location.newInstance("end")).setReturnToDepot(false).build();
-    }
+        assertThrows(IllegalArgumentException.class, () -> {
+            Vehicle v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("start")).setEndLocation(Location.newInstance("end")).setReturnToDepot(false).build();
+        });
+        }
 
     @Test
     public void whenStartAndEndAreEqualANDReturnToDepotIsFalse_itShouldThrowException() {

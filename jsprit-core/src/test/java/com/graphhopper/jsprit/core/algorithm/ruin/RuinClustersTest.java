@@ -26,12 +26,13 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.util.RandomNumberGeneration;
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by schroeder on 06/03/15.
@@ -64,7 +65,7 @@ public class RuinClustersTest {
         Random r = RandomNumberGeneration.newInstance();
         rc.setRandom(r);
         Collection<Job> ruined = rc.ruinRoutes(Arrays.asList(vr1, vr2));
-        Assert.assertEquals(5, ruined.size());
+        assertEquals(5, ruined.size());
 
     }
 

@@ -18,8 +18,8 @@
 package com.graphhopper.jsprit.core.algorithm.termination;
 
 import com.graphhopper.jsprit.core.algorithm.SearchStrategy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
 
 
 /**
@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IterationWithoutImprovementTermination implements PrematureAlgorithmTermination {
 
-    private static Logger log = LoggerFactory.getLogger(IterationWithoutImprovementTermination.class);
+    private static Logger log = Logger.getLogger(IterationWithoutImprovementTermination.class.getName());
 
     private int noIterationWithoutImprovement;
 
@@ -46,7 +46,7 @@ public class IterationWithoutImprovementTermination implements PrematureAlgorith
      */
     public IterationWithoutImprovementTermination(int noIterationsWithoutImprovement) {
         this.noIterationWithoutImprovement = noIterationsWithoutImprovement;
-        log.debug("initialise " + this);
+        log.info("initialise " + this);
     }
 
     @Override

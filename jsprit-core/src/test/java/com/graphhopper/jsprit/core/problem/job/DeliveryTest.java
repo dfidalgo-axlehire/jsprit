@@ -18,19 +18,25 @@
 package com.graphhopper.jsprit.core.problem.job;
 
 import com.graphhopper.jsprit.core.problem.Location;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeliveryTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenNeitherLocationIdNorCoordIsSet_itThrowsException() {
-        Delivery.Builder.newInstance("p").build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Delivery.Builder.newInstance("p").build();
+        });
+
     }
 
     @Test
@@ -96,14 +102,14 @@ public class DeliveryTest {
     public void whenSettingPriorities_itShouldBeSetCorrectly(){
         Delivery s = Delivery.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .setPriority(3).build();
-        Assert.assertEquals(3, s.getPriority());
+        assertEquals(3, s.getPriority());
     }
 
     @Test
     public void whenNotSettingPriorities_defaultShouldBe(){
         Delivery s = Delivery.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .build();
-        Assert.assertEquals(2, s.getPriority());
+        assertEquals(2, s.getPriority());
     }
 
     @Test
@@ -111,14 +117,14 @@ public class DeliveryTest {
         Delivery s = Delivery.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .setMaxTimeInVehicle(10)
             .build();
-        Assert.assertEquals(10, s.getMaxTimeInVehicle(),0.001);
+        assertEquals(10, s.getMaxTimeInVehicle(),0.001);
     }
 
     @Test
     public void whenNotAddingMaxTimeInVehicle_itShouldBeDefault(){
         Delivery s = Delivery.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .build();
-        Assert.assertEquals(Double.MAX_VALUE, s.getMaxTimeInVehicle(),0.001);
+        assertEquals(Double.MAX_VALUE, s.getMaxTimeInVehicle(),0.001);
     }
 
 

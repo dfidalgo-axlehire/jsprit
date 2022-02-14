@@ -24,13 +24,13 @@ import com.graphhopper.jsprit.core.problem.misc.JobInsertionContext;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.state.RouteAndActivityStateGetter;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
 
 
 public final class DecreasingRelativeFixedCosts extends SolutionCompletenessRatio implements SoftRouteConstraint {
 
-    private static final Logger logger = LoggerFactory.getLogger(DecreasingRelativeFixedCosts.class);
+    private static final Logger logger = Logger.getLogger(DecreasingRelativeFixedCosts.class.getName());
 
     private double weightDeltaFixCost = 0.5;
 
@@ -39,13 +39,13 @@ public final class DecreasingRelativeFixedCosts extends SolutionCompletenessRati
     public DecreasingRelativeFixedCosts(RouteAndActivityStateGetter stateGetter, int noJobs) {
         super(noJobs);
         this.stateGetter = stateGetter;
-        logger.debug("initialise {}", this);
+        logger.info(String.format("initialise %s", this));
     }
 
 
     public void setWeightOfFixCost(double weight) {
         weightDeltaFixCost = weight;
-        logger.debug("set weightOfFixCostSaving to {}", weight);
+        logger.info(String.format("set weightOfFixCostSaving to %s", weight));
     }
 
     @Override

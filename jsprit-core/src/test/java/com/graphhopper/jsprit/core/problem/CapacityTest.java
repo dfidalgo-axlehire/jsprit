@@ -17,12 +17,15 @@
  */
 package com.graphhopper.jsprit.core.problem;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class CapacityTest {
 
@@ -148,11 +151,12 @@ public class CapacityTest {
         assertEquals(2, result.get(1));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void whenOneOfArgsIsNullWhenAdding_itShouldThrowException() {
         Capacity cap1 = Capacity.Builder.newInstance().addDimension(0, 1).addDimension(1, 2).build();
-        @SuppressWarnings("unused")
-        Capacity result = Capacity.addup(cap1, null);
+        assertThrows(NullPointerException.class, () -> {
+            Capacity result = Capacity.addup(cap1, null);
+        });
     }
 
 
@@ -199,11 +203,12 @@ public class CapacityTest {
         assertEquals(-2, result.get(1));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void whenOneOfArgsIsNullWhenSubtracting_itShouldThrowException() {
         Capacity cap1 = Capacity.Builder.newInstance().addDimension(0, 1).addDimension(1, 2).build();
-        @SuppressWarnings("unused")
-        Capacity result = Capacity.subtract(cap1, null);
+        assertThrows(NullPointerException.class, () -> {
+            Capacity result = Capacity.subtract(cap1, null);
+        });
     }
 
     @Test
@@ -349,11 +354,13 @@ public class CapacityTest {
         assertEquals(0.0, Capacity.divide(cap1, cap2), 0.001);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenDividingByAZeroDim_itShouldThrowException() {
         Capacity cap1 = Capacity.Builder.newInstance().addDimension(0, 1).addDimension(1, 2).build();
         Capacity cap2 = Capacity.Builder.newInstance().addDimension(0, 2).addDimension(1, 0).build();
-        Capacity.divide(cap1, cap2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            Capacity.divide(cap1, cap2);
+        });
     }
 
     @Test
@@ -374,13 +381,13 @@ public class CapacityTest {
     public void shouldBeEqual(){
         Capacity cap1 = Capacity.Builder.newInstance().build();
         Capacity cap2 = Capacity.Builder.newInstance().build();
-        Assert.assertTrue(cap1.equals(cap2));
+        assertTrue(cap1.equals(cap2));
     }
 
     @Test
     public void shouldBeEqual2(){
         Capacity cap1 = Capacity.Builder.newInstance().addDimension(0,10).addDimension(1,100).addDimension(2,1000).build();
         Capacity cap2 = Capacity.Builder.newInstance().addDimension(0,10).addDimension(2, 1000).addDimension(1,100).build();
-        Assert.assertTrue(cap1.equals(cap2));
+        assertTrue(cap1.equals(cap2));
     }
 }

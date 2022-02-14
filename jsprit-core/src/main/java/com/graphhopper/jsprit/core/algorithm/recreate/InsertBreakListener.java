@@ -19,8 +19,8 @@
 package com.graphhopper.jsprit.core.algorithm.recreate;
 
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.logging.Logger;
 
 
 /**
@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 class InsertBreakListener implements EventListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(InsertBreakListener.class);
+    private static final Logger logger = Logger.getLogger(InsertBreakListener.class.getName());
 
     @Override
     public void inform(Event event) {
@@ -45,7 +45,7 @@ class InsertBreakListener implements EventListener {
                     if (vehicleRoute.getVehicle().getBreak() != null) {
                         boolean removed = vehicleRoute.getTourActivities().removeJob(vehicleRoute.getVehicle().getBreak());
                         if (removed)
-                            logger.trace("remove old break " + vehicleRoute.getVehicle().getBreak());
+                            logger.info("remove old break " + vehicleRoute.getVehicle().getBreak());
                     }
                 }
             }

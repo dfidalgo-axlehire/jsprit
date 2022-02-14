@@ -24,10 +24,11 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.util.EuclideanCosts;
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by schroeder on 06/03/15.
@@ -46,7 +47,7 @@ public class DBSCANClustererTest {
         DBSCANClusterer c = new DBSCANClusterer(new EuclideanCosts());
         c.setEpsDistance(3);
         List<Job> cluster = c.getRandomCluster(r);
-        Assert.assertEquals(2, cluster.size());
+        assertEquals(2, cluster.size());
 
     }
 
@@ -62,7 +63,7 @@ public class DBSCANClustererTest {
         DBSCANClusterer c = new DBSCANClusterer(new EuclideanCosts());
         c.setEpsDistance(3);
         List<List<Job>> cluster = c.getClusters(r);
-        Assert.assertEquals(1, cluster.size());
+        assertEquals(1, cluster.size());
 
     }
 
@@ -83,7 +84,7 @@ public class DBSCANClustererTest {
         c.setMinPts(1);
         c.setEpsDistance(2);
         List<List<Job>> cluster = c.getClusters(r);
-        Assert.assertEquals(3, cluster.size());
+        assertEquals(3, cluster.size());
 
     }
 }

@@ -30,13 +30,13 @@ import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolutio
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.util.Solutions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -68,7 +68,7 @@ public class VehicleRoutingAlgorithm {
         private final String name;
         private long counter = 0;
         private long nextCounter = 1;
-        private static final Logger log = LoggerFactory.getLogger(Counter.class);
+        private static final Logger log = Logger.getLogger(Counter.class.getName());
 
         public Counter(final String name) {
             this.name = name;
@@ -79,7 +79,6 @@ public class VehicleRoutingAlgorithm {
             long n = nextCounter;
             if (i >= n) {
                 nextCounter = n * 2;
-                log.info(this.name + n);
             }
         }
 
@@ -89,7 +88,7 @@ public class VehicleRoutingAlgorithm {
         }
     }
 
-    private final static Logger logger = LoggerFactory.getLogger(VehicleRoutingAlgorithm.class);
+    private final static Logger logger = Logger.getLogger(VehicleRoutingAlgorithm.class.getName());
 
     private final Counter counter = new Counter("iterations ");
 
@@ -208,35 +207,32 @@ public class VehicleRoutingAlgorithm {
      * @see {@link SearchStrategyManager}, {@link com.graphhopper.jsprit.core.algorithm.listener.VehicleRoutingAlgorithmListener}, {@link com.graphhopper.jsprit.core.algorithm.listener.AlgorithmStartsListener}, {@link com.graphhopper.jsprit.core.algorithm.listener.AlgorithmEndsListener}, {@link com.graphhopper.jsprit.core.algorithm.listener.IterationStartsListener}, {@link com.graphhopper.jsprit.core.algorithm.listener.IterationEndsListener}
      */
     public Collection<VehicleRoutingProblemSolution> searchSolutions() {
-        logger.info("algorithm starts: [maxIterations={}]", maxIterations);
+        logger.info(String.format("algorithm starts: [maxIterations=%s]", maxIterations));
         double now = System.currentTimeMillis();
         int noIterationsThisAlgoIsRunning = maxIterations;
         counter.reset();
         Collection<VehicleRoutingProblemSolution> solutions = new ArrayList<>(initialSolutions);
         algorithmStarts(problem, solutions);
         bestEver = Solutions.bestOf(solutions);
-        if (logger.isTraceEnabled()) log(solutions);
-        logger.info("iterations start");
+        if (logger.isLoggable(Level.FINEST)) log(solutions);
         for (int i = 0; i < maxIterations; i++) {
             iterationStarts(i + 1, problem, solutions);
-            logger.debug("start iteration: {}", i);
             counter.incCounter();
             SearchStrategy strategy = searchStrategyManager.getRandomStrategy();
             DiscoveredSolution discoveredSolution = strategy.run(problem, solutions);
-            if (logger.isTraceEnabled()) log(discoveredSolution);
             memorizeIfBestEver(discoveredSolution);
             selectedStrategy(discoveredSolution, problem, solutions);
             if (terminationManager.isPrematureBreak(discoveredSolution)) {
-                logger.info("premature algorithm termination at iteration {}", (i + 1));
+                logger.info(String.format("premature algorithm termination at iteration %s", (i + 1)));
                 noIterationsThisAlgoIsRunning = (i + 1);
                 break;
             }
             iterationEnds(i + 1, problem, solutions);
         }
-        logger.info("iterations end at {} iterations", noIterationsThisAlgoIsRunning);
+        logger.info(String.format("iterations end at %s iterations", noIterationsThisAlgoIsRunning));
         addBestEver(solutions);
         algorithmEnds(problem, solutions);
-        logger.info("took {} seconds", ((System.currentTimeMillis() - now) / 1000.0));
+        logger.info(String.format("took %s seconds", ((System.currentTimeMillis() - now) / 1000.0)));
         return solutions;
     }
 
@@ -251,7 +247,7 @@ public class VehicleRoutingAlgorithm {
     }
 
     private void log(VehicleRoutingProblemSolution solution) {
-        logger.trace("solution costs: {}", solution.getCost());
+        logger.log(Level.INFO ,String.format("solution costs: %s", solution.getCost()));
         for (VehicleRoute r : solution.getRoutes()) {
             StringBuilder b = new StringBuilder();
             b.append(r.getVehicle().getId()).append(" : ").append("[ ");
@@ -261,7 +257,7 @@ public class VehicleRoutingAlgorithm {
                 }
             }
             b.append("]");
-            logger.trace(b.toString());
+            logger.info(b.toString());
         }
         StringBuilder b = new StringBuilder();
         b.append("unassigned : [ ");
@@ -269,11 +265,11 @@ public class VehicleRoutingAlgorithm {
             b.append(j.getId()).append(" ");
         }
         b.append("]");
-        logger.trace(b.toString());
+        logger.info(b.toString());
     }
 
     private void log(DiscoveredSolution discoveredSolution) {
-        logger.trace("discovered solution: {}", discoveredSolution);
+        logger.info(String.format("discovered solution: %s", discoveredSolution));
         log(discoveredSolution.getSolution());
     }
 
@@ -327,7 +323,7 @@ public class VehicleRoutingAlgorithm {
      */
     public void setMaxIterations(int maxIterations) {
         this.maxIterations = maxIterations;
-        logger.debug("set maxIterations to {}", this.maxIterations);
+        logger.info(String.format("set maxIterations to %s", this.maxIterations));
     }
 
     /**

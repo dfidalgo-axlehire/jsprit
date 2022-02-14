@@ -19,11 +19,13 @@ package com.graphhopper.jsprit.core.problem.solution.route.activity;
 
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Delivery;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class DeliverServiceTest {
 
@@ -31,7 +33,7 @@ public class DeliverServiceTest {
 
     private DeliverService deliver;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         service = Delivery.Builder.newInstance("service").setLocation(Location.newInstance("loc")).
             setTimeWindow(TimeWindow.newInstance(1., 2.)).

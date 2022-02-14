@@ -25,15 +25,15 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.util.RandomNumberGeneration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Collection;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public abstract class AbstractRuinStrategy implements RuinStrategy {
 
-    private final static Logger logger = LoggerFactory.getLogger(AbstractRuinStrategy.class);
+    private final static Logger logger = Logger.getLogger(AbstractRuinStrategy.class.getName());
 
     private RuinListeners ruinListeners;
 
@@ -64,7 +64,6 @@ public abstract class AbstractRuinStrategy implements RuinStrategy {
     public Collection<Job> ruin(Collection<VehicleRoute> vehicleRoutes) {
         ruinListeners.ruinStarts(vehicleRoutes);
         Collection<Job> unassigned = ruinRoutes(vehicleRoutes);
-        logger.trace("ruin: [ruined={}]", unassigned.size());
         ruinListeners.ruinEnds(vehicleRoutes, unassigned);
         return unassigned;
     }
@@ -104,7 +103,6 @@ public abstract class AbstractRuinStrategy implements RuinStrategy {
         if (jobIsInitial(job)) return false;
         boolean removed = route.getTourActivities().removeJob(job);
         if (removed) {
-            logger.trace("ruin: {}", job.getId());
             ruinListeners.removed(job, route);
             return true;
         }

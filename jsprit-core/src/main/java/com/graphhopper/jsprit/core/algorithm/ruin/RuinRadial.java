@@ -22,10 +22,10 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.util.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.*;
+import java.util.logging.Logger;
 
 
 /**
@@ -37,7 +37,7 @@ import java.util.*;
  */
 public final class RuinRadial extends AbstractRuinStrategy {
 
-    private Logger logger = LoggerFactory.getLogger(RuinRadial.class);
+    private Logger logger = Logger.getLogger(RuinRadial.class.getName());
 
     private VehicleRoutingProblem vrp;
 
@@ -60,7 +60,7 @@ public final class RuinRadial extends AbstractRuinStrategy {
         JobNeighborhoodsImplWithCapRestriction jobNeighborhoodsImpl = new JobNeighborhoodsImplWithCapRestriction(vrp, jobDistance, noJobsToMemorize);
         jobNeighborhoodsImpl.initialise();
         jobNeighborhoods = jobNeighborhoodsImpl;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     public RuinRadial(VehicleRoutingProblem vrp, int noJobs2beRemoved, JobDistance jobDistance) {
@@ -71,7 +71,7 @@ public final class RuinRadial extends AbstractRuinStrategy {
         JobNeighborhoodsImplWithCapRestriction jobNeighborhoodsImpl = new JobNeighborhoodsImplWithCapRestriction(vrp, jobDistance, noJobsToMemorize);
         jobNeighborhoodsImpl.initialise();
         jobNeighborhoods = jobNeighborhoodsImpl;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     public RuinRadial(VehicleRoutingProblem vrp, int noJobs2beRemoved, JobNeighborhoods neighborhoods) {
@@ -80,7 +80,7 @@ public final class RuinRadial extends AbstractRuinStrategy {
         noJobsToMemorize = noJobs2beRemoved;
         ruinShareFactory = () -> noJobsToMemorize;
         jobNeighborhoods = neighborhoods;
-        logger.debug("initialise {}", this);
+        logger.info("initialise " + this);
     }
 
     @Override
