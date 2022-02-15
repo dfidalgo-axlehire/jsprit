@@ -31,13 +31,14 @@ import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.GreatCircleCosts;
 import com.graphhopper.jsprit.core.util.Solutions;
 import com.graphhopper.jsprit.core.util.TestUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class OpenRoutesTest {
 
@@ -114,7 +115,7 @@ public class OpenRoutesTest {
 
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
-        Assert.assertEquals(10., Solutions.bestOf(solutions).getCost(), 0.01);
+        assertEquals(10., Solutions.bestOf(solutions).getCost(), 0.01);
 
     }
 
@@ -134,7 +135,7 @@ public class OpenRoutesTest {
 
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
-        Assert.assertEquals(5., Solutions.bestOf(solutions).getCost(), 0.01);
+        assertEquals(5., Solutions.bestOf(solutions).getCost(), 0.01);
 
     }
 

@@ -23,11 +23,11 @@ import com.graphhopper.jsprit.core.problem.job.Shipment;
 import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.CrowFlyCosts;
 import com.graphhopper.jsprit.core.util.Locations;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class AverageJobDistanceTest {
@@ -35,7 +35,7 @@ public class AverageJobDistanceTest {
 
     private CrowFlyCosts routingCosts;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         Locations locations = new Locations() {
 

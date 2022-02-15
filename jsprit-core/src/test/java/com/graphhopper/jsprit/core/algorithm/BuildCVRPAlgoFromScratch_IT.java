@@ -37,13 +37,12 @@ import com.graphhopper.jsprit.core.problem.vehicle.InfiniteFleetManagerFactory;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleFleetManager;
 import com.graphhopper.jsprit.core.util.ChristofidesReader;
 import com.graphhopper.jsprit.core.util.Solutions;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class BuildCVRPAlgoFromScratch_IT {
@@ -52,7 +51,7 @@ public class BuildCVRPAlgoFromScratch_IT {
 
     VehicleRoutingAlgorithm vra;
 
-    @Before
+    @BeforeEach
     public void setup() {
         VehicleRoutingProblem.Builder builder = VehicleRoutingProblem.Builder.newInstance();
         new ChristofidesReader(builder).read(getClass().getResourceAsStream("vrpnc1.txt"));

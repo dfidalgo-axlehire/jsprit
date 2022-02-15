@@ -31,8 +31,10 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.util.Solutions;
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Created by schroeder on 08/01/16.
@@ -94,7 +96,7 @@ public class IgnoreBreakTimeWindowTest {
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
 
 
-        Assert.assertTrue(breakShouldBeTime(solution));
+        assertTrue(breakShouldBeTime(solution));
     }
 
     private boolean breakShouldBeTime(VehicleRoutingProblemSolution solution) {

@@ -17,7 +17,8 @@
  */
 package com.graphhopper.jsprit.core.problem.vehicle;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class FiniteVehicleFleetManagerFactoryTest {
 

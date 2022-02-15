@@ -26,14 +26,14 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests skill updater
@@ -44,7 +44,7 @@ public class UpdateRequiredSkillsTest {
 
     private StateManager stateManager;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         VehicleType type = VehicleTypeImpl.Builder.newInstance("t").build();
         VehicleImpl vehicle = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance("start")).setType(type).build();
@@ -64,7 +64,7 @@ public class UpdateRequiredSkillsTest {
     public void whenUpdatingRoute_skillsAtRouteLevelShouldContainAllSkills() {
         Skills skills = stateManager.getRouteState(route, InternalStates.SKILLS, Skills.class);
         assertNotNull(skills);
-        Assert.assertEquals(5, skills.values().size());
+        assertEquals(5, skills.values().size());
         assertTrue(skills.containsSkill("skill1"));
         assertTrue(skills.containsSkill("skill2"));
         assertTrue(skills.containsSkill("skill3"));

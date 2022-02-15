@@ -23,13 +23,13 @@ import com.graphhopper.jsprit.core.algorithm.ruin.RuinStrategy;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -49,7 +49,7 @@ public class RuinAndRecreateModuleTest {
         }
         VehicleRoutingProblemSolution previousSolution = new VehicleRoutingProblemSolution(routes, unassigned, 0);
         VehicleRoutingProblemSolution newSolution = module.runAndGetSolution(previousSolution);
-        Assert.assertEquals(0, newSolution.getUnassignedJobs().size());
+        assertEquals(0, newSolution.getUnassignedJobs().size());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class RuinAndRecreateModuleTest {
         }
         VehicleRoutingProblemSolution previousSolution = new VehicleRoutingProblemSolution(routes, unassigned, 0);
         VehicleRoutingProblemSolution newSolution = module.runAndGetSolution(previousSolution);
-        Assert.assertEquals(15, newSolution.getUnassignedJobs().size());
+        assertEquals(15, newSolution.getUnassignedJobs().size());
     }
 
     @Test
@@ -87,6 +87,6 @@ public class RuinAndRecreateModuleTest {
         }
         VehicleRoutingProblemSolution previousSolution = new VehicleRoutingProblemSolution(routes, unassigned, 0);
         VehicleRoutingProblemSolution newSolution = module.runAndGetSolution(previousSolution);
-        Assert.assertEquals(10, newSolution.getUnassignedJobs().size());
+        assertEquals(10, newSolution.getUnassignedJobs().size());
     }
 }

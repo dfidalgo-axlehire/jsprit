@@ -24,11 +24,11 @@ import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 public class JobInsertionContextTest {
@@ -45,7 +45,7 @@ public class JobInsertionContextTest {
 
     JobInsertionContext context;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         route = mock(VehicleRoute.class);
         job = mock(Job.class);
@@ -56,8 +56,7 @@ public class JobInsertionContextTest {
     }
 
     @Test
-    public void routeShouldBeAssigned() {
-        assertEquals(route, context.getRoute());
+    public void routeShouldBeAssigned() { assertEquals(route, context.getRoute());
     }
 
     @Test

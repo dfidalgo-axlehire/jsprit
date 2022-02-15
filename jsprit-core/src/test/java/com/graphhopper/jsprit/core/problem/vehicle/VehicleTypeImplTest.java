@@ -17,19 +17,29 @@
  */
 package com.graphhopper.jsprit.core.problem.vehicle;
 
-import org.junit.Test;
+
+
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class VehicleTypeImplTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenTypeHasNegativeCapacityVal_throwIllegalStateExpception() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("t").addCapacityDimension(0, -10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("t").addCapacityDimension(0, -10).build();
+        });
     }
 
     @Test
@@ -81,16 +91,20 @@ public class VehicleTypeImplTest {
         assertEquals(0, type.getCapacityDimensions().get(0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenBuildingTypeWithCapSmallerThanZero_throwIllegalStateException() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("foo").addCapacityDimension(0, -10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("foo").addCapacityDimension(0, -10).build();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenBuildingTypeWithNullId_throwIllegalStateException() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance(null).addCapacityDimension(0, 10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance(null).addCapacityDimension(0, 10).build();
+        });
     }
 
 
@@ -101,16 +115,20 @@ public class VehicleTypeImplTest {
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenMaxVelocitySmallerThanZero_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setMaxVelocity(-10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setMaxVelocity(-10).build();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenFixedCostsSmallerThanZero_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setFixedCost(-10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setFixedCost(-10).build();
+        });
     }
 
     public void whenSettingFixedCosts_itShouldBeSetCorrectly() {
@@ -118,10 +136,12 @@ public class VehicleTypeImplTest {
         assertEquals(10.0, type.getVehicleCostParams().fix, 0.0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenPerDistanceCostsSmallerThanZero_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setCostPerDistance(-10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setCostPerDistance(-10).build();
+        });
     }
 
     @Test
@@ -130,10 +150,12 @@ public class VehicleTypeImplTest {
         assertEquals(10.0, type.getVehicleCostParams().perDistanceUnit, 0.0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenPerTimeCostsSmallerThanZero_itShouldThrowException() {
-        @SuppressWarnings("unused")
-        VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setCostPerTime(-10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            VehicleTypeImpl type = VehicleTypeImpl.Builder.newInstance("type").setCostPerTime(-10).build();
+        });
     }
 
 

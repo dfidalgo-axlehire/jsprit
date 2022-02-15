@@ -19,13 +19,16 @@
 package com.graphhopper.jsprit.core.problem;
 
 import com.graphhopper.jsprit.core.util.Coordinate;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Created by schroeder on 16.12.14.
@@ -35,62 +38,66 @@ public class LocationTest {
     @Test
     public void whenIndexSet_buildLocation() {
         Location l = Location.Builder.newInstance().setIndex(1).build();
-        Assert.assertEquals(1, l.getIndex());
-        Assert.assertTrue(true);
+        assertEquals(1, l.getIndex());
+        assertTrue(true);
     }
 
     @Test
     public void whenNameSet_buildLocation() {
         Location l = Location.Builder.newInstance().setName("mystreet 6a").setIndex(1).build();
-        Assert.assertEquals("mystreet 6a", l.getName());
+        assertEquals("mystreet 6a", l.getName());
     }
 
     @Test
     public void whenIndexSetWitFactory_returnCorrectLocation() {
         Location l = Location.newInstance(1);
-        Assert.assertEquals(1, l.getIndex());
-        Assert.assertTrue(true);
+        assertEquals(1, l.getIndex());
+        assertTrue(true);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenIndexSmallerZero_throwException() {
-        Location l = Location.Builder.newInstance().setIndex(-1).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Location l = Location.Builder.newInstance().setIndex(-1).build();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenCoordinateAndIdAndIndexNotSet_throwException() {
-        Location l = Location.Builder.newInstance().build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Location l = Location.Builder.newInstance().build();
+        });
     }
 
     @Test
     public void whenIdSet_build() {
         Location l = Location.Builder.newInstance().setId("id").build();
-        Assert.assertEquals("id", l.getId());
-        Assert.assertTrue(true);
+        assertEquals("id", l.getId());
+        assertTrue(true);
     }
 
     @Test
     public void whenIdSetWithFactory_returnCorrectLocation() {
         Location l = Location.newInstance("id");
-        Assert.assertEquals("id", l.getId());
-        Assert.assertTrue(true);
+        assertEquals("id", l.getId());
+        assertTrue(true);
     }
 
     @Test
     public void whenCoordinateSet_build() {
         Location l = Location.Builder.newInstance().setCoordinate(Coordinate.newInstance(10, 20)).build();
-        Assert.assertEquals(10., l.getCoordinate().getX(), 0.001);
-        Assert.assertEquals(20., l.getCoordinate().getY(), 0.001);
-        Assert.assertTrue(true);
+        assertEquals(10., l.getCoordinate().getX(), 0.001);
+        assertEquals(20., l.getCoordinate().getY(), 0.001);
+        assertTrue(true);
     }
 
     @Test
     public void whenCoordinateSetWithFactory_returnCorrectLocation() {
         //        Location l = Location.Builder.newInstance().setCoordinate(Coordinate.newInstance(10,20)).build();
         Location l = Location.newInstance(10, 20);
-        Assert.assertEquals(10., l.getCoordinate().getX(), 0.001);
-        Assert.assertEquals(20., l.getCoordinate().getY(), 0.001);
-        Assert.assertTrue(true);
+        assertEquals(10., l.getCoordinate().getX(), 0.001);
+        assertEquals(20., l.getCoordinate().getY(), 0.001);
+        assertTrue(true);
     }
 
 

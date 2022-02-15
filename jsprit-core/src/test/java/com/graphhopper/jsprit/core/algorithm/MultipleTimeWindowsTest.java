@@ -25,8 +25,10 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.util.Solutions;
-import junit.framework.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Created by schroeder on 26/05/15.
@@ -49,7 +51,7 @@ public class MultipleTimeWindowsTest {
         algorithm.setMaxIterations(100);
         VehicleRoutingProblemSolution solution = Solutions.bestOf(algorithm.searchSolutions());
 
-        Assert.assertEquals(1,solution.getUnassignedJobs().size());
+        assertEquals(1,solution.getUnassignedJobs().size());
     }
 
     @Test
@@ -72,8 +74,8 @@ public class MultipleTimeWindowsTest {
         algorithm.setMaxIterations(100);
         VehicleRoutingProblemSolution solution = Solutions.bestOf(algorithm.searchSolutions());
 
-        Assert.assertEquals(0,solution.getUnassignedJobs().size());
-        Assert.assertEquals(2, solution.getRoutes().size());
+        assertEquals(0,solution.getUnassignedJobs().size());
+        assertEquals(2, solution.getRoutes().size());
     }
 
     @Test
@@ -92,6 +94,6 @@ public class MultipleTimeWindowsTest {
         algorithm.setMaxIterations(100);
         VehicleRoutingProblemSolution solution = Solutions.bestOf(algorithm.searchSolutions());
 
-        Assert.assertEquals(0,solution.getUnassignedJobs().size());
+        assertEquals(0,solution.getUnassignedJobs().size());
     }
 }

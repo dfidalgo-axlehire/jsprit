@@ -18,7 +18,14 @@
 
 package com.graphhopper.jsprit.core.algorithm;
 
-import com.graphhopper.jsprit.core.algorithm.state.*;
+import com.graphhopper.jsprit.core.algorithm.state.StateManager;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateActivityNextLocations;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateActivityPrevLocations;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateActivityTimes;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateEndLocationIfRouteIsOpen;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateFutureWaitingTimes;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateVariableCosts;
+import com.graphhopper.jsprit.core.algorithm.state.UpdateVehicleDependentPracticalTimeWindows;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.constraint.ConstraintManager;
 import com.graphhopper.jsprit.core.problem.constraint.SwitchNotFeasible;
@@ -28,7 +35,10 @@ import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeKey;
 import com.graphhopper.jsprit.core.util.ActivityTimeTracker;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by schroeder on 02/08/16.

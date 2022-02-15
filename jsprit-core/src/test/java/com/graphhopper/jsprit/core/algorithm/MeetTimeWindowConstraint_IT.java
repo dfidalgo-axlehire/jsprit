@@ -35,9 +35,8 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.util.FastVehicleRoutingTransportCostsMatrix;
 import com.graphhopper.jsprit.core.util.Solutions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,14 +45,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class MeetTimeWindowConstraint_IT {
 
     VehicleRoutingProblem vrp;
 
-    @Before
+    @BeforeEach
     public void doBefore(){
         VehicleType type1 = VehicleTypeImpl.Builder.newInstance("5").build();
         VehicleType type2 = VehicleTypeImpl.Builder.newInstance("3.5").build();
@@ -74,7 +74,7 @@ public class MeetTimeWindowConstraint_IT {
         VehicleRoutingAlgorithm vra = Jsprit.createAlgorithm(vrp);
         vra.setMaxIterations(100);
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
-        Assert.assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
+        assertEquals(2, Solutions.bestOf(solutions).getRoutes().size());
     }
 
     @Test

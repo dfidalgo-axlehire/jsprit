@@ -30,17 +30,18 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.util.Solutions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeactivateTimeWindowsTest {
 
     VehicleRoutingProblem vrp;
 
-    @Before
+    @BeforeEach
     public void doBefore(){
         Service service = Service.Builder.newInstance("s").setLocation(Location.newInstance(20, 0))
             .setTimeWindow(TimeWindow.newInstance(40, 50)).build();
@@ -56,7 +57,7 @@ public class DeactivateTimeWindowsTest {
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
         VehicleRoute route = Solutions.bestOf(solutions).getRoutes().iterator().next();
-        Assert.assertEquals(40., route.getActivities().get(0).getEndTime(), 0.01);
+        assertEquals(40., route.getActivities().get(0).getEndTime(), 0.01);
     }
 
     @Test
@@ -72,6 +73,6 @@ public class DeactivateTimeWindowsTest {
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
         VehicleRoute route = Solutions.bestOf(solutions).getRoutes().iterator().next();
-        Assert.assertEquals(40., route.getActivities().get(0).getEndTime(), 0.01);
+        assertEquals(40., route.getActivities().get(0).getEndTime(), 0.01);
     }
 }

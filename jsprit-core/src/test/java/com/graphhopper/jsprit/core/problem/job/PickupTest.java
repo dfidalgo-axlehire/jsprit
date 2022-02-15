@@ -18,19 +18,25 @@
 package com.graphhopper.jsprit.core.problem.job;
 
 import com.graphhopper.jsprit.core.problem.Location;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class PickupTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenNeitherLocationIdNorCoordIsSet_itThrowsException() {
-        Pickup.Builder.newInstance("p").build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Pickup.Builder.newInstance("p").build();
+        });
     }
 
     @Test
@@ -98,14 +104,14 @@ public class PickupTest {
     public void whenSettingPriorities_itShouldBeSetCorrectly(){
         Pickup s = Pickup.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .setPriority(3).build();
-        Assert.assertEquals(3, s.getPriority());
+        assertEquals(3, s.getPriority());
     }
 
     @Test
     public void whenNotSettingPriorities_defaultShouldBe(){
         Pickup s = Pickup.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .build();
-        Assert.assertEquals(2, s.getPriority());
+        assertEquals(2, s.getPriority());
     }
 
     @Test
@@ -120,18 +126,20 @@ public class PickupTest {
         assertNull(three.getUserData());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void whenAddingMaxTimeInVehicle_itShouldThrowEx(){
-        Pickup s = Pickup.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
-            .setMaxTimeInVehicle(10)
-            .build();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            Pickup s = Pickup.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
+                .setMaxTimeInVehicle(10)
+                .build();
+        });
     }
 
     @Test
     public void whenNotAddingMaxTimeInVehicle_itShouldBeDefault(){
         Pickup s = Pickup.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .build();
-        Assert.assertEquals(Double.MAX_VALUE, s.getMaxTimeInVehicle(),0.001);
+        assertEquals(Double.MAX_VALUE, s.getMaxTimeInVehicle(),0.001);
     }
 
 }

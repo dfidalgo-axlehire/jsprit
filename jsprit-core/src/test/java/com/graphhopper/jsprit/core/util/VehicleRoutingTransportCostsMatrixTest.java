@@ -21,9 +21,10 @@ import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -91,12 +92,14 @@ public class VehicleRoutingTransportCostsMatrixTest {
         return Location.Builder.newInstance().setId(s).build();
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void whenRequestingRelationThatDoesNotExist_itShouldThrowException() {
-        VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
-        matrixBuilder.addTransportDistance("1", "2", 2.);
-        VehicleRoutingTransportCostsMatrix matrix = matrixBuilder.build();
-        matrix.getTransportCost(loc("2"), loc("1"), 0.0, null, null);
+        assertThrows(IllegalStateException.class, () -> {
+            VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
+            matrixBuilder.addTransportDistance("1", "2", 2.);
+            VehicleRoutingTransportCostsMatrix matrix = matrixBuilder.build();
+            matrix.getTransportCost(loc("2"), loc("1"), 0.0, null, null);
+        });
     }
 
     @Test
@@ -135,12 +138,14 @@ public class VehicleRoutingTransportCostsMatrixTest {
         assertEquals(2., matrix.getTransportTime(loc("1"), loc("2"), 0.0, null, null), 0.1);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void whenRequestingTimeOfRelationThatDoesNotExist_itShouldThrowException() {
-        VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
-        matrixBuilder.addTransportTime("1", "2", 2.);
-        VehicleRoutingTransportCostsMatrix matrix = matrixBuilder.build();
-        matrix.getTransportTime(loc("2"), loc("1"), 0.0, null, null);
+        assertThrows(IllegalStateException.class, () -> {
+            VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
+            matrixBuilder.addTransportTime("1", "2", 2.);
+            VehicleRoutingTransportCostsMatrix matrix = matrixBuilder.build();
+            matrix.getTransportTime(loc("2"), loc("1"), 0.0, null, null);
+        });
     }
 
     @Test

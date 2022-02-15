@@ -18,31 +18,40 @@
 
 package com.graphhopper.jsprit.core.problem.solution.route.activity;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Created by schroeder on 18/12/15.
  */
 public class TimeWindowsImplTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void overlappingTW_shouldThrowException(){
-        TimeWindowsImpl tws = new TimeWindowsImpl();
-        tws.add(TimeWindow.newInstance(50, 100));
-        tws.add(TimeWindow.newInstance(90,150));
+        assertThrows(IllegalArgumentException.class, () -> {
+            TimeWindowsImpl tws = new TimeWindowsImpl();
+            tws.add(TimeWindow.newInstance(50, 100));
+            tws.add(TimeWindow.newInstance(90, 150));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void overlappingTW2_shouldThrowException(){
-        TimeWindowsImpl tws = new TimeWindowsImpl();
-        tws.add(TimeWindow.newInstance(50, 100));
-        tws.add(TimeWindow.newInstance(40,150));
+        assertThrows(IllegalArgumentException.class, () -> {
+            TimeWindowsImpl tws = new TimeWindowsImpl();
+            tws.add(TimeWindow.newInstance(50, 100));
+            tws.add(TimeWindow.newInstance(40, 150));
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void overlappingTW3_shouldThrowException(){
-        TimeWindowsImpl tws = new TimeWindowsImpl();
-        tws.add(TimeWindow.newInstance(50, 100));
-        tws.add(TimeWindow.newInstance(50, 100));
+        assertThrows(IllegalArgumentException.class, () -> {
+            TimeWindowsImpl tws = new TimeWindowsImpl();
+            tws.add(TimeWindow.newInstance(50, 100));
+            tws.add(TimeWindow.newInstance(50, 100));
+        });
     }
 }

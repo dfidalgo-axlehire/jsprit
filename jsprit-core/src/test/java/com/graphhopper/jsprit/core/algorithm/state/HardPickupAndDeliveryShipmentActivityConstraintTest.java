@@ -31,10 +31,10 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.PickupShipmen
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class HardPickupAndDeliveryShipmentActivityConstraintTest {
@@ -55,7 +55,7 @@ public class HardPickupAndDeliveryShipmentActivityConstraintTest {
 
     VehicleRoutingProblem vrp;
 
-    @Before
+    @BeforeEach
     public void doBefore() {
         s1 = Service.Builder.newInstance("s1").setLocation(Location.newInstance("loc")).build();
         s2 = Service.Builder.newInstance("s2").setLocation(Location.newInstance("loc")).build();

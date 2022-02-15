@@ -19,17 +19,23 @@ package com.graphhopper.jsprit.core.problem.job;
 
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class ServiceTest {
 
@@ -60,10 +66,15 @@ public class ServiceTest {
         assertTrue(serviceSet.isEmpty());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenCapacityDimValueIsNegative_throwIllegalStateExpception() {
-        @SuppressWarnings("unused")
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("foo")).addSizeDimension(0, -10).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Service s = Service.Builder.newInstance("s")
+                                       .setLocation(Location.newInstance("foo"))
+                                       .addSizeDimension(0, -10)
+                                       .build();
+        });
     }
 
     @Test
@@ -133,10 +144,15 @@ public class ServiceTest {
 //        Service s = Service.Builder.newInstance("s").build();
 //    }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenServiceTimeSmallerZero_throwIllegalStateException() {
-        @SuppressWarnings("unused")
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc")).setServiceTime(-1).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Service s = Service.Builder.newInstance("s")
+                                       .setLocation(Location.newInstance("loc"))
+                                       .setServiceTime(-1)
+                                       .build();
+        });
     }
 
     @Test
@@ -145,10 +161,15 @@ public class ServiceTest {
         assertEquals(1.0, s.getServiceDuration(), 0.01);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenTimeWindowIsNull_throwException() {
-        @SuppressWarnings("unused")
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc")).setTimeWindow(null).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            @SuppressWarnings("unused")
+            Service s = Service.Builder.newInstance("s")
+                                       .setLocation(Location.newInstance("loc"))
+                                       .setTimeWindow(null)
+                                       .build();
+        });
     }
 
     @Test
@@ -222,76 +243,86 @@ public class ServiceTest {
         assertEquals(2, s.getTimeWindows().size());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenMultipleTWOverlap_throwEx() {
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
-            .addTimeWindow(TimeWindow.newInstance(0., 10.))
-            .addTimeWindow(TimeWindow.newInstance(5., 30.))
-            .setName("name").build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
+                                       .addTimeWindow(TimeWindow.newInstance(0., 10.))
+                                       .addTimeWindow(TimeWindow.newInstance(5., 30.))
+                                       .setName("name").build();
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenMultipleTWOverlap2_throwEx() {
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
-            .addTimeWindow(TimeWindow.newInstance(20., 30.))
-            .addTimeWindow(TimeWindow.newInstance(0., 25.))
-            .setName("name").build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
+                                       .addTimeWindow(TimeWindow.newInstance(20., 30.))
+                                       .addTimeWindow(TimeWindow.newInstance(0., 25.))
+                                       .setName("name").build();
+        });
     }
 
     @Test
     public void whenSettingPriorities_itShouldBeSetCorrectly(){
         Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .setPriority(1).build();
-        Assert.assertEquals(1, s.getPriority());
+        assertEquals(1, s.getPriority());
     }
 
     @Test
     public void whenSettingPriorities_itShouldBeSetCorrectly2(){
         Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .setPriority(3).build();
-        Assert.assertEquals(3, s.getPriority());
+        assertEquals(3, s.getPriority());
     }
 
     @Test
     public void whenSettingPriorities_itShouldBeSetCorrectly3() {
         Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .setPriority(10).build();
-        Assert.assertEquals(10, s.getPriority());
+        assertEquals(10, s.getPriority());
     }
 
     @Test
     public void whenNotSettingPriorities_defaultShouldBe2(){
         Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .build();
-        Assert.assertEquals(2, s.getPriority());
+        assertEquals(2, s.getPriority());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenSettingIncorrectPriorities_itShouldThrowException(){
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
-            .setPriority(30).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
+                .setPriority(30).build();
+        });
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenSettingIncorrectPriorities_itShouldThrowException2(){
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
-            .setPriority(0).build();
+        assertThrows(IllegalArgumentException.class, () -> {
+            Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
+                .setPriority(0).build();
+        });
 
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void whenAddingMaxTimeInVehicle_itShouldThrowEx(){
-        Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
-            .setMaxTimeInVehicle(10)
-            .build();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
+                .setMaxTimeInVehicle(10)
+                .build();
+        });
     }
 
     @Test
     public void whenNotAddingMaxTimeInVehicle_itShouldBeDefault(){
         Service s = Service.Builder.newInstance("s").setLocation(Location.newInstance("loc"))
             .build();
-        Assert.assertEquals(Double.MAX_VALUE, s.getMaxTimeInVehicle(),0.001);
+        assertEquals(Double.MAX_VALUE, s.getMaxTimeInVehicle(),0.001);
     }
 
 

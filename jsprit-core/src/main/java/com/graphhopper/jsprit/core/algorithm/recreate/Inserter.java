@@ -25,7 +25,11 @@ import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.job.Shipment;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
-import com.graphhopper.jsprit.core.problem.solution.route.activity.*;
+import com.graphhopper.jsprit.core.problem.solution.route.activity.DefaultShipmentActivityFactory;
+import com.graphhopper.jsprit.core.problem.solution.route.activity.DefaultTourActivityFactory;
+import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
+import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivityFactory;
+import com.graphhopper.jsprit.core.problem.solution.route.activity.TourShipmentActivityFactory;
 
 import java.util.List;
 
