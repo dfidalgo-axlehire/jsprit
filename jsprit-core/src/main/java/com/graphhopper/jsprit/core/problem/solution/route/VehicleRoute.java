@@ -41,6 +41,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourShipmentA
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -53,7 +54,7 @@ import java.util.Set;
  *
  * @author stefan
  */
-public class VehicleRoute {
+public class VehicleRoute implements Serializable {
 
     /**
      * Returns a deep copy of this vehicleRoute.

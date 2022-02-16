@@ -23,7 +23,9 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
-public class ActivityTimeTracker implements ActivityVisitor {
+import java.io.Serializable;
+
+public class ActivityTimeTracker implements ActivityVisitor, Serializable {
 
     public static enum ActivityPolicy {
 

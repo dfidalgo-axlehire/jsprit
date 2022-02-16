@@ -20,10 +20,12 @@ package com.graphhopper.jsprit.core.problem;
 
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
+
 /**
  * Created by schroeder on 14.07.14.
  */
-public abstract class AbstractActivity implements TourActivity {
+public abstract class AbstractActivity implements TourActivity, Serializable {
 
     private int index;
 

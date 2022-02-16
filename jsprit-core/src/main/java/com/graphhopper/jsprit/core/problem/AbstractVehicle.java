@@ -21,10 +21,12 @@ package com.graphhopper.jsprit.core.problem;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeKey;
 
+import java.io.Serializable;
+
 /**
  * AbstractVehicle to handle indeces of vehicles.
  */
-public abstract class AbstractVehicle implements Vehicle {
+public abstract class AbstractVehicle implements Vehicle, Serializable {
 
     public abstract static class AbstractTypeKey implements HasIndex {
 

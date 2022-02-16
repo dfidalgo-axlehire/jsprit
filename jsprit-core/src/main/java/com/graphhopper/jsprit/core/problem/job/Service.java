@@ -26,6 +26,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindows;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindowsImpl;
 import com.graphhopper.jsprit.core.util.Coordinate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,7 +42,7 @@ import java.util.List;
  *
  * @author schroeder
  */
-public class Service extends AbstractJob {
+public class Service extends AbstractJob implements Serializable {
 
 
 

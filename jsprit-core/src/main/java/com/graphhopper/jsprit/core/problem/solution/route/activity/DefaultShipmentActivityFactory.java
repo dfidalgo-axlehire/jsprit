@@ -20,7 +20,9 @@ package com.graphhopper.jsprit.core.problem.solution.route.activity;
 import com.graphhopper.jsprit.core.problem.AbstractActivity;
 import com.graphhopper.jsprit.core.problem.job.Shipment;
 
-public class DefaultShipmentActivityFactory implements TourShipmentActivityFactory {
+import java.io.Serializable;
+
+public class DefaultShipmentActivityFactory implements TourShipmentActivityFactory, Serializable {
 
     @Override
     public AbstractActivity createPickup(Shipment shipment) {

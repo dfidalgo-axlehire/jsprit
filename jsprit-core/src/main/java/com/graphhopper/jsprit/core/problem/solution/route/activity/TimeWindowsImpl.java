@@ -18,6 +18,7 @@
 
 package com.graphhopper.jsprit.core.problem.solution.route.activity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,7 +26,7 @@ import java.util.Collections;
 /**
  * Created by schroeder on 26/05/15.
  */
-public class TimeWindowsImpl implements TimeWindows {
+public class TimeWindowsImpl implements TimeWindows, Serializable {
 
     private Collection<TimeWindow> timeWindows = new ArrayList<TimeWindow>();
 

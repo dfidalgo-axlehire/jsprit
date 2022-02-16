@@ -17,6 +17,7 @@
  */
 package com.graphhopper.jsprit.core.problem;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -26,7 +27,7 @@ import java.util.Arrays;
  *
  * @author schroeder
  */
-public class Capacity {
+public class Capacity implements Serializable {
 
     /**
      * Adds up two capacities, i.e. sums up each and every capacity dimension, and returns the resulting Capacity.

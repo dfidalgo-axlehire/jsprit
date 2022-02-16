@@ -22,6 +22,8 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
+
 /**
  * Updates load at activity level.
  * <p>
@@ -32,7 +34,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
  *
  * @author stefan
  */
-class UpdateMaxCapacityUtilisationAtRoute implements ActivityVisitor, StateUpdater {
+class UpdateMaxCapacityUtilisationAtRoute implements ActivityVisitor, StateUpdater, Serializable {
 
     private StateManager stateManager;
 

@@ -23,7 +23,9 @@ import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.job.Shipment;
 
-public final class DeliverShipment extends AbstractActivity implements DeliveryActivity {
+import java.io.Serializable;
+
+public final class DeliverShipment extends AbstractActivity implements DeliveryActivity, Serializable {
 
     private Shipment shipment;
 

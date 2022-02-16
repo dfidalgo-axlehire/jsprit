@@ -23,7 +23,9 @@ import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Pickup;
 import com.graphhopper.jsprit.core.problem.job.Service;
 
-public final class PickupService extends AbstractActivity implements PickupActivity {
+import java.io.Serializable;
+
+public final class PickupService extends AbstractActivity implements PickupActivity, Serializable {
 
     private Service pickup;
 

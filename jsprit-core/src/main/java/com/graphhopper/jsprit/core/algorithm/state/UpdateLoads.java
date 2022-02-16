@@ -29,6 +29,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 
@@ -42,7 +43,7 @@ import java.util.Collection;
  *
  * @author stefan
  */
-class UpdateLoads implements ActivityVisitor, StateUpdater, InsertionStartsListener, JobInsertedListener {
+class UpdateLoads implements ActivityVisitor, StateUpdater, InsertionStartsListener, JobInsertedListener, Serializable {
 
     private StateManager stateManager;
 

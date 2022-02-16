@@ -22,6 +22,7 @@ import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.Skills;
 import com.graphhopper.jsprit.core.problem.job.Break;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 
@@ -31,7 +32,7 @@ import java.util.Collection;
  * @author stefan schroeder
  */
 
-public class VehicleImpl extends AbstractVehicle {
+public class VehicleImpl extends AbstractVehicle implements Serializable {
 
 
     /**

@@ -24,6 +24,7 @@ import com.graphhopper.jsprit.core.problem.Skills;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindowsImpl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -46,7 +47,7 @@ import java.util.List;
  *
  * @author schroeder
  */
-public class Shipment extends AbstractJob {
+public class Shipment extends AbstractJob implements Serializable {
 
 
     /**

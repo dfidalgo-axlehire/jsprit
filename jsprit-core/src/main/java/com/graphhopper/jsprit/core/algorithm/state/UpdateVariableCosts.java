@@ -25,6 +25,8 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisit
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.util.ActivityTimeTracker;
 
+import java.io.Serializable;
+
 
 /**
  * Updates total costs (i.e. transport and activity costs) at route and activity level.
@@ -32,7 +34,7 @@ import com.graphhopper.jsprit.core.util.ActivityTimeTracker;
  * <p>Thus it modifies <code>stateManager.getRouteState(route, StateTypes.COSTS)</code> and <br>
  * <code>stateManager.getActivityState(activity, StateTypes.COSTS)</code>
  */
-public class UpdateVariableCosts implements ActivityVisitor, StateUpdater {
+public class UpdateVariableCosts implements ActivityVisitor, StateUpdater, Serializable {
 
     private VehicleRoutingActivityCosts activityCost;
 

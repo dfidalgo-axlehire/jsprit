@@ -18,6 +18,7 @@
 package com.graphhopper.jsprit.core.util;
 
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
+import org.redisson.api.RList;
 
 import java.util.Collection;
 
@@ -25,6 +26,15 @@ import java.util.Collection;
 public class Solutions {
 
     public static VehicleRoutingProblemSolution bestOf(Collection<VehicleRoutingProblemSolution> solutions) {
+        VehicleRoutingProblemSolution best = null;
+        for (VehicleRoutingProblemSolution s : solutions) {
+            if (best == null) best = s;
+            else if (s.getCost() < best.getCost()) best = s;
+        }
+        return best;
+    }
+
+    public static VehicleRoutingProblemSolution bestOf(RList<VehicleRoutingProblemSolution> solutions) {
         VehicleRoutingProblemSolution best = null;
         for (VehicleRoutingProblemSolution s : solutions) {
             if (best == null) best = s;

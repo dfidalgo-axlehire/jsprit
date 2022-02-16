@@ -23,12 +23,14 @@ import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.Skills;
 import com.graphhopper.jsprit.core.problem.job.Break;
 
+import java.io.Serializable;
+
 /**
  * Basic interface for vehicle-data.
  *
  * @author schroeder
  */
-public interface Vehicle extends HasId, HasIndex {
+public interface Vehicle extends HasId, HasIndex, Serializable {
 
     /**
      * Returns the earliest departure of vehicle which should be the lower bound of this vehicle's departure times.

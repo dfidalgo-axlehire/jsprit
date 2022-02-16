@@ -18,12 +18,14 @@
 package com.graphhopper.jsprit.core.problem.job;
 
 
+import java.io.Serializable;
+
 /**
  * Delivery extends Service and is intended to model a Service where smth is UNLOADED (i.e. delivered) from a transport unit.
  *
  * @author schroeder
  */
-public class Delivery extends Service {
+public class Delivery extends Service implements Serializable {
 
     public static class Builder extends Service.Builder<Delivery> {
 

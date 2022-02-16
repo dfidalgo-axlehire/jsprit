@@ -21,9 +21,10 @@ package com.graphhopper.jsprit.core.problem.job;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TimeWindow;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class Activity {
+public class Activity implements Serializable {
 
     public enum Type {
         PICKUP, DELIVERY, SERVICE, BREAK;

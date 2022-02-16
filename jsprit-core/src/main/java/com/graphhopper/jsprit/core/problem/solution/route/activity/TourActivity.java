@@ -22,6 +22,8 @@ import com.graphhopper.jsprit.core.problem.HasIndex;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Job;
 
+import java.io.Serializable;
+
 /**
  * Basic interface for tour-activities.
  * <p>
@@ -29,7 +31,7 @@ import com.graphhopper.jsprit.core.problem.job.Job;
  *
  * @author schroeder
  */
-public interface TourActivity extends HasIndex {
+public interface TourActivity extends HasIndex, Serializable {
 
     void setTheoreticalEarliestOperationStartTime(double earliest);
 

@@ -53,19 +53,19 @@ public class SchrimpfFactory {
         int radialShare = (int) (vrp.getJobs().size() * 0.3);
         int randomShare = (int) (vrp.getJobs().size() * 0.5);
         Jsprit.Builder builder = Jsprit.Builder.newInstance(vrp);
-        builder.setProperty(Jsprit.Parameter.THRESHOLD_ALPHA,"0.0");
-        builder.setProperty(Jsprit.Strategy.RADIAL_BEST, "0.5");
-        builder.setProperty(Jsprit.Strategy.RADIAL_REGRET, "0.0");
-        builder.setProperty(Jsprit.Strategy.RANDOM_BEST, "0.5");
-        builder.setProperty(Jsprit.Strategy.RANDOM_REGRET, "0.0");
-        builder.setProperty(Jsprit.Strategy.WORST_BEST, "0.0");
-        builder.setProperty(Jsprit.Strategy.WORST_REGRET, "0.0");
-        builder.setProperty(Jsprit.Strategy.CLUSTER_BEST, "0.0");
-        builder.setProperty(Jsprit.Strategy.CLUSTER_REGRET, "0.0");
-        builder.setProperty(Jsprit.Parameter.RADIAL_MIN_SHARE, String.valueOf(radialShare));
-        builder.setProperty(Jsprit.Parameter.RADIAL_MAX_SHARE, String.valueOf(radialShare));
-        builder.setProperty(Jsprit.Parameter.RANDOM_BEST_MIN_SHARE, String.valueOf(randomShare));
-        builder.setProperty(Jsprit.Parameter.RANDOM_BEST_MAX_SHARE, String.valueOf(randomShare));
+        builder.setProperty(Parameter.THRESHOLD_ALPHA,"0.0");
+        builder.setProperty(Strategy.RADIAL_BEST, "0.5");
+        builder.setProperty(Strategy.RADIAL_REGRET, "0.0");
+        builder.setProperty(Strategy.RANDOM_BEST, "0.5");
+        builder.setProperty(Strategy.RANDOM_REGRET, "0.0");
+        builder.setProperty(Strategy.WORST_BEST, "0.0");
+        builder.setProperty(Strategy.WORST_REGRET, "0.0");
+        builder.setProperty(Strategy.CLUSTER_BEST, "0.0");
+        builder.setProperty(Strategy.CLUSTER_REGRET, "0.0");
+        builder.setProperty(Parameter.RADIAL_MIN_SHARE, String.valueOf(radialShare));
+        builder.setProperty(Parameter.RADIAL_MAX_SHARE, String.valueOf(radialShare));
+        builder.setProperty(Parameter.RANDOM_BEST_MIN_SHARE, String.valueOf(randomShare));
+        builder.setProperty(Parameter.RANDOM_BEST_MAX_SHARE, String.valueOf(randomShare));
         return builder.buildAlgorithm();
     }
 

@@ -30,6 +30,7 @@ import com.graphhopper.jsprit.core.util.RandomNumberGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ import java.util.Random;
 
 public abstract class AbstractInsertionStrategy implements InsertionStrategy {
 
-    protected class Insertion {
+    protected class Insertion implements Serializable {
 
         private final VehicleRoute route;
 

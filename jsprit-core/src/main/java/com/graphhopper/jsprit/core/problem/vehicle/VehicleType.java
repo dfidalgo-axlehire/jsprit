@@ -19,12 +19,14 @@ package com.graphhopper.jsprit.core.problem.vehicle;
 
 import com.graphhopper.jsprit.core.problem.Capacity;
 
+import java.io.Serializable;
+
 /**
  * Basic interface for vehicle-type-data.
  *
  * @author schroeder
  */
-public interface VehicleType {
+public interface VehicleType extends Serializable {
 
     /**
      * Returns typeId.

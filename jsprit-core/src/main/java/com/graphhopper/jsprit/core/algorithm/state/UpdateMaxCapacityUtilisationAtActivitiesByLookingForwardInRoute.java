@@ -22,6 +22,8 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ReverseActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
+
 /**
  * A {@link com.graphhopper.jsprit.core.problem.solution.route.activity.ReverseActivityVisitor} that looks forward in the vehicle route and determines
  * the maximum capacity utilization (in terms of loads) at subsequent activities.
@@ -39,7 +41,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
  *
  * @author schroeder
  */
-class UpdateMaxCapacityUtilisationAtActivitiesByLookingForwardInRoute implements ReverseActivityVisitor, StateUpdater {
+class UpdateMaxCapacityUtilisationAtActivitiesByLookingForwardInRoute implements ReverseActivityVisitor, StateUpdater, Serializable {
 
     private StateManager stateManager;
 

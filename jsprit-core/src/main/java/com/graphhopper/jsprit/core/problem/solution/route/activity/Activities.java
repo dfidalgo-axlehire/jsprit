@@ -17,7 +17,9 @@
  */
 package com.graphhopper.jsprit.core.problem.solution.route.activity;
 
-class Activities {
+import java.io.Serializable;
+
+class Activities implements Serializable {
 
     public static String round(double time) {
         if (time == Double.MAX_VALUE) {

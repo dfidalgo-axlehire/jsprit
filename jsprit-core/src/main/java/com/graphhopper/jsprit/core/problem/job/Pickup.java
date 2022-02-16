@@ -18,12 +18,14 @@
 package com.graphhopper.jsprit.core.problem.job;
 
 
+import java.io.Serializable;
+
 /**
  * Pickup extends Service and is intended to model a Service where smth is LOADED (i.e. picked up) to a transport unit.
  *
  * @author schroeder
  */
-public class Pickup extends Service {
+public class Pickup extends Service implements Serializable {
 
     public static class Builder extends Service.Builder<Pickup> {
 

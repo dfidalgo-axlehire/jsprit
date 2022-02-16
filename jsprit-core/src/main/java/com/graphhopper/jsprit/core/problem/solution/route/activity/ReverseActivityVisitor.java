@@ -22,10 +22,10 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 
 public interface ReverseActivityVisitor {
 
-    public void begin(VehicleRoute route);
+    void begin(VehicleRoute route);
 
-    public void visit(TourActivity activity);
+    void visit(TourActivity activity);
 
-    public void finish();
+    void finish();
 
 }

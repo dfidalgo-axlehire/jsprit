@@ -20,11 +20,12 @@ package com.graphhopper.jsprit.core.problem.solution.route;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class RouteActivityVisitor implements RouteVisitor {
+public class RouteActivityVisitor implements RouteVisitor, Serializable {
 
     private Collection<ActivityVisitor> visitors = new ArrayList<ActivityVisitor>();
 

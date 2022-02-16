@@ -23,6 +23,6 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 
 public interface BeforeJobInsertionListener extends InsertionListener {
 
-    public void informBeforeJobInsertion(Job job, InsertionData data, VehicleRoute route);
+    void informBeforeJobInsertion(Job job, InsertionData data, VehicleRoute route);
 
 }

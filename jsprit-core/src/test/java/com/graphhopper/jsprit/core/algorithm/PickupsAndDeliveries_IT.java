@@ -18,28 +18,73 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.ParallelJsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.LiLimReader;
 import com.graphhopper.jsprit.core.util.Solutions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import redis.embedded.RedisServer;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PickupsAndDeliveries_IT {
 
+    private static RedisServer redisServer;
+    private static RedissonClient redissonClient;
+
+    @BeforeEach
+    public void setup() throws IOException {
+        redisServer = new RedisServer(6379);
+        redisServer.start();
+
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://localhost:6379");
+
+        redissonClient = Redisson.create(config);
+    }
+
     @Test
     public void whenSolvingLR101InstanceOfLiLim_solutionsMustNoBeWorseThan5PercentOfBestKnownSolution() {
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         new LiLimReader(vrpBuilder).read(getClass().getResourceAsStream("lr101.txt"));
         VehicleRoutingProblem vrp = vrpBuilder.build();
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.FAST_REGRET,"true").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.FAST_REGRET, "true").buildAlgorithm();
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
         assertEquals(1650.8, Solutions.bestOf(solutions).getCost(), 80.);
         assertEquals(19, Solutions.bestOf(solutions).getRoutes().size(), 1);
+    }
+
+    @Test
+    public void whenSolvingLR101InstanceOfLiLim_solutionsMustNoBeWorseThan5PercentOfBestKnownSolution_parallel() {
+        VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
+        new LiLimReader(vrpBuilder).read(getClass().getResourceAsStream("lr101.txt"));
+        VehicleRoutingProblem vrp = vrpBuilder.build();
+        ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp)
+                                                                    .addId(UUID.randomUUID().toString())
+                                                                    .addRedisson(redissonClient)
+                                                                    .setProperty(Parameter.FAST_REGRET, "true")
+                                                                    .buildAlgorithm();
+
+        Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
+        assertEquals(1650.8, Solutions.bestOf(solutions).getCost(), 80.);
+        assertEquals(19, Solutions.bestOf(solutions).getRoutes().size(), 1);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        redisServer.stop();
     }
 
 }

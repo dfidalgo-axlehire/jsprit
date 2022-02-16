@@ -24,6 +24,8 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisit
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.util.ActivityTimeTracker;
 
+import java.io.Serializable;
+
 
 /**
  * Updates arrival and end times of activities.
@@ -32,7 +34,7 @@ import com.graphhopper.jsprit.core.util.ActivityTimeTracker;
  *
  * @author stefan
  */
-public class UpdateActivityTimes implements ActivityVisitor, StateUpdater {
+public class UpdateActivityTimes implements ActivityVisitor, StateUpdater, Serializable {
 
     private ActivityTimeTracker timeTracker;
 

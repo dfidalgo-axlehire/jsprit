@@ -17,7 +17,9 @@
  */
 package com.graphhopper.jsprit.core.problem.vehicle;
 
-public interface VehicleFleetManagerFactory {
+import java.io.Serializable;
+
+public interface VehicleFleetManagerFactory extends Serializable {
 
     VehicleFleetManager createFleetManager();
 

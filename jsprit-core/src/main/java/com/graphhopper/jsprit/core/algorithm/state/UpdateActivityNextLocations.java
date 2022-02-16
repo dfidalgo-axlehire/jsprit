@@ -23,6 +23,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActWithoutStaticLocation;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 
@@ -33,7 +34,7 @@ import java.util.Iterator;
  *
  * @author stefan
  */
-public class UpdateActivityNextLocations implements RouteVisitor, StateUpdater {
+public class UpdateActivityNextLocations implements RouteVisitor, StateUpdater, Serializable {
 
     private Location lastLocation;
 

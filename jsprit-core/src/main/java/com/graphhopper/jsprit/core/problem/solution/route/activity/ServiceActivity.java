@@ -22,7 +22,9 @@ import com.graphhopper.jsprit.core.problem.Capacity;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Service;
 
-public class ServiceActivity extends AbstractActivity implements TourActivity.JobActivity {
+import java.io.Serializable;
+
+public class ServiceActivity extends AbstractActivity implements TourActivity.JobActivity, Serializable {
 
     public double arrTime;
 

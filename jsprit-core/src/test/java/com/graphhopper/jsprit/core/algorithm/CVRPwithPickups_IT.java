@@ -18,6 +18,7 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.ChristofidesReader;
@@ -37,7 +38,7 @@ public class CVRPwithPickups_IT {
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         new ChristofidesReader(vrpBuilder).setJobType(JobType.PICKUP).read(getClass().getResourceAsStream("vrpnc1.txt"));
         VehicleRoutingProblem vrp = vrpBuilder.build();
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.FAST_REGRET,"true").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.FAST_REGRET, "true").buildAlgorithm();
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
         assertEquals(530.0, Solutions.bestOf(solutions).getCost(), 50.0);
         assertEquals(5, Solutions.bestOf(solutions).getRoutes().size());

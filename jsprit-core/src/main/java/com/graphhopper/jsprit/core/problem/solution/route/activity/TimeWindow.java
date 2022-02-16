@@ -17,13 +17,15 @@
  */
 package com.graphhopper.jsprit.core.problem.solution.route.activity;
 
+import java.io.Serializable;
+
 /**
  * TimeWindow consists of a startTime and endTime.
  *
  * @author stefan schroeder
  */
 
-public class TimeWindow {
+public class TimeWindow implements Serializable {
 
     /**
      * Returns new instance of TimeWindow.

@@ -22,13 +22,15 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
+
 /**
  * Determines and memorizes the maximum capacity utilization at each activity by looking backward in route,
  * i.e. the maximum capacity utilization at previous activities.
  *
  * @author schroeder
  */
-class UpdateMaxCapacityUtilisationAtActivitiesByLookingBackwardInRoute implements ActivityVisitor, StateUpdater {
+class UpdateMaxCapacityUtilisationAtActivitiesByLookingBackwardInRoute implements ActivityVisitor, StateUpdater, Serializable {
 
     private StateManager stateManager;
 

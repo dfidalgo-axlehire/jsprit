@@ -39,6 +39,7 @@ import com.graphhopper.jsprit.core.util.Locations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -64,7 +65,7 @@ import java.util.Set;
  *
  * @author stefan schroeder
  */
-public class VehicleRoutingProblem {
+public class VehicleRoutingProblem implements Serializable {
 
 
     /**

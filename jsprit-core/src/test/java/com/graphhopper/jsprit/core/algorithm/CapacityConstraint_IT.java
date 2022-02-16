@@ -18,6 +18,7 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.analysis.SolutionAnalyser;
 import com.graphhopper.jsprit.core.problem.Capacity;
 import com.graphhopper.jsprit.core.problem.Location;
@@ -86,7 +87,7 @@ public class CapacityConstraint_IT {
         VehicleRoutingProblem vrp = vrpBuilder.build();
 
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Jsprit.Parameter.VEHICLE_SWITCH, "true").buildAlgorithm();
+                                                    .setProperty(Parameter.VEHICLE_SWITCH, "true").buildAlgorithm();
         vra.setMaxIterations(2000);
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
 

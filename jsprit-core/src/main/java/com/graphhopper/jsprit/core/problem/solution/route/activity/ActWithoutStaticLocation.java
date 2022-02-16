@@ -21,7 +21,9 @@ package com.graphhopper.jsprit.core.problem.solution.route.activity;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.job.Service;
 
-public class ActWithoutStaticLocation extends ServiceActivity {
+import java.io.Serializable;
+
+public class ActWithoutStaticLocation extends ServiceActivity implements Serializable {
 
     private Location previousLocation;
 

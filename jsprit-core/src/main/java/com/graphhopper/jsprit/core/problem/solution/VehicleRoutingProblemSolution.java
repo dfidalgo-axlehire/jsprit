@@ -20,6 +20,7 @@ package com.graphhopper.jsprit.core.problem.solution;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -29,7 +30,7 @@ import java.util.Collection;
  *
  * @author stefan schroeder
  */
-public class VehicleRoutingProblemSolution {
+public class VehicleRoutingProblemSolution implements Serializable {
 
     /**
      * Makes a deep copy of the solution to be copied.

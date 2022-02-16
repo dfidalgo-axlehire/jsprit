@@ -26,6 +26,7 @@ import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolutio
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +34,7 @@ import java.util.Collections;
 
 public class SearchStrategy {
 
-    public static class DiscoveredSolution {
+    public static class DiscoveredSolution implements Serializable {
 
         private VehicleRoutingProblemSolution solution;
 

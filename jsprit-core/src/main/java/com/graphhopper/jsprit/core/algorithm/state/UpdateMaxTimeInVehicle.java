@@ -30,6 +30,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.ServiceActivi
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,7 +42,7 @@ import java.util.Map;
 /**
  * Created by schroeder on 15/09/16.
  */
-public class UpdateMaxTimeInVehicle implements StateUpdater, ActivityVisitor{
+public class UpdateMaxTimeInVehicle implements StateUpdater, ActivityVisitor, Serializable {
 
     private Map<Integer, Map<Job, Double>> openPickupEndTimesPerVehicle = new HashMap<>();
 

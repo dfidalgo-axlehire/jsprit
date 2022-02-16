@@ -18,6 +18,7 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.analysis.SolutionAnalyser;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
@@ -53,7 +54,7 @@ public class CVRPwithMatrix_IT {
         new ChristofidesReader(vrpBuilder).setJobType(JobType.DELIVERY).read(getClass().getResourceAsStream("vrpnc1.txt"));
         VehicleRoutingProblem vrp_ = vrpBuilder.build();
         VehicleRoutingProblem vrp = createVrpWithLocationIndecesAndMatrix(vrp_, true);
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.FAST_REGRET,"true").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.FAST_REGRET, "true").buildAlgorithm();
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
         assertEquals(530.0, Solutions.bestOf(solutions).getCost(), 50.0);
         assertEquals(5, Solutions.bestOf(solutions).getRoutes().size());
@@ -65,7 +66,7 @@ public class CVRPwithMatrix_IT {
         new ChristofidesReader(vrpBuilder).setJobType(JobType.DELIVERY).read(getClass().getResourceAsStream("vrpnc1.txt"));
         VehicleRoutingProblem vrp_ = vrpBuilder.build();
         VehicleRoutingProblem vrp = createVrpWithLocationIndecesAndMatrix(vrp_, false);
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.FAST_REGRET,"true").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.FAST_REGRET,"true").buildAlgorithm();
         try {
             Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
             assertTrue(true);
@@ -80,7 +81,7 @@ public class CVRPwithMatrix_IT {
         new ChristofidesReader(vrpBuilder).setJobType(JobType.DELIVERY).read(getClass().getResourceAsStream("vrpnc1.txt"));
         VehicleRoutingProblem vrp_ = vrpBuilder.build();
         final VehicleRoutingProblem vrp = createVrpWithLocationIndecesAndMatrix(vrp_, false);
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.FAST_REGRET,"true").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.FAST_REGRET,"true").buildAlgorithm();
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
         SolutionAnalyser sa = new SolutionAnalyser(vrp, Solutions.bestOf(solutions), vrp.getTransportCosts());
     }

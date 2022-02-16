@@ -18,6 +18,7 @@
 
 package com.graphhopper.jsprit.core.problem;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ import java.util.Set;
 /**
  * Skill container managing skills
  */
-public class Skills {
+public class Skills implements Serializable {
 
     public static class Builder {
 

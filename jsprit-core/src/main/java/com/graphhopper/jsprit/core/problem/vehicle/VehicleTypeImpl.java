@@ -20,6 +20,8 @@ package com.graphhopper.jsprit.core.problem.vehicle;
 
 import com.graphhopper.jsprit.core.problem.Capacity;
 
+import java.io.Serializable;
+
 /**
  * Implementation of {@link VehicleType}.
  * <p>
@@ -27,14 +29,14 @@ import com.graphhopper.jsprit.core.problem.Capacity;
  *
  * @author schroeder
  */
-public class VehicleTypeImpl implements VehicleType {
+public class VehicleTypeImpl implements VehicleType, Serializable {
 
     /**
      * CostParameter consisting of fixed cost parameter, time-based cost parameter and distance-based cost parameter.
      *
      * @author schroeder
      */
-    public static class VehicleCostParams {
+    public static class VehicleCostParams implements Serializable {
 
 
         public static VehicleTypeImpl.VehicleCostParams newInstance(double fix, double perTimeUnit, double perDistanceUnit) {

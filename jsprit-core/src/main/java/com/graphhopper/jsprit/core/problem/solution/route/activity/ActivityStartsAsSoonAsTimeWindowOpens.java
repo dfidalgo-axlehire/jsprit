@@ -18,10 +18,12 @@
 
 package com.graphhopper.jsprit.core.problem.solution.route.activity;
 
+import java.io.Serializable;
+
 /**
  * Created by schroeder on 08/07/15.
  */
-public class ActivityStartsAsSoonAsTimeWindowOpens implements ActivityStartStrategy {
+public class ActivityStartsAsSoonAsTimeWindowOpens implements ActivityStartStrategy, Serializable {
 
     @Override
     public double getActivityStartTime(TourActivity activity, double arrivalTime) {

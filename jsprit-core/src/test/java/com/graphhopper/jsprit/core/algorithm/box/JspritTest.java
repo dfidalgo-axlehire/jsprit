@@ -88,7 +88,7 @@ public class JspritTest {
         VehicleImpl v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(0, 0)).build();
         VehicleRoutingProblem vrp = VehicleRoutingProblem.Builder.newInstance().addVehicle(v).addJob(s2).addJob(s).build();
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Jsprit.Strategy.RADIAL_BEST, "100.").buildAlgorithm();
+            .setProperty(Strategy.RADIAL_BEST, "100.").buildAlgorithm();
         vra.setMaxIterations(100);
         final Map<String, Integer> counts = new HashMap<String, Integer>();
         vra.addListener(new StrategySelectedListener() {
@@ -106,7 +106,7 @@ public class JspritTest {
 
         });
         vra.searchSolutions();
-        assertTrue(counts.containsKey(Jsprit.Strategy.RADIAL_BEST.toString()));
+        assertTrue(counts.containsKey(Strategy.RADIAL_BEST.toString()));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class JspritTest {
 
         });
         vra.searchSolutions();
-        assertTrue(!counts.containsKey(Jsprit.Strategy.RADIAL_BEST));
+        assertTrue(!counts.containsKey(Strategy.RADIAL_BEST));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class JspritTest {
 
         });
         vra.searchSolutions();
-        assertTrue(!counts.containsKey(Jsprit.Strategy.RADIAL_BEST));
+        assertTrue(!counts.containsKey(Strategy.RADIAL_BEST));
     }
 
 
@@ -221,7 +221,7 @@ public class JspritTest {
 
         VehicleImpl v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(0, 0)).build();
         VehicleRoutingProblem vrp = VehicleRoutingProblem.Builder.newInstance().addJob(s4).addJob(s3).addVehicle(v).addJob(s2).addJob(s).build();
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.THREADS, "4").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.THREADS, "4").buildAlgorithm();
         vra.setMaxIterations(100);
         final List<String> firstRecord = new ArrayList<String>();
         vra.addListener(new StrategySelectedListener() {
@@ -235,7 +235,7 @@ public class JspritTest {
         vra.searchSolutions();
 
         RandomNumberGeneration.reset();
-        VehicleRoutingAlgorithm second = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.THREADS, "2").buildAlgorithm();
+        VehicleRoutingAlgorithm second = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.THREADS, "2").buildAlgorithm();
         second.setMaxIterations(100);
         final List<String> secondRecord = new ArrayList<String>();
         second.addListener(new StrategySelectedListener() {
@@ -269,9 +269,9 @@ public class JspritTest {
         VehicleImpl v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(0, 0)).build();
         VehicleRoutingProblem vrp = VehicleRoutingProblem.Builder.newInstance().addJob(s4).addJob(s3).addVehicle(v).addJob(s2).addJob(s).build();
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Jsprit.Strategy.WORST_REGRET, "0.")
-            .setProperty(Jsprit.Strategy.WORST_BEST, "0.")
-            .setProperty(Jsprit.Parameter.THREADS, "2").buildAlgorithm();
+            .setProperty(Strategy.WORST_REGRET, "0.")
+            .setProperty(Strategy.WORST_BEST, "0.")
+            .setProperty(Parameter.THREADS, "2").buildAlgorithm();
         vra.setMaxIterations(100);
         final List<String> firstRecord = new ArrayList<String>();
         vra.addListener(new RuinListener() {
@@ -292,9 +292,9 @@ public class JspritTest {
         });
         vra.searchSolutions();
 
-        VehicleRoutingAlgorithm second = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.THREADS, "4")
-            .setProperty(Jsprit.Strategy.WORST_REGRET, "0.")
-            .setProperty(Jsprit.Strategy.WORST_BEST, "0.")
+        VehicleRoutingAlgorithm second = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.THREADS, "4")
+            .setProperty(Strategy.WORST_REGRET, "0.")
+            .setProperty(Strategy.WORST_BEST, "0.")
             .buildAlgorithm();
         second.setMaxIterations(100);
         final List<String> secondRecord = new ArrayList<String>();
@@ -437,9 +437,9 @@ public class JspritTest {
         VehicleRoutingProblem vrp = VehicleRoutingProblem.Builder.newInstance().setFleetSize(VehicleRoutingProblem.FleetSize.FINITE).addJob(s4).addJob(s3).addVehicle(v).addJob(s2).addJob(s).build();
 
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Jsprit.Strategy.WORST_REGRET, "0.")
-            .setProperty(Jsprit.Strategy.WORST_BEST, "0.")
-            .setProperty(Jsprit.Parameter.THREADS, "4").buildAlgorithm();
+            .setProperty(Strategy.WORST_REGRET, "0.")
+            .setProperty(Strategy.WORST_BEST, "0.")
+            .setProperty(Parameter.THREADS, "4").buildAlgorithm();
         vra.setMaxIterations(100);
         final List<String> firstRecord = new ArrayList<String>();
         final List<Double> firstRecordCosts = new ArrayList<Double>();
@@ -454,9 +454,9 @@ public class JspritTest {
         vra.searchSolutions();
 
         VehicleRoutingAlgorithm second = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Jsprit.Strategy.WORST_REGRET, "0.")
-            .setProperty(Jsprit.Strategy.WORST_BEST, "0.")
-            .setProperty(Jsprit.Parameter.THREADS, "5").buildAlgorithm();
+            .setProperty(Strategy.WORST_REGRET, "0.")
+            .setProperty(Strategy.WORST_BEST, "0.")
+            .setProperty(Parameter.THREADS, "5").buildAlgorithm();
         second.setMaxIterations(100);
         final List<String> secondRecord = new ArrayList<String>();
         final List<Double> secondRecordCosts = new ArrayList<Double>();

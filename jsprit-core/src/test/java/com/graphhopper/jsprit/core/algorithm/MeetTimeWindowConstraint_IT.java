@@ -18,6 +18,7 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.algorithm.recreate.InsertionData;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.JobInsertedListener;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.VehicleSwitchedListener;
@@ -166,7 +167,7 @@ public class MeetTimeWindowConstraint_IT {
 
     @Test
     public void whenEmployingVehicleWithDifferentWorkingShifts_and_vehicleSwitchIsNotAllowed_nRoutesShouldBeCorrect() {
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.VEHICLE_SWITCH, "false").buildAlgorithm();
         vra.setMaxIterations(100);
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
@@ -175,7 +176,7 @@ public class MeetTimeWindowConstraint_IT {
 
     @Test
     public void whenEmployingVehicleWithDifferentWorkingShifts_and_vehicleSwitchIsNotAllowed_certainJobsCanNeverBeAssignedToCertainVehicles() {
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
         vra.setMaxIterations(100);
         final List<Boolean> testFailed = new ArrayList<Boolean>();
         vra.addListener(new JobInsertedListener() {
@@ -203,7 +204,7 @@ public class MeetTimeWindowConstraint_IT {
 
     @Test
     public void whenEmployingVehicleWithDifferentWorkingShifts_and_vehicleSwitchIsNotAllowed_certainVehiclesCanNeverBeAssignedToCertainRoutes() {
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
         vra.setMaxIterations(100);
         final List<Boolean> testFailed = new ArrayList<Boolean>();
         vra.addListener(new VehicleSwitchedListener() {
@@ -237,7 +238,7 @@ public class MeetTimeWindowConstraint_IT {
 
     @Test
     public void whenEmployingVehicleWithDifferentWorkingShifts_and_vehicleSwitchIsNotAllowed_job2CanNeverBeInVehicle21() {
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
         vra.setMaxIterations(100);
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
@@ -246,7 +247,7 @@ public class MeetTimeWindowConstraint_IT {
 
     @Test
     public void whenEmployingVehicleWithDifferentWorkingShifts_and_vehicleSwitchIsNotAllowed_job1ShouldBeAssignedCorrectly() {
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
         vra.setMaxIterations(100);
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 
@@ -256,7 +257,7 @@ public class MeetTimeWindowConstraint_IT {
 
     @Test
     public void whenEmployingVehicleWithDifferentWorkingShifts_and_vehicleSwitchIsNotAllowed_job2ShouldBeAssignedCorrectly() {
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.VEHICLE_SWITCH,"false").buildAlgorithm();
         vra.setMaxIterations(100);
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 

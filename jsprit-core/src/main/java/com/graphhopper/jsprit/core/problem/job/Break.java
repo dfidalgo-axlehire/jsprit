@@ -21,12 +21,14 @@ package com.graphhopper.jsprit.core.problem.job;
 import com.graphhopper.jsprit.core.problem.Capacity;
 import com.graphhopper.jsprit.core.problem.Skills;
 
+import java.io.Serializable;
+
 /**
  * Break extends Service and is intended to model a time-window based driver break.
  *
  * @author schroeder
  */
-public class Break extends Service {
+public class Break extends Service implements Serializable {
 
     public static class Builder extends Service.Builder<Break> {
 

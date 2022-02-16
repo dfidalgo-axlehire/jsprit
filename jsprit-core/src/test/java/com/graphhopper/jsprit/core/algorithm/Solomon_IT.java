@@ -19,13 +19,23 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.ParallelJsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.SolomonReader;
 import com.graphhopper.jsprit.core.util.Solutions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import redis.embedded.RedisServer;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,6 +43,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Created by schroeder on 23.07.14.
  */
 public class Solomon_IT {
+    private static RedisServer redisServer;
+    private static RedissonClient redissonClient;
+
+    @BeforeEach
+    public void setup() throws IOException {
+        redisServer = new RedisServer(6379);
+        redisServer.start();
+
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://localhost:6379");
+
+        redissonClient = Redisson.create(config);
+    }
 
     @Test
     public void itShouldFindTheBestKnownSolution() {
@@ -40,10 +63,27 @@ public class Solomon_IT {
         new SolomonReader(vrpBuilder).read(getClass().getResourceAsStream("C101.txt"));
         VehicleRoutingProblem vrp = vrpBuilder.build();
 
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.FAST_REGRET,"true").buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.FAST_REGRET, "true").buildAlgorithm();
         vra.setMaxIterations(2000);
         Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
         assertEquals(828.94, Solutions.bestOf(solutions).getCost(), 0.01);
+    }
+
+    @Test
+    public void itShouldFindTheBestKnownSolution_Parallel() {
+        VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
+        new SolomonReader(vrpBuilder).read(getClass().getResourceAsStream("C101.txt"));
+        VehicleRoutingProblem vrp = vrpBuilder.build();
+
+        ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp).addId(UUID.randomUUID().toString()).addRedisson(redissonClient).setProperty(Parameter.FAST_REGRET, "true").buildAlgorithm();
+        vra.setMaxIterations(100);
+        Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
+        assertEquals(828.94, Solutions.bestOf(solutions).getCost(), 0.01);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        redisServer.stop();
     }
 
 }

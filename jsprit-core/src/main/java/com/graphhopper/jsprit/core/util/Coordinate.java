@@ -17,7 +17,9 @@
  */
 package com.graphhopper.jsprit.core.util;
 
-public class Coordinate {
+import java.io.Serializable;
+
+public class Coordinate implements Serializable {
 
     public static Coordinate newInstance(double x, double y) {
         return new Coordinate(x, y);

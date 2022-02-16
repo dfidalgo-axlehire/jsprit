@@ -22,7 +22,9 @@ import com.graphhopper.jsprit.core.problem.job.Delivery;
 import com.graphhopper.jsprit.core.problem.job.Pickup;
 import com.graphhopper.jsprit.core.problem.job.Service;
 
-public class DefaultTourActivityFactory implements TourActivityFactory {
+import java.io.Serializable;
+
+public class DefaultTourActivityFactory implements TourActivityFactory, Serializable {
 
     @Override
     public AbstractActivity createActivity(Service service) {

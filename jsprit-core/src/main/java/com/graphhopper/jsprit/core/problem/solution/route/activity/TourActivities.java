@@ -20,6 +20,7 @@ package com.graphhopper.jsprit.core.problem.solution.route.activity;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity.JobActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,13 +34,13 @@ import java.util.Set;
  * @author stefan schroeder
  */
 
-public class TourActivities {
+public class TourActivities implements Serializable {
 
     public static TourActivities copyOf(TourActivities tourActivities) {
         return new TourActivities(tourActivities);
     }
 
-    public static class ReverseActivityIterator implements Iterator<TourActivity> {
+    public static class ReverseActivityIterator implements Iterator<TourActivity>, Serializable {
 
         private List<TourActivity> acts;
         private int currentIndex;

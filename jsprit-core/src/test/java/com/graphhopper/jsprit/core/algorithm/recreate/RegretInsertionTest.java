@@ -20,6 +20,7 @@ package com.graphhopper.jsprit.core.algorithm.recreate;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.BeforeJobInsertionListener;
 import com.graphhopper.jsprit.core.algorithm.state.StateId;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;
@@ -125,7 +126,7 @@ public class RegretInsertionTest {
 
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
             .addCoreStateAndConstraintStuff(true)
-            .setProperty(Jsprit.Parameter.FAST_REGRET,"true")
+            .setProperty(Parameter.FAST_REGRET, "true")
             .setStateAndConstraintManager(stateManager, constraintManager).buildAlgorithm();
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
@@ -235,16 +236,16 @@ public class RegretInsertionTest {
 
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
             .addCoreStateAndConstraintStuff(true)
-            .setProperty(Jsprit.Parameter.FAST_REGRET, "true")
+            .setProperty(Parameter.FAST_REGRET, "true")
             .setStateAndConstraintManager(stateManager, constraintManager)
-//            .setProperty(Jsprit.Strategy.CLUSTER_REGRET, "0.")
-//            .setProperty(Jsprit.Strategy.CLUSTER_BEST, "0.")
-//            .setProperty(Jsprit.Strategy.RADIAL_REGRET, "0.")
-//            .setProperty(Jsprit.Strategy.RADIAL_BEST, "0.")
-//            .setProperty(Jsprit.Strategy.RANDOM_REGRET, "1.")
-//            .setProperty(Jsprit.Strategy.RANDOM_BEST, "0.")
-//            .setProperty(Jsprit.Strategy.WORST_REGRET, "0.")
-//            .setProperty(Jsprit.Strategy.WORST_BEST, "0.")
+//            .setProperty(Strategy.CLUSTER_REGRET, "0.")
+//            .setProperty(Strategy.CLUSTER_BEST, "0.")
+//            .setProperty(Strategy.RADIAL_REGRET, "0.")
+//            .setProperty(Strategy.RADIAL_BEST, "0.")
+//            .setProperty(Strategy.RANDOM_REGRET, "1.")
+//            .setProperty(Strategy.RANDOM_BEST, "0.")
+//            .setProperty(Strategy.WORST_REGRET, "0.")
+//            .setProperty(Strategy.WORST_BEST, "0.")
             .buildAlgorithm();
 
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
@@ -283,8 +284,8 @@ public class RegretInsertionTest {
 
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
             .addCoreStateAndConstraintStuff(true)
-            .setProperty(Jsprit.Parameter.FAST_REGRET, "true")
-            .setProperty(Jsprit.Parameter.THREADS,"4")
+            .setProperty(Parameter.FAST_REGRET, "true")
+            .setProperty(Parameter.THREADS,"4")
             .setStateAndConstraintManager(stateManager, constraintManager)
             .buildAlgorithm();
 

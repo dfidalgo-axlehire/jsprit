@@ -33,6 +33,8 @@ import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Created by schroeder on 20/09/16.
@@ -64,7 +66,7 @@ public class MaxTimeInVehicle_IT {
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setStateAndConstraintManager(stateManager,constraintManager).buildAlgorithm();
         VehicleRoutingProblemSolution solution = Solutions.bestOf(vra.searchSolutions());
 
-//        assertEquals(400, solution.getCost(), 0.001);
+        assertEquals(400, solution.getCost(), 0.001);
         SolutionPrinter.print(vrp,solution, SolutionPrinter.Print.VERBOSE);
     }
 }

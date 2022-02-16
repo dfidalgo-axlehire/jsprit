@@ -17,6 +17,7 @@
  */
 package com.graphhopper.jsprit.core.problem.vehicle;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -24,7 +25,7 @@ import java.util.Collection;
  *
  * @author schroeder
  */
-public class FiniteFleetManagerFactory implements VehicleFleetManagerFactory {
+public class FiniteFleetManagerFactory implements VehicleFleetManagerFactory, Serializable {
 
     private Collection<Vehicle> vehicles;
 

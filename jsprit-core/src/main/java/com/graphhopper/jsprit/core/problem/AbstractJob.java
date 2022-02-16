@@ -20,10 +20,12 @@ package com.graphhopper.jsprit.core.problem;
 
 import com.graphhopper.jsprit.core.problem.job.Job;
 
+import java.io.Serializable;
+
 /**
  * Created by schroeder on 14.07.14.
  */
-public abstract class AbstractJob implements Job {
+public abstract class AbstractJob implements Job, Serializable {
 
     private int index;
     private Object userData;

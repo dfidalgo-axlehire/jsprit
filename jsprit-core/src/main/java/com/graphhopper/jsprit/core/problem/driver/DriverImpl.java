@@ -17,7 +17,9 @@
  */
 package com.graphhopper.jsprit.core.problem.driver;
 
-public class DriverImpl implements Driver {
+import java.io.Serializable;
+
+public class DriverImpl implements Driver, Serializable {
 
     public static NoDriver noDriver() {
         return new NoDriver();

@@ -26,11 +26,12 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class UpdateVehicleDependentPracticalTimeWindows implements RouteVisitor, StateUpdater {
+public class UpdateVehicleDependentPracticalTimeWindows implements RouteVisitor, StateUpdater, Serializable {
 
     @Override
     public void visit(VehicleRoute route) {

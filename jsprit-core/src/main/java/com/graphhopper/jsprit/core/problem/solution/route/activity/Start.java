@@ -21,7 +21,9 @@ import com.graphhopper.jsprit.core.problem.AbstractActivity;
 import com.graphhopper.jsprit.core.problem.Capacity;
 import com.graphhopper.jsprit.core.problem.Location;
 
-public final class Start extends AbstractActivity implements TourActivity {
+import java.io.Serializable;
+
+public final class Start extends AbstractActivity implements TourActivity, Serializable {
 
     @Deprecated
     public final static String ACTIVITY_NAME = "start";

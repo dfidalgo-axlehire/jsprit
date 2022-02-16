@@ -23,10 +23,12 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
+
 /**
  * Update to update required skills on route
  */
-public class UpdateSkills implements StateUpdater, ActivityVisitor {
+public class UpdateSkills implements StateUpdater, ActivityVisitor, Serializable {
 
     private Skills.Builder skillBuilder;
 

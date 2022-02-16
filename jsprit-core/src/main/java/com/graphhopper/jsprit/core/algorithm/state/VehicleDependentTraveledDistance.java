@@ -26,6 +26,7 @@ import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.problem.vehicle.Vehicle;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeKey;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ import java.util.Set;
 /**
  * Created by schroeder on 17/05/16.
  */
-public class VehicleDependentTraveledDistance implements StateUpdater, ActivityVisitor {
+public class VehicleDependentTraveledDistance implements StateUpdater, ActivityVisitor, Serializable {
 
     static class State {
 

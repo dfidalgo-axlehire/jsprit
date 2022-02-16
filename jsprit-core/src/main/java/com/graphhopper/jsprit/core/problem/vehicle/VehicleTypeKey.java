@@ -20,6 +20,8 @@ package com.graphhopper.jsprit.core.problem.vehicle;
 import com.graphhopper.jsprit.core.problem.AbstractVehicle;
 import com.graphhopper.jsprit.core.problem.Skills;
 
+import java.io.Serializable;
+
 /**
  * Key to identify similar vehicles
  * <p>
@@ -27,7 +29,7 @@ import com.graphhopper.jsprit.core.problem.Skills;
  *
  * @author stefan
  */
-public class VehicleTypeKey extends AbstractVehicle.AbstractTypeKey {
+public class VehicleTypeKey extends AbstractVehicle.AbstractTypeKey implements Serializable {
 
     public final String type;
     public final String startLocationId;

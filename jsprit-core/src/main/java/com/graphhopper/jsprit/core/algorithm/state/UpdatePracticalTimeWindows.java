@@ -23,12 +23,14 @@ import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.ReverseActivityVisitor;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 
+import java.io.Serializable;
+
 /**
  * Updates and memorizes latest operation start times at activities.
  *
  * @author schroeder
  */
-class UpdatePracticalTimeWindows implements ReverseActivityVisitor, StateUpdater {
+class UpdatePracticalTimeWindows implements ReverseActivityVisitor, StateUpdater, Serializable {
 
     private StateManager states;
 
