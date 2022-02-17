@@ -211,7 +211,7 @@ public class ParallelVehicleRoutingAlgorithm {
         RList<VehicleRoutingProblemSolution> solutions = redisson.getList("internal_solutions_" + id);
         solutions.addAll(initialSolutions);
         algorithmStarts(problem, solutions);
-        if(bestEver == null) {
+        if(bestEver.get() == null) {
             bestEver.set(Solutions.bestOf(solutions));
         }
         if (logger.isTraceEnabled()) {
@@ -240,7 +240,7 @@ public class ParallelVehicleRoutingAlgorithm {
     }
 
     private void addBestEver(Collection<VehicleRoutingProblemSolution> solutions) {
-        if (bestEver != null) {
+        if (bestEver != null && bestEver.get() != null) {
             solutions.add(bestEver.get());
         }
     }

@@ -37,7 +37,7 @@ public class Solutions {
                                 result = 1;
                             }
                             return result;
-                        }).get();
+                        }).orElse(null);
         return best;
     }
 
