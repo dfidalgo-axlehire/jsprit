@@ -25,6 +25,6 @@ import java.util.Collection;
 
 public interface InsertionStartsListener extends InsertionListener {
 
-    public void informInsertionStarts(Collection<VehicleRoute> vehicleRoutes, Collection<Job> unassignedJobs);
+    void informInsertionStarts(Collection<VehicleRoute> vehicleRoutes, Collection<Job> unassignedJobs);
 
 }

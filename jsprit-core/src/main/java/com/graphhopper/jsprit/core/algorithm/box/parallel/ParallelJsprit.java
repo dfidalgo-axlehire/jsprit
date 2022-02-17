@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.graphhopper.jsprit.core.algorithm.box;
+package com.graphhopper.jsprit.core.algorithm.box.parallel;
 
 import com.graphhopper.jsprit.core.algorithm.ParallelVehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.PrettyParallelAlgorithmBuilder;
@@ -24,8 +24,10 @@ import com.graphhopper.jsprit.core.algorithm.SearchStrategy;
 import com.graphhopper.jsprit.core.algorithm.SearchStrategyModule;
 import com.graphhopper.jsprit.core.algorithm.acceptor.SchrimpfAcceptance;
 import com.graphhopper.jsprit.core.algorithm.acceptor.SolutionAcceptor;
+import com.graphhopper.jsprit.core.algorithm.box.Construction;
+import com.graphhopper.jsprit.core.algorithm.box.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.Strategy;
 import com.graphhopper.jsprit.core.algorithm.listener.AlgorithmEndsListener;
-import com.graphhopper.jsprit.core.algorithm.listener.IterationStartsListener;
 import com.graphhopper.jsprit.core.algorithm.listener.parallel.ParallelIterationStartsListener;
 import com.graphhopper.jsprit.core.algorithm.module.ParallelRuinAndRecreateModule;
 import com.graphhopper.jsprit.core.algorithm.recreate.AbstractInsertionStrategy;
@@ -46,7 +48,7 @@ import com.graphhopper.jsprit.core.algorithm.ruin.JobNeighborhoodsFactory;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinClusters;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinRadial;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinRandom;
-import com.graphhopper.jsprit.core.algorithm.ruin.RuinShareFactory;
+import com.graphhopper.jsprit.core.algorithm.ruin.RuinShareFactoryImpl;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinString;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinWorst;
 import com.graphhopper.jsprit.core.algorithm.ruin.distance.AvgServiceAndShipmentDistance;
@@ -79,26 +81,6 @@ import java.util.concurrent.Executors;
 public class ParallelJsprit {
 
     private final ActivityInsertionCostsCalculator activityInsertion;
-
-    public enum Construction {
-
-        BEST_INSERTION("best_insertion"), REGRET_INSERTION("regret_insertion");
-
-        String name;
-
-        Construction(String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
-
-    }
-
-
-
-
 
     public static ParallelVehicleRoutingAlgorithm createAlgorithm(VehicleRoutingProblem vehicleRoutingProblem, String id, RedissonClient redisson) {
 
@@ -292,42 +274,6 @@ public class ParallelJsprit {
 
     }
 
-    static class RuinShareFactoryImpl implements RuinShareFactory
-
-    {
-
-        private int maxShare;
-
-        private int minShare;
-
-        private Random random = RandomNumberGeneration.getRandom();
-
-        public void setRandom(Random random) {
-            this.random = random;
-        }
-
-        public RuinShareFactoryImpl(int minShare, int maxShare) {
-            if (maxShare < minShare)
-                throw new IllegalArgumentException("maxShare must be equal or greater than minShare");
-            this.minShare = minShare;
-            this.maxShare = maxShare;
-        }
-
-        public RuinShareFactoryImpl(int minShare, int maxShare, Random random) {
-            if (maxShare < minShare)
-                throw new IllegalArgumentException("maxShare must be equal or greater than minShare");
-            this.minShare = minShare;
-            this.maxShare = maxShare;
-            this.random = random;
-        }
-
-        @Override
-        public int createNumberToBeRemoved() {
-            return (int) (minShare + (maxShare - minShare) * random.nextDouble());
-        }
-
-    }
-
     private StateManager stateManager;
 
     private ConstraintManager constraintManager;
@@ -424,14 +370,14 @@ public class ParallelJsprit {
             maxCosts = jobNeighborhoods.getMaxDistance();
         }
 
-        IterationStartsListener noiseConfigurator;
+        ParallelIterationStartsListener noiseConfigurator;
         if (noThreads > 1) {
-            ConcurrentInsertionNoiseMaker noiseMaker = new ConcurrentInsertionNoiseMaker(vrp, maxCosts, noiseLevel, noiseProbability);
+            ParallelConcurrentInsertionNoiseMaker noiseMaker = new ParallelConcurrentInsertionNoiseMaker(vrp, maxCosts, noiseLevel, noiseProbability);
             noiseMaker.setRandom(random);
             constraintManager.addConstraint(noiseMaker);
             noiseConfigurator = noiseMaker;
         } else {
-            InsertionNoiseMaker noiseMaker = new InsertionNoiseMaker(vrp, maxCosts, noiseLevel, noiseProbability);
+            ParallelInsertionNoiseMaker noiseMaker = new ParallelInsertionNoiseMaker(vrp, maxCosts, noiseLevel, noiseProbability);
             noiseMaker.setRandom(random);
             constraintManager.addConstraint(noiseMaker);
             noiseConfigurator = noiseMaker;
@@ -468,7 +414,7 @@ public class ParallelJsprit {
                 toInteger(properties.getProperty(Parameter.WORST_MAX_SHARE.toString())),
                 random)
         );
-        IterationStartsListener noise = (i, problem, solutions) -> worst.setNoiseMaker(() -> {
+        ParallelIterationStartsListener noise = (i, problem, solutions) -> worst.setNoiseMaker(() -> {
             if (random.nextDouble() < toDouble(getProperty(Parameter.RUIN_WORST_NOISE_PROB.toString()))) {
                 return toDouble(getProperty(Parameter.RUIN_WORST_NOISE_LEVEL.toString()))
                     * maxCosts * random.nextDouble();

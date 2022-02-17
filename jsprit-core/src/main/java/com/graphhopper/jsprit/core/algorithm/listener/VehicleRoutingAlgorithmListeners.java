@@ -32,32 +32,6 @@ import java.util.TreeSet;
 
 public class VehicleRoutingAlgorithmListeners {
 
-    public static class PrioritizedVRAListener {
-
-        Priority priority;
-        VehicleRoutingAlgorithmListener l;
-
-        public PrioritizedVRAListener(Priority priority, VehicleRoutingAlgorithmListener l) {
-            super();
-            this.priority = priority;
-            this.l = l;
-        }
-
-        public Priority getPriority() {
-            return priority;
-        }
-
-        public VehicleRoutingAlgorithmListener getListener() {
-            return l;
-        }
-
-    }
-
-    public enum Priority {
-        HIGH, MEDIUM, LOW
-    }
-
-
     private TreeSet<PrioritizedVRAListener> algorithmListeners = new TreeSet<PrioritizedVRAListener>(new Comparator<PrioritizedVRAListener>() {
 
         @Override

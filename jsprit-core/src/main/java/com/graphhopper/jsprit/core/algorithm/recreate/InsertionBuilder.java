@@ -17,6 +17,7 @@
  */
 package com.graphhopper.jsprit.core.algorithm.recreate;
 
+import com.graphhopper.jsprit.core.algorithm.listener.PrioritizedVRAListener;
 import com.graphhopper.jsprit.core.algorithm.listener.VehicleRoutingAlgorithmListeners;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.InsertionListener;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;
@@ -151,7 +152,7 @@ public class InsertionBuilder {
 
     public InsertionStrategy build() {
         List<InsertionListener> iListeners = new ArrayList<InsertionListener>();
-        List<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener> algorithmListeners = new ArrayList<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener>();
+        List<PrioritizedVRAListener> algorithmListeners = new ArrayList<PrioritizedVRAListener>();
         JobInsertionCostsCalculatorBuilder calcBuilder = new JobInsertionCostsCalculatorBuilder(iListeners, algorithmListeners);
         if (local) {
             calcBuilder.setLocalLevel(addDefaultCostCalc);

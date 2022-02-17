@@ -21,9 +21,9 @@ package com.graphhopper.jsprit.core.algorithm.box;
 import com.graphhopper.jsprit.core.algorithm.ParallelVehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.SearchStrategy;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
+import com.graphhopper.jsprit.core.algorithm.box.parallel.ParallelJsprit;
 import com.graphhopper.jsprit.core.algorithm.listener.StrategySelectedListener;
 import com.graphhopper.jsprit.core.algorithm.listener.parallel.ParallelStrategySelectedListener;
-import com.graphhopper.jsprit.core.algorithm.recreate.InsertionData;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.BeforeJobInsertionListener;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.JobInsertedListener;
 import com.graphhopper.jsprit.core.algorithm.ruin.listener.RuinListener;
@@ -416,23 +416,17 @@ public class ParallelJspritTest {
         VehicleRoutingAlgorithm vra = Jsprit.createAlgorithm(vrp);
         vra.setMaxIterations(100);
         final List<String> firstRecord = new ArrayList<String>();
-        vra.addListener(new JobInsertedListener() {
-            @Override
-            public void informJobInserted(Job job2insert, VehicleRoute inRoute, InsertionData insertionData) {
-                firstRecord.add(job2insert.getId());
-            }
-        });
+        vra.addListener((JobInsertedListener) (job2insert,
+                                               inRoute,
+                                               insertionData) -> firstRecord.add(job2insert.getId()));
         vra.searchSolutions();
 
         VehicleRoutingAlgorithm second = Jsprit.createAlgorithm(vrp);
         second.setMaxIterations(100);
         final List<String> secondRecord = new ArrayList<String>();
-        second.addListener(new JobInsertedListener() {
-            @Override
-            public void informJobInserted(Job job2insert, VehicleRoute inRoute, InsertionData insertionData) {
-                secondRecord.add(job2insert.getId());
-            }
-        });
+        second.addListener((JobInsertedListener) (job2insert,
+                                                  inRoute,
+                                                  insertionData) -> secondRecord.add(job2insert.getId()));
         second.searchSolutions();
 
         assertEquals(secondRecord.size(), firstRecord.size());

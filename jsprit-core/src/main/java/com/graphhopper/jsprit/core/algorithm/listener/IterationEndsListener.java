@@ -25,7 +25,7 @@ import java.util.Collection;
 
 public interface IterationEndsListener extends VehicleRoutingAlgorithmListener {
 
-    public void informIterationEnds(int i, VehicleRoutingProblem problem, Collection<VehicleRoutingProblemSolution> solutions);
+    void informIterationEnds(int i, VehicleRoutingProblem problem, Collection<VehicleRoutingProblemSolution> solutions);
 
 
 }

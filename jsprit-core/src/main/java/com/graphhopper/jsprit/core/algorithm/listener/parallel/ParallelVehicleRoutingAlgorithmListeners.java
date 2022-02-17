@@ -19,9 +19,9 @@ package com.graphhopper.jsprit.core.algorithm.listener.parallel;
 
 import com.graphhopper.jsprit.core.algorithm.ParallelVehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.SearchStrategy;
-import com.graphhopper.jsprit.core.algorithm.listener.AlgorithmEndsListener;
-import com.graphhopper.jsprit.core.algorithm.listener.IterationEndsListener;
-import com.graphhopper.jsprit.core.algorithm.listener.StrategySelectedListener;
+
+import com.graphhopper.jsprit.core.algorithm.listener.PrioritizedVRAListener;
+import com.graphhopper.jsprit.core.algorithm.listener.Priority;
 import com.graphhopper.jsprit.core.algorithm.listener.VehicleRoutingAlgorithmListener;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
@@ -30,60 +30,31 @@ import org.redisson.api.RList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
 
 public class ParallelVehicleRoutingAlgorithmListeners {
 
-    public static class PrioritizedVRAListener {
-
-        Priority priority;
-        VehicleRoutingAlgorithmListener l;
-
-        public PrioritizedVRAListener(Priority priority, VehicleRoutingAlgorithmListener l) {
-            super();
-            this.priority = priority;
-            this.l = l;
+    private TreeSet<PrioritizedVRAListener> algorithmListeners = new TreeSet<>((o1, o2) -> {
+        if (o1 == o2) {
+            return 0;
         }
-
-        public Priority getPriority() {
-            return priority;
-        }
-
-        public VehicleRoutingAlgorithmListener getListener() {
-            return l;
-        }
-
-    }
-
-    public enum Priority {
-        HIGH, MEDIUM, LOW
-    }
-
-
-    private TreeSet<PrioritizedVRAListener> algorithmListeners = new TreeSet<PrioritizedVRAListener>(new Comparator<PrioritizedVRAListener>() {
-
-        @Override
-        public int compare(PrioritizedVRAListener o1, PrioritizedVRAListener o2) {
-            if (o1 == o2) return 0;
-            if (o1.getPriority() == Priority.HIGH && o2.getPriority() != Priority.HIGH) {
-                return -1;
-            } else if (o2.getPriority() == Priority.HIGH && o1.getPriority() != Priority.HIGH) {
-                return 1;
-            } else if (o1.getPriority() == Priority.MEDIUM && o2.getPriority() != Priority.MEDIUM) {
-                return -1;
-            } else if (o2.getPriority() == Priority.MEDIUM && o1.getPriority() != Priority.MEDIUM) {
-                return 1;
-            }
+        if (o1.getPriority() == Priority.HIGH && o2.getPriority() != Priority.HIGH) {
+            return -1;
+        } else if (o2.getPriority() == Priority.HIGH && o1.getPriority() != Priority.HIGH) {
+            return 1;
+        } else if (o1.getPriority() == Priority.MEDIUM && o2.getPriority() != Priority.MEDIUM) {
+            return -1;
+        } else if (o2.getPriority() == Priority.MEDIUM && o1.getPriority() != Priority.MEDIUM) {
             return 1;
         }
+        return 1;
     });
 
 
     public Collection<VehicleRoutingAlgorithmListener> getAlgorithmListeners() {
-        List<VehicleRoutingAlgorithmListener> list = new ArrayList<VehicleRoutingAlgorithmListener>();
+        List<VehicleRoutingAlgorithmListener> list = new ArrayList<>();
         for (PrioritizedVRAListener l : algorithmListeners) {
             list.add(l.getListener());
         }
@@ -136,7 +107,7 @@ public class ParallelVehicleRoutingAlgorithmListeners {
             if (l.getListener() instanceof ParallelAlgorithmStartsListener) {
                 ((ParallelAlgorithmStartsListener) l.getListener()).informAlgorithmStarts(problem, algorithm, solutions);
             }
-       }
+        }
     }
 
     public void add(PrioritizedVRAListener l) {

@@ -18,10 +18,10 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.SearchStrategy.DiscoveredSolution;
-import com.graphhopper.jsprit.core.algorithm.listener.parallel.ParallelVehicleRoutingAlgorithmListeners;
 import com.graphhopper.jsprit.core.algorithm.listener.SearchStrategyListener;
 import com.graphhopper.jsprit.core.algorithm.listener.SearchStrategyModuleListener;
 import com.graphhopper.jsprit.core.algorithm.listener.VehicleRoutingAlgorithmListener;
+import com.graphhopper.jsprit.core.algorithm.listener.parallel.ParallelVehicleRoutingAlgorithmListeners;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
 import com.graphhopper.jsprit.core.problem.solution.SolutionCostCalculator;
@@ -94,17 +94,24 @@ public class ParallelVehicleRoutingAlgorithm {
 
     private String id;
 
-    public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem, SearchStrategyManager searchStrategyManager, String id, RedissonClient redisson) {
+    public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem,
+                                           SearchStrategyManager searchStrategyManager,
+                                           String id,
+                                           RedissonClient redisson) {
         super();
         this.id = id;
         this.redisson = redisson;
         this.problem = problem;
         this.searchStrategyManager = searchStrategyManager;
-        initialSolutions = redisson.getSet("solutions_"+id);
+        initialSolutions = redisson.getSet("solutions_" + id);
         objectiveFunction = null;
     }
 
-    public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem, Collection<VehicleRoutingProblemSolution> initialSolutions, SearchStrategyManager searchStrategyManager, String id, RedissonClient redisson) {
+    public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem,
+                                           Collection<VehicleRoutingProblemSolution> initialSolutions,
+                                           SearchStrategyManager searchStrategyManager,
+                                           String id,
+                                           RedissonClient redisson) {
         super();
         this.id = id;
         this.redisson = redisson;
@@ -117,7 +124,11 @@ public class ParallelVehicleRoutingAlgorithm {
         objectiveFunction = null;
     }
 
-    public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem, SearchStrategyManager searchStrategyManager, SolutionCostCalculator objectiveFunction, String id, RedissonClient redisson) {
+    public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem,
+                                           SearchStrategyManager searchStrategyManager,
+                                           SolutionCostCalculator objectiveFunction,
+                                           String id,
+                                           RedissonClient redisson) {
         super();
         this.id = id;
         this.redisson = redisson;
@@ -127,15 +138,15 @@ public class ParallelVehicleRoutingAlgorithm {
         this.objectiveFunction = objectiveFunction;
     }
 
-  /**
-   * Adds solution to the collection of initial solutions.
-   *
-   * This method may lead to errors if tour activities in the solution are different to the
-   * ones in the VRP (including differences in indexing)
-   *
-   * @param solution the solution to be added
-   */
-  public void addInitialSolution(VehicleRoutingProblemSolution solution) {
+    /**
+     * Adds solution to the collection of initial solutions.
+     * <p>
+     * This method may lead to errors if tour activities in the solution are different to the
+     * ones in the VRP (including differences in indexing)
+     *
+     * @param solution the solution to be added
+     */
+    public void addInitialSolution(VehicleRoutingProblemSolution solution) {
         solution = VehicleRoutingProblemSolution.copyOf(solution);
         verifyAndAdaptSolution(solution);
         initialSolutions.addAsync(solution);
@@ -146,15 +157,19 @@ public class ParallelVehicleRoutingAlgorithm {
         jobsNotInSolution.removeAll(solution.getUnassignedJobs());
         for (VehicleRoute route : solution.getRoutes()) {
             jobsNotInSolution.removeAll(route.getTourActivities().getJobs());
-            if (route.getVehicle().getIndex() == 0)
-                throw new IllegalStateException("vehicle used in initial solution has no index. probably a vehicle is used that has not been added to the " +
-                    " the VehicleRoutingProblem. only use vehicles that have already been added to the problem.");
+            if (route.getVehicle().getIndex() == 0) {
+                throw new IllegalStateException(
+                    "vehicle used in initial solution has no index. probably a vehicle is used that has not been added to the " +
+                        " the VehicleRoutingProblem. only use vehicles that have already been added to the problem.");
+            }
             for (TourActivity act : route.getActivities()) {
-                if (act.getIndex() == 0)
-                    throw new IllegalStateException("act in initial solution has no index. activities are created and associated to their job in VehicleRoutingProblem\n." +
-                        " thus if you build vehicle-routes use the jobActivityFactory from vehicle routing problem like that \n" +
-                        " VehicleRoute.Builder.newInstance(knownVehicle).setJobActivityFactory(vrp.getJobActivityFactory).addService(..)....build() \n" +
-                        " then the activities that are created to build the route are identical to the ones used in VehicleRoutingProblem");
+                if (act.getIndex() == 0) {
+                    throw new IllegalStateException(
+                        "act in initial solution has no index. activities are created and associated to their job in VehicleRoutingProblem\n." +
+                            " thus if you build vehicle-routes use the jobActivityFactory from vehicle routing problem like that \n" +
+                            " VehicleRoute.Builder.newInstance(knownVehicle).setJobActivityFactory(vrp.getJobActivityFactory).addService(..)....build() \n" +
+                            " then the activities that are created to build the route are identical to the ones used in VehicleRoutingProblem");
+                }
             }
         }
         solution.getUnassignedJobs().addAll(jobsNotInSolution);
@@ -185,11 +200,13 @@ public class ParallelVehicleRoutingAlgorithm {
         double now = System.currentTimeMillis();
         int noIterationsThisAlgoIsRunning = maxIterations;
         counter.reset();
-        RList<VehicleRoutingProblemSolution> solutions = redisson.getList("internal_solutions_"+id);
+        RList<VehicleRoutingProblemSolution> solutions = redisson.getList("internal_solutions_" + id);
         solutions.addAll(initialSolutions);
         algorithmStarts(problem, solutions);
         bestEver = Solutions.bestOf(solutions);
-        if (logger.isTraceEnabled()) log(solutions);
+        if (logger.isTraceEnabled()) {
+            log(solutions);
+        }
         logger.info("iterations start");
         for (int i = 0; i < maxIterations; i++) {
             iterationStarts(i + 1, problem, solutions);
@@ -197,7 +214,9 @@ public class ParallelVehicleRoutingAlgorithm {
             counter.incCounter();
             SearchStrategy strategy = searchStrategyManager.getRandomStrategy();
             DiscoveredSolution discoveredSolution = strategy.run(problem, solutions);
-            if (logger.isTraceEnabled()) log(discoveredSolution);
+            if (logger.isTraceEnabled()) {
+                log(discoveredSolution);
+            }
             memorizeIfBestEver(discoveredSolution);
             selectedStrategy(discoveredSolution, problem, solutions);
             iterationEnds(i + 1, problem, solutions);
@@ -210,7 +229,9 @@ public class ParallelVehicleRoutingAlgorithm {
     }
 
     private void addBestEver(Collection<VehicleRoutingProblemSolution> solutions) {
-        if (bestEver != null) solutions.add(bestEver);
+        if (bestEver != null) {
+            solutions.add(bestEver);
+        }
     }
 
     private void log(Collection<VehicleRoutingProblemSolution> solutions) {
@@ -247,7 +268,9 @@ public class ParallelVehicleRoutingAlgorithm {
     }
 
     private void memorizeIfBestEver(DiscoveredSolution discoveredSolution) {
-        if (discoveredSolution == null) return;
+        if (discoveredSolution == null) {
+            return;
+        }
         if (bestEver == null) {
             bestEver = discoveredSolution.getSolution();
         } else if (discoveredSolution.getSolution().getCost() < bestEver.getCost()) {
@@ -255,7 +278,9 @@ public class ParallelVehicleRoutingAlgorithm {
         }
     }
 
-    private void selectedStrategy(DiscoveredSolution discoveredSolution, VehicleRoutingProblem problem, RList<VehicleRoutingProblemSolution> solutions) {
+    private void selectedStrategy(DiscoveredSolution discoveredSolution,
+                                  VehicleRoutingProblem problem,
+                                  RList<VehicleRoutingProblemSolution> solutions) {
         algoListeners.selectedStrategy(discoveredSolution, problem, solutions);
     }
 
@@ -308,7 +333,7 @@ public class ParallelVehicleRoutingAlgorithm {
         return maxIterations;
     }
 
-    public SolutionCostCalculator getObjectiveFunction(){
+    public SolutionCostCalculator getObjectiveFunction() {
         return objectiveFunction;
     }
 

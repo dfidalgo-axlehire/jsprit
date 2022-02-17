@@ -38,7 +38,7 @@ class InsertionFactory {
 
     @SuppressWarnings("deprecation")
     public static InsertionStrategy createInsertion(VehicleRoutingProblem vrp, HierarchicalConfiguration config,
-                                                    VehicleFleetManager vehicleFleetManager, StateManager stateManager, List<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener> algorithmListeners, ExecutorService executorService, int nuOfThreads, ConstraintManager constraintManager, boolean addDefaultCostCalculators) {
+                                                    VehicleFleetManager vehicleFleetManager, StateManager stateManager, List<PrioritizedVRAListener> algorithmListeners, ExecutorService executorService, int nuOfThreads, ConstraintManager constraintManager, boolean addDefaultCostCalculators) {
 
         if (config.containsKey("[@name]")) {
             String insertionName = config.getString("[@name]");

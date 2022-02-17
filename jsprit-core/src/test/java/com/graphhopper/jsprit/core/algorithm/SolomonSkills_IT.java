@@ -19,7 +19,7 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
-import com.graphhopper.jsprit.core.algorithm.box.ParallelJsprit;
+import com.graphhopper.jsprit.core.algorithm.box.parallel.ParallelJsprit;
 import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.problem.Skills;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;

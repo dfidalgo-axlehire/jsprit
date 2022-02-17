@@ -25,7 +25,7 @@ import java.util.Collection;
 
 public interface IterationStartsListener extends VehicleRoutingAlgorithmListener {
 
-    public void informIterationStarts(int i, VehicleRoutingProblem problem, Collection<VehicleRoutingProblemSolution> solutions);
+    void informIterationStarts(int i, VehicleRoutingProblem problem, Collection<VehicleRoutingProblemSolution> solutions);
 
 
 }

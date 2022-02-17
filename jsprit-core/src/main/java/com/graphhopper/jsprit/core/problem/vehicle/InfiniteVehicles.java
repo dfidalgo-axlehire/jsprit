@@ -23,7 +23,6 @@ package com.graphhopper.jsprit.core.problem.vehicle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ import java.util.Map;
 
 
 
-class InfiniteVehicles implements VehicleFleetManager, Serializable {
+class InfiniteVehicles implements VehicleFleetManager {
 
     private static Logger logger = LoggerFactory.getLogger(InfiniteVehicles.class);
 

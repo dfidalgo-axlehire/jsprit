@@ -45,7 +45,7 @@ import com.graphhopper.jsprit.core.algorithm.ruin.JobNeighborhoodsFactory;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinClusters;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinRadial;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinRandom;
-import com.graphhopper.jsprit.core.algorithm.ruin.RuinShareFactory;
+import com.graphhopper.jsprit.core.algorithm.ruin.RuinShareFactoryImpl;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinString;
 import com.graphhopper.jsprit.core.algorithm.ruin.RuinWorst;
 import com.graphhopper.jsprit.core.algorithm.ruin.distance.AvgServiceAndShipmentDistance;
@@ -77,22 +77,6 @@ import java.util.concurrent.Executors;
 public class Jsprit {
 
     private final ActivityInsertionCostsCalculator activityInsertion;
-
-    public enum Construction {
-
-        BEST_INSERTION("best_insertion"), REGRET_INSERTION("regret_insertion");
-
-        String name;
-
-        Construction(String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
-
-    }
 
     public static VehicleRoutingAlgorithm createAlgorithm(VehicleRoutingProblem vehicleRoutingProblem) {
         return Jsprit.Builder.newInstance(vehicleRoutingProblem).buildAlgorithm();
@@ -264,42 +248,6 @@ public class Jsprit {
 
         public VehicleRoutingAlgorithm buildAlgorithm() {
             return new Jsprit(this).create(vrp);
-        }
-
-    }
-
-    static class RuinShareFactoryImpl implements RuinShareFactory
-
-    {
-
-        private int maxShare;
-
-        private int minShare;
-
-        private Random random = RandomNumberGeneration.getRandom();
-
-        public void setRandom(Random random) {
-            this.random = random;
-        }
-
-        public RuinShareFactoryImpl(int minShare, int maxShare) {
-            if (maxShare < minShare)
-                throw new IllegalArgumentException("maxShare must be equal or greater than minShare");
-            this.minShare = minShare;
-            this.maxShare = maxShare;
-        }
-
-        public RuinShareFactoryImpl(int minShare, int maxShare, Random random) {
-            if (maxShare < minShare)
-                throw new IllegalArgumentException("maxShare must be equal or greater than minShare");
-            this.minShare = minShare;
-            this.maxShare = maxShare;
-            this.random = random;
-        }
-
-        @Override
-        public int createNumberToBeRemoved() {
-            return (int) (minShare + (maxShare - minShare) * random.nextDouble());
         }
 
     }

@@ -18,6 +18,7 @@
 
 package com.graphhopper.jsprit.core.algorithm.recreate;
 
+import com.graphhopper.jsprit.core.algorithm.listener.PrioritizedVRAListener;
 import com.graphhopper.jsprit.core.algorithm.listener.VehicleRoutingAlgorithmListeners;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.InsertionListener;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;
@@ -46,7 +47,7 @@ public class JobInsertionCostsCalculatorLightFactory {
      * @return insertion calculator
      */
     public static JobInsertionCostsCalculatorLight createStandardCalculator(VehicleRoutingProblem vrp, VehicleFleetManager fleetManager, StateManager stateManager, ConstraintManager constraintManager) {
-        List<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener> al = new ArrayList<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener>();
+        List<PrioritizedVRAListener> al = new ArrayList<PrioritizedVRAListener>();
         List<InsertionListener> il = new ArrayList<InsertionListener>();
         JobInsertionCostsCalculatorBuilder builder = new JobInsertionCostsCalculatorBuilder(il, al);
         builder.setVehicleRoutingProblem(vrp).setConstraintManager(constraintManager).setStateManager(stateManager).setVehicleFleetManager(fleetManager);
