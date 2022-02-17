@@ -18,8 +18,8 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.box.parallel.ParallelJsprit;
-import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.LiLimReader;
@@ -33,8 +33,10 @@ import org.redisson.config.Config;
 import redis.embedded.RedisServer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -71,13 +73,18 @@ public class PickupsAndDeliveries_IT {
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         new LiLimReader(vrpBuilder).read(getClass().getResourceAsStream("lr101.txt"));
         VehicleRoutingProblem vrp = vrpBuilder.build();
-        ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp)
-                                                                    .addId(UUID.randomUUID().toString())
-                                                                    .addRedisson(redissonClient)
-                                                                    .setProperty(Parameter.FAST_REGRET, "true")
-                                                                    .buildAlgorithm();
+        Collection<VehicleRoutingProblemSolution> solutions = new ArrayList<>();
+        String id = UUID.randomUUID().toString();
+        IntStream.range(0, 20).parallel().forEach((i) -> {
+            ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp)
+                                                                        .addId(id)
+                                                                        .addRedisson(redissonClient)
+                                                                        .setProperty(Parameter.FAST_REGRET, "true")
+                                                                        .buildAlgorithm();
 
-        Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
+            vra.setMaxIterations(100);
+            solutions.addAll(vra.searchSolutions());
+        });
         assertEquals(1650.8, Solutions.bestOf(solutions).getCost(), 80.);
         assertEquals(19, Solutions.bestOf(solutions).getRoutes().size(), 1);
     }

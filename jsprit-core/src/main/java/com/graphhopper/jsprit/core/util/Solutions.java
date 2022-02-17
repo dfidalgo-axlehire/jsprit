@@ -26,11 +26,18 @@ import java.util.Collection;
 public class Solutions {
 
     public static VehicleRoutingProblemSolution bestOf(Collection<VehicleRoutingProblemSolution> solutions) {
-        VehicleRoutingProblemSolution best = null;
-        for (VehicleRoutingProblemSolution s : solutions) {
-            if (best == null) best = s;
-            else if (s.getCost() < best.getCost()) best = s;
-        }
+        VehicleRoutingProblemSolution best;
+        best = solutions.stream()
+                        .filter(s-> s != null)
+                        .min((s1,s2) -> {
+                            int result = 0;
+                            if(s1.getCost() < s2.getCost()) {
+                                result = -1;
+                            } else if (s1.getCost() > s2.getCost()) {
+                                result = 1;
+                            }
+                            return result;
+                        }).get();
         return best;
     }
 

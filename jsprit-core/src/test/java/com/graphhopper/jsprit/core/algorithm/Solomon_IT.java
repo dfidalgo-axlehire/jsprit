@@ -19,8 +19,8 @@
 package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.box.parallel.ParallelJsprit;
-import com.graphhopper.jsprit.core.algorithm.box.Parameter;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.SolomonReader;
@@ -34,8 +34,10 @@ import org.redisson.config.Config;
 import redis.embedded.RedisServer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -75,9 +77,18 @@ public class Solomon_IT {
         new SolomonReader(vrpBuilder).read(getClass().getResourceAsStream("C101.txt"));
         VehicleRoutingProblem vrp = vrpBuilder.build();
 
-        ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp).addId(UUID.randomUUID().toString()).addRedisson(redissonClient).setProperty(Parameter.FAST_REGRET, "true").buildAlgorithm();
-        vra.setMaxIterations(100);
-        Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
+        String id =  UUID.randomUUID().toString();
+        Collection<VehicleRoutingProblemSolution> solutions = new ArrayList<>();
+        IntStream.range(0, 20).parallel().forEach((i) -> {
+            ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp)
+                                                                        .addId(id)
+                                                                        .addRedisson(redissonClient)
+                                                                        .setProperty(Parameter.FAST_REGRET, "true")
+                                                                        .buildAlgorithm();
+            vra.setMaxIterations(100);
+            solutions.addAll(vra.searchSolutions());
+        });
+
         assertEquals(828.94, Solutions.bestOf(solutions).getCost(), 0.01);
     }
 

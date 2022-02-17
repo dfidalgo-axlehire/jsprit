@@ -1,4 +1,4 @@
-package com.graphhopper.jsprit.core.algorithm.box;
+package com.graphhopper.jsprit.core.algorithm.box.enumeration;
 
 public enum Strategy {
 

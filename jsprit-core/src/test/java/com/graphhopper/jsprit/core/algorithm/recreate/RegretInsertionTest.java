@@ -20,7 +20,7 @@ package com.graphhopper.jsprit.core.algorithm.recreate;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
-import com.graphhopper.jsprit.core.algorithm.box.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.BeforeJobInsertionListener;
 import com.graphhopper.jsprit.core.algorithm.state.StateId;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;

@@ -18,6 +18,8 @@
 package com.graphhopper.jsprit.core.algorithm.box;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Strategy;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 
 
@@ -56,7 +58,7 @@ public class GreedySchrimpfFactory {
         int randomShare = (int) (vrp.getJobs().size() * 0.5);
 
         Jsprit.Builder builder = Jsprit.Builder.newInstance(vrp);
-        builder.setProperty(Parameter.THRESHOLD_ALPHA,"0.0");
+        builder.setProperty(Parameter.THRESHOLD_ALPHA, "0.0");
         builder.setProperty(Strategy.RADIAL_BEST, "0.5");
         builder.setProperty(Strategy.RADIAL_REGRET, "0.0");
         builder.setProperty(Strategy.RANDOM_BEST, "0.5");

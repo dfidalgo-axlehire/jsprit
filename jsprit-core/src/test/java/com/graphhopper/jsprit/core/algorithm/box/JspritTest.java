@@ -20,6 +20,8 @@ package com.graphhopper.jsprit.core.algorithm.box;
 
 import com.graphhopper.jsprit.core.algorithm.SearchStrategy;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Strategy;
 import com.graphhopper.jsprit.core.algorithm.listener.StrategySelectedListener;
 import com.graphhopper.jsprit.core.algorithm.recreate.InsertionData;
 import com.graphhopper.jsprit.core.algorithm.recreate.listener.BeforeJobInsertionListener;
@@ -88,7 +90,7 @@ public class JspritTest {
         VehicleImpl v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(0, 0)).build();
         VehicleRoutingProblem vrp = VehicleRoutingProblem.Builder.newInstance().addVehicle(v).addJob(s2).addJob(s).build();
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Strategy.RADIAL_BEST, "100.").buildAlgorithm();
+                                                    .setProperty(Strategy.RADIAL_BEST, "100.").buildAlgorithm();
         vra.setMaxIterations(100);
         final Map<String, Integer> counts = new HashMap<String, Integer>();
         vra.addListener(new StrategySelectedListener() {

@@ -18,10 +18,12 @@
 
 package com.graphhopper.jsprit.core.problem;
 
+import java.io.Serializable;
+
 /**
  * Created by schroeder on 14.07.14.
  */
-public interface HasId {
+public interface HasId extends Serializable {
 
     String getId();
 

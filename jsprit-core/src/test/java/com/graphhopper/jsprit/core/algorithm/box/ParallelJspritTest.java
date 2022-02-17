@@ -21,6 +21,8 @@ package com.graphhopper.jsprit.core.algorithm.box;
 import com.graphhopper.jsprit.core.algorithm.ParallelVehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.SearchStrategy;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Strategy;
 import com.graphhopper.jsprit.core.algorithm.box.parallel.ParallelJsprit;
 import com.graphhopper.jsprit.core.algorithm.listener.StrategySelectedListener;
 import com.graphhopper.jsprit.core.algorithm.listener.parallel.ParallelStrategySelectedListener;
@@ -112,7 +114,8 @@ public class ParallelJspritTest {
         Service s2 = Service.Builder.newInstance("s2").setLocation(Location.newInstance(1, 2)).build();
         VehicleImpl v = VehicleImpl.Builder.newInstance("v").setStartLocation(Location.newInstance(0, 0)).build();
         VehicleRoutingProblem vrp = VehicleRoutingProblem.Builder.newInstance().addVehicle(v).addJob(s2).addJob(s).build();
-        ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp).addId(UUID.randomUUID().toString()).addRedisson(redissonClient).setProperty(Strategy.RADIAL_BEST, "100.").buildAlgorithm();
+        ParallelVehicleRoutingAlgorithm vra = ParallelJsprit.Builder.newInstance(vrp).addId(UUID.randomUUID().toString()).addRedisson(redissonClient).setProperty(
+            Strategy.RADIAL_BEST, "100.").buildAlgorithm();
         vra.setMaxIterations(100);
         final Map<String, Integer> counts = new HashMap<String, Integer>();
         vra.addListener(new ParallelStrategySelectedListener() {

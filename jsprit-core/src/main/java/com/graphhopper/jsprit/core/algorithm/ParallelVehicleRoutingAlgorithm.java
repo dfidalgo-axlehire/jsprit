@@ -29,6 +29,7 @@ import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolutio
 import com.graphhopper.jsprit.core.problem.solution.route.VehicleRoute;
 import com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivity;
 import com.graphhopper.jsprit.core.util.Solutions;
+import org.redisson.api.RBucket;
 import org.redisson.api.RList;
 import org.redisson.api.RSet;
 import org.redisson.api.RedissonClient;
@@ -38,6 +39,10 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 
 /**
@@ -86,7 +91,7 @@ public class ParallelVehicleRoutingAlgorithm {
 
     private int maxIterations = 100;
 
-    private VehicleRoutingProblemSolution bestEver = null;
+    private RBucket<VehicleRoutingProblemSolution> bestEver;
 
     private final SolutionCostCalculator objectiveFunction;
 
@@ -103,8 +108,9 @@ public class ParallelVehicleRoutingAlgorithm {
         this.redisson = redisson;
         this.problem = problem;
         this.searchStrategyManager = searchStrategyManager;
-        initialSolutions = redisson.getSet("solutions_" + id);
-        objectiveFunction = null;
+        this.initialSolutions = redisson.getSet("solutions_" + id);
+        this.bestEver = redisson.getBucket("best_solution" + id);
+        this.objectiveFunction = null;
     }
 
     public ParallelVehicleRoutingAlgorithm(VehicleRoutingProblem problem,
@@ -120,6 +126,7 @@ public class ParallelVehicleRoutingAlgorithm {
 
         this.initialSolutions = redisson.getSet(id);
         this.initialSolutions.addAllAsync(initialSolutions);
+        this.bestEver = redisson.getBucket("best_solution" + id);
 
         objectiveFunction = null;
     }
@@ -134,7 +141,8 @@ public class ParallelVehicleRoutingAlgorithm {
         this.redisson = redisson;
         this.problem = problem;
         this.searchStrategyManager = searchStrategyManager;
-        initialSolutions = redisson.getSet(id);
+        this.initialSolutions = redisson.getSet(id);
+        this.bestEver = redisson.getBucket("best_solution" + id);
         this.objectiveFunction = objectiveFunction;
     }
 
@@ -203,12 +211,14 @@ public class ParallelVehicleRoutingAlgorithm {
         RList<VehicleRoutingProblemSolution> solutions = redisson.getList("internal_solutions_" + id);
         solutions.addAll(initialSolutions);
         algorithmStarts(problem, solutions);
-        bestEver = Solutions.bestOf(solutions);
+        if(bestEver == null) {
+            bestEver.set(Solutions.bestOf(solutions));
+        }
         if (logger.isTraceEnabled()) {
             log(solutions);
         }
         logger.info("iterations start");
-        for (int i = 0; i < maxIterations; i++) {
+        for(int i =0; i< maxIterations; i++) {
             iterationStarts(i + 1, problem, solutions);
             logger.debug("start iteration: {}", i);
             counter.incCounter();
@@ -225,12 +235,13 @@ public class ParallelVehicleRoutingAlgorithm {
         addBestEver(solutions);
         algorithmEnds(problem, solutions);
         logger.info("took {} seconds", ((System.currentTimeMillis() - now) / 1000.0));
+        initialSolutions.addAll(solutions);
         return solutions.stream().toList();
     }
 
     private void addBestEver(Collection<VehicleRoutingProblemSolution> solutions) {
         if (bestEver != null) {
-            solutions.add(bestEver);
+            solutions.add(bestEver.get());
         }
     }
 
@@ -271,10 +282,8 @@ public class ParallelVehicleRoutingAlgorithm {
         if (discoveredSolution == null) {
             return;
         }
-        if (bestEver == null) {
-            bestEver = discoveredSolution.getSolution();
-        } else if (discoveredSolution.getSolution().getCost() < bestEver.getCost()) {
-            bestEver = discoveredSolution.getSolution();
+        if (bestEver.get() == null || discoveredSolution.getSolution().getCost() < bestEver.get().getCost()) {
+            bestEver.set(discoveredSolution.getSolution());
         }
     }
 

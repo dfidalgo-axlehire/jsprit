@@ -20,7 +20,7 @@ package com.graphhopper.jsprit.core.algorithm;
 
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
 import com.graphhopper.jsprit.core.algorithm.box.parallel.ParallelJsprit;
-import com.graphhopper.jsprit.core.algorithm.box.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.problem.Skills;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Job;
@@ -122,7 +122,7 @@ public class SolomonSkills_IT {
     }
 
     @Test
-    public void itShouldMakeCorrectAssignmentAccordingToSkills_parallel() {
+    public void itShouldMakeCorrectAssignmentAccordingToSkills_parallel() throws InterruptedException {
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         new SolomonReader(vrpBuilder).read(getClass().getResourceAsStream("C101.txt"));
         VehicleRoutingProblem vrp = vrpBuilder.build();
