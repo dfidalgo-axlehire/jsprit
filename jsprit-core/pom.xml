@@ -18,7 +18,6 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <groupId>com.axlehire</groupId>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jsprit-core</artifactId>
@@ -122,8 +121,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <url>https://nexus.axlehire.com/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>https://nexus.axlehire.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <url>https://nexus.axlehire.com/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
