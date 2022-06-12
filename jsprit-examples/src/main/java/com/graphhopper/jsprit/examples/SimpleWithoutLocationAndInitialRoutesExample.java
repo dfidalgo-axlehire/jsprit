@@ -20,6 +20,8 @@ package com.graphhopper.jsprit.examples;
 import com.graphhopper.jsprit.analysis.toolbox.Plotter;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Construction;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
@@ -80,7 +82,7 @@ public class SimpleWithoutLocationAndInitialRoutesExample {
         Jsprit.Builder builder = Jsprit.Builder.newInstance(problem);
         builder.addCoreStateAndConstraintStuff(true);
         builder.setStateAndConstraintManager(stateManager, constraintManager);
-        builder.setProperty(Jsprit.Parameter.CONSTRUCTION, Jsprit.Construction.BEST_INSERTION.toString());
+        builder.setProperty(Parameter.CONSTRUCTION, Construction.BEST_INSERTION.toString());
 
         VehicleRoutingAlgorithm algorithm = builder.buildAlgorithm();
 

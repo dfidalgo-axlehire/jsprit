@@ -21,6 +21,7 @@ import com.graphhopper.jsprit.analysis.toolbox.AlgorithmSearchProgressChartListe
 import com.graphhopper.jsprit.analysis.toolbox.Plotter;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.selector.SelectBest;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;
 import com.graphhopper.jsprit.core.analysis.SolutionAnalyser;
@@ -90,7 +91,7 @@ public class VRPWithBackhaulsExample2 {
 
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
             .setStateAndConstraintManager(stateManager, constraintManager)
-            .setProperty(Jsprit.Parameter.FIXED_COST_PARAM.toString(), "0.")
+            .setProperty(Parameter.FIXED_COST_PARAM.toString(), "0.")
             .buildAlgorithm();
         vra.setMaxIterations(2000);
         vra.addListener(new AlgorithmSearchProgressChartListener("output/search"));

@@ -21,6 +21,8 @@ import com.graphhopper.jsprit.analysis.toolbox.AlgorithmEventsRecorder;
 import com.graphhopper.jsprit.analysis.toolbox.AlgorithmEventsViewer;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Construction;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.selector.SelectBest;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
@@ -69,9 +71,9 @@ public class SolomonOpenExample {
 		 */
 //		VehicleRoutingAlgorithm vra = new SchrimpfFactory().createAlgorithm(vrp);
 //		VehicleRoutingAlgorithm vra = VehicleRoutingAlgorithms.readAndCreateAlgorithm(vrp, "input/algorithmConfig_fix.xml");
-        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Jsprit.Parameter.THREADS, "4")
-        .setProperty(Jsprit.Parameter.FAST_REGRET, "true")
-            .setProperty(Jsprit.Parameter.CONSTRUCTION, Jsprit.Construction.BEST_INSERTION.toString()).buildAlgorithm();
+        VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp).setProperty(Parameter.THREADS, "4")
+                                                    .setProperty(Parameter.FAST_REGRET, "true")
+                                                    .setProperty(Parameter.CONSTRUCTION, Construction.BEST_INSERTION.toString()).buildAlgorithm();
 //		vra.setPrematureBreak(100);
 //		vra.getAlgorithmListeners().addListener(new AlgorithmSearchProgressChartListener("output/sol_progress.png"));
         vra.addListener(eventsRecorder);

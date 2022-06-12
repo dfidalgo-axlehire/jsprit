@@ -19,6 +19,9 @@ package com.graphhopper.jsprit.examples;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Construction;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Strategy;
 import com.graphhopper.jsprit.core.algorithm.state.*;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
@@ -82,16 +85,16 @@ public class SimpleExampleWithoutLocation {
         Jsprit.Builder builder = Jsprit.Builder.newInstance(problem);
         builder.setStateAndConstraintManager(stateManager, constraintManager);
         builder.addCoreStateAndConstraintStuff(false);
-        builder.setProperty(Jsprit.Strategy.RADIAL_BEST, "0.0")
-            .setProperty(Jsprit.Strategy.RADIAL_REGRET, "0.0")
-            .setProperty(Jsprit.Strategy.CLUSTER_BEST, "0.0")
-            .setProperty(Jsprit.Strategy.CLUSTER_REGRET, "0.0")
-            .setProperty(Jsprit.Strategy.STRING_BEST, "0.0")
-            .setProperty(Jsprit.Strategy.STRING_REGRET, "0.0")
-            .setProperty(Jsprit.Strategy.RANDOM_REGRET, "0.0")
-            .setProperty(Jsprit.Strategy.WORST_REGRET, "0.0")
+        builder.setProperty(Strategy.RADIAL_BEST, "0.0")
+            .setProperty(Strategy.RADIAL_REGRET, "0.0")
+            .setProperty(Strategy.CLUSTER_BEST, "0.0")
+            .setProperty(Strategy.CLUSTER_REGRET, "0.0")
+            .setProperty(Strategy.STRING_BEST, "0.0")
+            .setProperty(Strategy.STRING_REGRET, "0.0")
+            .setProperty(Strategy.RANDOM_REGRET, "0.0")
+            .setProperty(Strategy.WORST_REGRET, "0.0")
 
-            .setProperty(Jsprit.Parameter.CONSTRUCTION, Jsprit.Construction.BEST_INSERTION.toString());
+            .setProperty(Parameter.CONSTRUCTION, Construction.BEST_INSERTION.toString());
 
         VehicleRoutingAlgorithm algorithm = builder.buildAlgorithm();
 

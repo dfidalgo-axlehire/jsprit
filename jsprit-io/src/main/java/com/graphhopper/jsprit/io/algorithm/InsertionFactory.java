@@ -17,7 +17,7 @@
  */
 package com.graphhopper.jsprit.io.algorithm;
 
-import com.graphhopper.jsprit.core.algorithm.listener.VehicleRoutingAlgorithmListeners;
+import com.graphhopper.jsprit.core.algorithm.listener.PrioritizedVRAListener;
 import com.graphhopper.jsprit.core.algorithm.recreate.InsertionBuilder;
 import com.graphhopper.jsprit.core.algorithm.recreate.InsertionStrategy;
 import com.graphhopper.jsprit.core.algorithm.state.StateManager;

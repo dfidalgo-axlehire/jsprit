@@ -23,6 +23,7 @@ import com.graphhopper.jsprit.analysis.toolbox.Plotter;
 import com.graphhopper.jsprit.analysis.toolbox.StopWatch;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
 import com.graphhopper.jsprit.core.algorithm.listener.Priority;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
@@ -106,8 +107,8 @@ public class MultipleDepotExample2 {
          * solve the problem
 		 */
         VehicleRoutingAlgorithm vra = Jsprit.Builder.newInstance(vrp)
-            .setProperty(Jsprit.Parameter.FAST_REGRET, "true")
-            .setProperty(Jsprit.Parameter.THREADS, "5").buildAlgorithm();
+            .setProperty(Parameter.FAST_REGRET, "true")
+            .setProperty(Parameter.THREADS, "5").buildAlgorithm();
         vra.setMaxIterations(2000);
         vra.getAlgorithmListeners().addListener(new StopWatch(), Priority.HIGH);
         vra.getAlgorithmListeners().addListener(new AlgorithmSearchProgressChartListener("output/progress.png"));

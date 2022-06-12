@@ -20,6 +20,7 @@ package com.graphhopper.jsprit.examples;
 import com.graphhopper.jsprit.analysis.toolbox.Plotter;
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Strategy;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Break;
@@ -84,8 +85,8 @@ public class BreakExample {
 		 * get the algorithm out-of-the-box.
 		 */
         VehicleRoutingAlgorithm algorithm = Jsprit.Builder.newInstance(problem)
-            .setProperty(Jsprit.Strategy.CLUSTER_REGRET, "0.")
-            .setProperty(Jsprit.Strategy.CLUSTER_BEST, "0.").buildAlgorithm();
+            .setProperty(Strategy.CLUSTER_REGRET, "0.")
+            .setProperty(Strategy.CLUSTER_BEST, "0.").buildAlgorithm();
 		/*
 		 * and search a solution
 		 */

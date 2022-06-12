@@ -19,6 +19,8 @@ package com.graphhopper.jsprit.instance.reader;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Parameter;
+import com.graphhopper.jsprit.core.algorithm.box.enumeration.Strategy;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem.FleetSize;
 import com.graphhopper.jsprit.core.problem.job.Service;
@@ -174,11 +176,11 @@ public class BelhaizaReaderTest {
 //		VehicleRoutingAlgorithm algorithm = new SchrimpfFactory().createAlgorithm(vrp);
 
 		Jsprit.Builder vraBuilder = Jsprit.Builder.newInstance(vrp);
-		vraBuilder.setProperty(Jsprit.Strategy.CLUSTER_REGRET, "0.25");
-		vraBuilder.setProperty(Jsprit.Strategy.RADIAL_REGRET, "0.25");
-		vraBuilder.setProperty(Jsprit.Strategy.RANDOM_REGRET, "0.");
-		vraBuilder.setProperty(Jsprit.Strategy.WORST_REGRET, "0.25");
-		vraBuilder.setProperty(Jsprit.Parameter.THRESHOLD_INI, "0.05");
+		vraBuilder.setProperty(Strategy.CLUSTER_REGRET, "0.25");
+		vraBuilder.setProperty(Strategy.RADIAL_REGRET, "0.25");
+		vraBuilder.setProperty(Strategy.RANDOM_REGRET, "0.");
+		vraBuilder.setProperty(Strategy.WORST_REGRET, "0.25");
+		vraBuilder.setProperty(Parameter.THRESHOLD_INI, "0.05");
 		VehicleRoutingAlgorithm algorithm = vraBuilder.buildAlgorithm();
 		algorithm.setMaxIterations(5000);
 //		VariationCoefficientTermination variation_coefficient = new VariationCoefficientTermination(200, 0.005);
